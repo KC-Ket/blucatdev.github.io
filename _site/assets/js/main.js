@@ -5,77 +5,20 @@
 
 'use strict';
 
-// ── State ─────────────────────────────────────────────────────
-let currentPage = 'home';
-
-// ── DOM ready ─────────────────────────────────────────────────
+// DOM ready
 document.addEventListener('DOMContentLoaded', () => {
   initNav();
   initTabs();
   initForms();
   initMobileMenu();
-
-  // Respect hash on load (e.g. blucatdev.com/#games)
-  const hash = window.location.hash.replace('#', '');
-  if (hash && document.getElementById(`page-${hash}`)) {
-    navigateTo(hash, false);
-  } else {
-    navigateTo('home', false);
-  }
 });
 
 // ── Navigation ────────────────────────────────────────────────
 
-function navigateTo(page, updateHash = true) {
-  // Hide all pages
-  document.querySelectorAll('[data-page]').forEach(el => el.classList.remove('active'));
-
-  // Show target page
-  const target = document.getElementById(`page-${page}`);
-  if (!target) return;
-  target.classList.add('active');
-
-  // Update nav link active states
-  document.querySelectorAll('.nav-link[data-nav]').forEach(link => {
-    link.classList.toggle('active', link.dataset.nav === page);
-  });
-
-  // Update hash without triggering scroll
-  if (updateHash) {
-    history.pushState(null, '', page === 'home' ? '/' : `#${page}`);
-  }
-
-  // Scroll to top
-  window.scrollTo({ top: 0, behavior: 'instant' });
-
-  // Close mobile menu
-  closeMobileMenu();
-
-  currentPage = page;
-}
+// SPA navigation removed. Site uses normal links and separate pages.
 
 function initNav() {
-  // Nav links
-  document.querySelectorAll('[data-nav]').forEach(el => {
-    el.addEventListener('click', (e) => {
-      e.preventDefault();
-      navigateTo(el.dataset.nav);
-    });
-  });
-
-  // Logo click → home
-  document.querySelectorAll('[data-nav-home]').forEach(el => {
-    el.addEventListener('click', (e) => {
-      e.preventDefault();
-      navigateTo('home');
-    });
-  });
-
-  // Browser back/forward
-  window.addEventListener('popstate', () => {
-    const hash = window.location.hash.replace('#', '') || 'home';
-    navigateTo(hash, false);
-  });
+  // nothing special needed for nav — mobile menu handled elsewhere
 }
 
 // ── Mobile menu ───────────────────────────────────────────────
@@ -187,5 +130,17 @@ function clearFormError(form) {
   if (existing) existing.remove();
 }
 
-// ── Utility: expose navigateTo globally for inline onclick attrs ──
-window.navigateTo = navigateTo;
+// Expose no-op navigateTo to avoid errors from legacy inline onclick attributes
+window.navigateTo = function (page) {
+  // do a normal navigation to the named route
+  if (!page) return;
+  const mapping = {
+    home: '/',
+    games: '/games/',
+    writing: '/writing/',
+    about: '/about/',
+    press: '/press/'
+  };
+  const url = mapping[page] || '/';
+  window.location.href = url;
+};

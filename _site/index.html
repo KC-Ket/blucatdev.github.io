@@ -1,77 +1,777 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.9.0 -->
-<title>Your awesome title | Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</title>
-<meta name="generator" content="Jekyll v4.4.1" />
-<meta property="og:title" content="Your awesome title" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
-<meta name="twitter:description" property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
-<link rel="canonical" href="http://localhost:4000/" />
-<meta property="og:url" content="http://localhost:4000/" />
-<meta property="og:site_name" content="Your awesome title" />
-<meta property="og:type" content="website" />
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="Your awesome title" />
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"Your awesome title","name":"Your awesome title","url":"http://localhost:4000/"}</script>
-<!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Your awesome title" /></head>
-<body><header class="site-header" role="banner">
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Blu Cat Dev — Indie game developer and writer based in Newcastle, NSW, Australia. Making games part-time in Unity." />
+  <meta name="author" content="Blu Cat Dev" />
+  <meta name="theme-color" content="#0a1227" />
 
-  <div class="wrapper"><a class="site-title" rel="author" href="/">Your awesome title</a><nav class="site-nav">
-        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
-        <label for="nav-trigger">
-          <span class="menu-icon">
-            <svg viewBox="0 0 18 15" width="18px" height="15px">
-              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
-            </svg>
-          </span>
-        </label>
+  <!-- Open Graph / Social sharing -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://blucatdev.com/" />
+  <meta property="og:title"       content="Blu Cat Dev — Indie Game Dev &amp; Writer" />
+  <meta property="og:description" content="Indie game developer and writer based in Newcastle, NSW, Australia." />
+  <meta property="og:image"       content="assets/images/og-image.png" />
 
-        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
-      </nav></div>
-</header>
-<main class="page-content" aria-label="Content">
-      <div class="wrapper">
-        <div class="home">
-<h2 class="post-list-heading">Posts</h2>
-    <ul class="post-list"><li><span class="post-meta">May 20, 2026</span>
-        <h3>
-          <a class="post-link" href="/jekyll/update/2026/05/20/welcome-to-jekyll.html">
-            Welcome to Jekyll!
-          </a>
-        </h3></li></ul>
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Blu Cat Dev" />
+  <meta name="twitter:description" content="Indie game developer and writer based in Newcastle, NSW, Australia." />
+  <meta name="twitter:image"       content="assets/images/og-image.png" />
 
-    <p class="rss-subscribe">subscribe <a href="/feed.xml">via RSS</a></p></div>
+  <title>Blu Cat Dev — Indie Game Dev &amp; Writer</title>
 
-      </div>
-    </main><footer class="site-footer h-card">
-  <data class="u-url" href="/"></data>
+  <!-- Favicon -->
+  <link rel="icon"             type="image/png" sizes="32x32" href="assets/images/favicon-32.png" />
+  <link rel="icon"             type="image/png" sizes="16x16" href="assets/images/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180"               href="assets/images/apple-touch-icon.png" />
 
-  <div class="wrapper">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body class="page">
 
-    <h2 class="footer-heading">Your awesome title</h2>
+  <!-- ══════════════════════════════════════════════════════════
+       NAVIGATION
+       ══════════════════════════════════════════════════════════ -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
 
-    <div class="footer-col-wrapper">
-      <div class="footer-col footer-col-1">
-        <ul class="contact-list">
-          <li class="p-name">Your awesome title</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
-      </div>
+    <!-- Logo -->
+    <a href="/" class="nav-logo" data-nav-home aria-label="Blu Cat Dev — Home">
+      <img
+        src="assets/images/logo-nav.png"
+        alt="Blu Cat Dev logo"
+        class="nav-logo-img"
+        onerror="this.style.display='none'"
+      />
+      <span class="nav-logo-text">
+        <span class="blu">BLU </span>CAT DEV
+      </span>
+    </a>
 
-      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
-</div>
-
-      <div class="footer-col footer-col-3">
-        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
-      </div>
+    <!-- Desktop nav links -->
+    <div class="nav-links" id="nav-links" role="menubar">
+      <a class="nav-link" data-nav="games"   href="#games"   role="menuitem">Games</a>
+      <a class="nav-link" data-nav="writing" href="#writing" role="menuitem">Writing</a>
+      <a class="nav-link" data-nav="about"   href="#about"   role="menuitem">About</a>
+      <a class="nav-link" data-nav="press"   href="#press"   role="menuitem">Press</a>
+      <a class="nav-cta"
+         href="https://store.steampowered.com/app/3304610/Elgem_TD/"
+         target="_blank"
+         rel="noopener noreferrer"
+         aria-label="Follow on Steam (opens in new tab)">
+        Wishlist Elgem TD
+      </a>
     </div>
 
-  </div>
+    <!-- Mobile hamburger -->
+    <button
+      class="nav-hamburger"
+      id="nav-hamburger"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+      aria-controls="nav-links">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
 
-</footer>
+  </nav>
+
+  <!-- ══════════════════════════════════════════════════════════
+       MAIN CONTENT
+       ══════════════════════════════════════════════════════════ -->
+  <main class="main" id="main-content">
+
+    <!-- ╔══════════════════════════════════════════════════════╗
+         ║  PAGE: HOME                                         ║
+         ╚══════════════════════════════════════════════════════╝ -->
+    <div id="page-home" data-page>
+
+      <!-- HERO -->
+      <section class="hero" aria-label="Introduction">
+        <div class="hero-bg" aria-hidden="true"></div>
+        <div class="hero-grid" aria-hidden="true"></div>
+        <div class="hero-content">
+
+          <!-- Left: Copy -->
+          <div>
+            <p class="hero-eyebrow">Blu Cat Dev · Australia</p>
+            <h1 class="hero-title">
+              Games &amp;<br>
+              <em class="accent-ember">stories</em> that<br>
+              <span class="accent-cyan">linger.</span>
+            </h1>
+            <p class="hero-sub">
+              Indie game developer and writer, making things part-time from Newcastle.
+              Crafting worlds in Unity, telling stories in prose and code.
+            </p>
+            <div class="hero-ctas">
+              <button class="btn btn-primary" onclick="navigateTo('games')">See My Games</button>
+              <button class="btn btn-ember"   onclick="navigateTo('writing')">Read My Writing</button>
+            </div>
+
+            <!-- Inline newsletter -->
+            <div class="hero-newsletter">
+              <span class="hero-newsletter-label">Get updates — dev logs, new writing, cat tax</span>
+              <form class="hero-newsletter-row" data-newsletter-form>
+                <input
+                  class="hero-newsletter-input"
+                  type="email"
+                  name="email"
+                  placeholder="your@email.com"
+                  autocomplete="email"
+                  aria-label="Email address for newsletter"
+                  required
+                />
+                <button type="submit" class="hero-newsletter-btn">Subscribe</button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Right: Preview cards -->
+          <div class="hero-visual" aria-hidden="true">
+            <div class="hero-card">
+              <p class="hero-card-label">Featured Game</p>
+              <p class="hero-card-title">[Current WIP Title]</p>
+              <p class="hero-card-desc">A short evocative description of your current game-in-progress. Replace this with actual details when ready.</p>
+              <span class="tag tag-wip" style="margin-top:0.75rem;display:inline-block;">In Development</span>
+            </div>
+            <div class="hero-card">
+              <p class="hero-card-label">Latest from the Blog</p>
+              <p class="hero-card-title">Developing with a back injury: what I've learned</p>
+              <p class="hero-card-desc">On managing chronic pain, surgical recovery, and keeping a creative practice alive.</p>
+              <span class="tag tag-ember" style="margin-top:0.75rem;display:inline-block;">Dev Blog · 15 Apr 2026</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- GAMES PREVIEW -->
+      <hr class="divider" />
+      <section class="section" aria-labelledby="home-games-heading">
+        <div class="section-label">Portfolio</div>
+        <h2 id="home-games-heading">Games</h2>
+        <p style="margin-bottom:2rem;max-width:500px;">A selection of released titles and works in progress.</p>
+        <div class="games-grid">
+
+          <article class="game-card">
+            <div class="game-card-thumb placeholder-1">
+              <span aria-hidden="true">🎮</span>
+              <span class="game-card-thumb-label">Released</span>
+            </div>
+            <div class="game-card-body">
+              <p class="game-card-genre">RPG · Adventure</p>
+              <h3 class="game-card-title">[Game Title One]</h3>
+              <p class="game-card-desc">A narrative-driven adventure. Replace with your actual game description when ready.</p>
+            </div>
+            <div class="game-card-footer">
+              <div class="platform-pills">
+                <span class="platform-pill">PC</span>
+                <span class="platform-pill">Mac</span>
+              </div>
+              <span class="tag tag-silver">Released</span>
+            </div>
+          </article>
+
+          <article class="game-card">
+            <div class="game-card-thumb placeholder-2">
+              <span aria-hidden="true">⚔️</span>
+              <span class="game-card-thumb-label">Released</span>
+            </div>
+            <div class="game-card-body">
+              <p class="game-card-genre">Strategy · Roguelike</p>
+              <h3 class="game-card-title">[Game Title Two]</h3>
+              <p class="game-card-desc">A turn-based tactical experience. Replace with actual game details.</p>
+            </div>
+            <div class="game-card-footer">
+              <div class="platform-pills">
+                <span class="platform-pill">PC</span>
+              </div>
+              <span class="tag tag-silver">Released</span>
+            </div>
+          </article>
+
+          <article class="game-card">
+            <div class="game-card-thumb placeholder-3">
+              <span aria-hidden="true">🌿</span>
+              <span class="game-card-thumb-label">WIP</span>
+            </div>
+            <div class="game-card-body">
+              <p class="game-card-genre">Puzzle · Exploration</p>
+              <h3 class="game-card-title">[Current WIP]</h3>
+              <p class="game-card-desc">Currently in development. Wishlist on Steam to follow progress.</p>
+            </div>
+            <div class="game-card-footer">
+              <div class="platform-pills"></div>
+              <span class="tag tag-wip">In Dev</span>
+            </div>
+          </article>
+
+        </div>
+        <div style="margin-top:1.5rem;text-align:right;">
+          <button class="btn btn-secondary btn-sm" onclick="navigateTo('games')">View All Games →</button>
+        </div>
+      </section>
+
+      <!-- QUICK ABOUT -->
+      <hr class="divider" />
+      <section class="section" aria-labelledby="home-about-heading">
+        <div class="section-label">About</div>
+        <div class="quick-about">
+          <div class="quick-about-avatar" aria-hidden="true">
+            <img src="assets/images/avatar.jpg" alt="Profile photo" onerror="this.outerHTML='🐱'" />
+          </div>
+          <div>
+            <p class="quick-about-text">
+              <strong>Software engineer, indie game dev, writer, and cat &amp; lizard lady</strong>
+              based in Newcastle, NSW. Making games part-time alongside a career in software engineering,
+              a 15-year D&amp;D habit, and a bearded dragon named Krispy who supervises most
+              development decisions.
+            </p>
+            <div style="margin-top:1rem;">
+              <button class="btn btn-secondary btn-sm" onclick="navigateTo('about')">Learn More About Me →</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BLOG PREVIEW -->
+      <hr class="divider" />
+      <section class="section" aria-labelledby="home-blog-heading">
+        <div class="section-label">Writing</div>
+        <h2 id="home-blog-heading">Latest from the <em>Blog</em></h2>
+        <p style="margin-bottom:2rem;max-width:500px;">Dev logs, game design thoughts, and honest notes from a part-time indie.</p>
+        <div class="blog-grid">
+
+          <article class="blog-card">
+            <span class="tag tag-ember" style="margin-bottom:0.75rem;">Dev Blog</span>
+            <h3 class="blog-card-title">Developing with a back injury: what I've learned after a year</h3>
+            <p class="blog-card-excerpt">Managing disc bulges and surgical recovery while maintaining a creative practice has taught me a lot about pacing, tooling, and being kind to yourself...</p>
+            <div class="blog-card-meta"><span>15 Apr 2026</span><span>8 min read</span></div>
+          </article>
+
+          <article class="blog-card">
+            <span class="tag tag-ember" style="margin-bottom:0.75rem;">Game Design</span>
+            <h3 class="blog-card-title">Why small games are actually harder to design than big ones</h3>
+            <p class="blog-card-excerpt">Constraint is the cruelest teacher. When you can't hide behind scope, every design decision is load-bearing...</p>
+            <div class="blog-card-meta"><span>28 Mar 2026</span><span>6 min read</span></div>
+          </article>
+
+          <article class="blog-card">
+            <span class="tag tag-ember" style="margin-bottom:0.75rem;">Unity / C#</span>
+            <h3 class="blog-card-title">State machines in Unity: the pattern I keep coming back to</h3>
+            <p class="blog-card-excerpt">After several projects, I've settled on a finite state machine architecture that plays well with Unity's component model...</p>
+            <div class="blog-card-meta"><span>10 Mar 2026</span><span>11 min read</span></div>
+          </article>
+
+        </div>
+        <div style="margin-top:1.5rem;text-align:right;">
+          <button class="btn btn-secondary btn-sm" onclick="navigateTo('writing')">View All Writing →</button>
+        </div>
+      </section>
+
+      <!-- NEWSLETTER (full section) -->
+      <div class="newsletter-section">
+        <div class="newsletter-inner">
+          <div class="newsletter-text">
+            <h2>Stay in the <em>loop</em></h2>
+            <p>Dev updates, new writing, game releases, and the occasional cat tax. No spam, no pressure.</p>
+          </div>
+          <div>
+            <form class="newsletter-form" data-newsletter-form>
+              <input
+                class="newsletter-input"
+                type="email"
+                name="email"
+                placeholder="your@email.com"
+                autocomplete="email"
+                aria-label="Email address"
+                required
+              />
+              <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+            <p class="newsletter-note">No spam. Unsubscribe any time.</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /page-home -->
+
+
+    <!-- ╔══════════════════════════════════════════════════════╗
+         ║  PAGE: GAMES                                        ║
+         ╚══════════════════════════════════════════════════════╝ -->
+    <div id="page-games" data-page>
+      <div class="page-header">
+        <div class="section-label">Portfolio</div>
+        <h1>Games</h1>
+        <p>Released titles, works in progress, and game jam experiments.</p>
+      </div>
+
+      <!-- Released -->
+      <section class="section" aria-labelledby="games-released-heading">
+        <div class="section-label">Released</div>
+        <div class="games-grid">
+
+          <article class="game-card">
+            <div class="game-card-thumb placeholder-1">
+              <span aria-hidden="true">🎮</span>
+              <span class="game-card-thumb-label">Released</span>
+            </div>
+            <div class="game-card-body">
+              <p class="game-card-genre">RPG · Adventure</p>
+              <h3 class="game-card-title">[Game Title One]</h3>
+              <p class="game-card-desc">A narrative-driven adventure. Replace with your actual game description.</p>
+            </div>
+            <div class="game-card-footer">
+              <div class="platform-pills">
+                <span class="platform-pill">PC</span>
+                <span class="platform-pill">Mac</span>
+              </div>
+              <a href="#" class="btn btn-secondary btn-sm" target="_blank" rel="noopener">View →</a>
+            </div>
+          </article>
+
+          <article class="game-card">
+            <div class="game-card-thumb placeholder-2">
+              <span aria-hidden="true">⚔️</span>
+              <span class="game-card-thumb-label">Released</span>
+            </div>
+            <div class="game-card-body">
+              <p class="game-card-genre">Strategy · Roguelike</p>
+              <h3 class="game-card-title">[Game Title Two]</h3>
+              <p class="game-card-desc">A turn-based tactical experience. Replace with actual game details.</p>
+            </div>
+            <div class="game-card-footer">
+              <div class="platform-pills">
+                <span class="platform-pill">PC</span>
+              </div>
+              <a href="#" class="btn btn-secondary btn-sm" target="_blank" rel="noopener">View →</a>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <hr class="divider" />
+
+      <!-- In Development -->
+      <section class="section" aria-labelledby="games-wip-heading">
+        <div class="section-label">In Development</div>
+        <div class="wip-placeholder">
+          <h3>🌿 [Current WIP Title]</h3>
+          <p>A short pitch sentence for your current game. Genre. Approximate release window.</p>
+          <a
+            href="https://store.steampowered.com"
+            class="btn btn-primary"
+            target="_blank"
+            rel="noopener noreferrer">
+            Wishlist on Steam
+          </a>
+        </div>
+      </section>
+
+      <hr class="divider" />
+
+      <!-- Jams -->
+      <section class="section" aria-labelledby="games-jams-heading">
+        <div class="section-label">Game Jams &amp; Experiments</div>
+        <p style="margin-bottom:1.5rem;">Quick builds, big ideas.</p>
+        <div class="games-grid">
+          <article class="game-card">
+            <div class="game-card-thumb placeholder-3">
+              <span aria-hidden="true">🎲</span>
+              <span class="game-card-thumb-label">Jam</span>
+            </div>
+            <div class="game-card-body">
+              <p class="game-card-genre">Experimental · Jam</p>
+              <h3 class="game-card-title">[Game Jam Entry]</h3>
+              <p class="game-card-desc">A 48-hour game jam entry exploring [theme]. Available on itch.io.</p>
+            </div>
+            <div class="game-card-footer">
+              <div class="platform-pills"><span class="platform-pill">itch.io</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div><!-- /page-games -->
+
+
+    <!-- ╔══════════════════════════════════════════════════════╗
+         ║  PAGE: WRITING                                      ║
+         ╚══════════════════════════════════════════════════════╝ -->
+    <div id="page-writing" data-page>
+      <div class="page-header">
+        <div class="section-label">Words</div>
+        <h1>Writing</h1>
+        <p>A dev blog and poetry. Honest notes from the part-time indie trenches, and occasional verse.</p>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tabs" data-tab-group="writing" role="tablist" aria-label="Writing sections">
+        <button class="tab-btn" data-tab="blog"   role="tab" aria-selected="true">Dev Blog</button>
+        <button class="tab-btn" data-tab="poetry" role="tab" aria-selected="false">Poetry</button>
+      </div>
+
+      <!-- Dev Blog panel -->
+      <div data-tab-panel="writing" data-tab-target="blog" role="tabpanel">
+        <section class="section">
+          <div class="highlight-strip">
+            <span class="dot" aria-hidden="true"></span>
+            Game design, Unity/C#, indie life, and developing with chronic pain.
+          </div>
+          <div class="blog-grid">
+
+            <article class="blog-card">
+              <span class="tag tag-ember" style="margin-bottom:0.75rem;">Dev Blog</span>
+              <h3 class="blog-card-title">Developing with a back injury: what I've learned after a year</h3>
+              <p class="blog-card-excerpt">Managing disc bulges and surgical recovery while maintaining a creative practice has taught me a lot about pacing, tooling, and being kind to yourself...</p>
+              <div class="blog-card-meta"><span>15 Apr 2026</span><span>8 min read</span></div>
+            </article>
+
+            <article class="blog-card">
+              <span class="tag tag-ember" style="margin-bottom:0.75rem;">Game Design</span>
+              <h3 class="blog-card-title">Why small games are actually harder to design than big ones</h3>
+              <p class="blog-card-excerpt">Constraint is the cruelest teacher. When you can't hide behind scope, every design decision is load-bearing...</p>
+              <div class="blog-card-meta"><span>28 Mar 2026</span><span>6 min read</span></div>
+            </article>
+
+            <article class="blog-card">
+              <span class="tag tag-ember" style="margin-bottom:0.75rem;">Unity / C#</span>
+              <h3 class="blog-card-title">State machines in Unity: the pattern I keep coming back to</h3>
+              <p class="blog-card-excerpt">After several projects, I've settled on a finite state machine architecture that plays well with Unity's component model...</p>
+              <p class="blog-ext-link">↗ Also on dev.to →</p>
+              <div class="blog-card-meta"><span>10 Mar 2026</span><span>11 min read</span></div>
+            </article>
+
+            <article class="blog-card">
+              <span class="tag tag-ember" style="margin-bottom:0.75rem;">Indie Life</span>
+              <h3 class="blog-card-title">On finishing things: a love letter to shipped games</h3>
+              <p class="blog-card-excerpt">The graveyard of unfinished projects is a real place. Here's what I've learned about actually getting to the end...</p>
+              <div class="blog-card-meta"><span>18 Feb 2026</span><span>7 min read</span></div>
+            </article>
+
+            <article class="blog-card">
+              <span class="tag tag-ember" style="margin-bottom:0.75rem;">Game Design</span>
+              <h3 class="blog-card-title">The tutorial problem, and why most tutorials are backwards</h3>
+              <p class="blog-card-excerpt">We've been teaching players wrong. The best tutorials I've played never felt like tutorials at all...</p>
+              <div class="blog-card-meta"><span>4 Feb 2026</span><span>9 min read</span></div>
+            </article>
+
+          </div>
+        </section>
+      </div>
+
+      <!-- Poetry panel -->
+      <div data-tab-panel="writing" data-tab-target="poetry" role="tabpanel" class="hidden">
+        <section class="section">
+          <div class="highlight-strip">
+            <span class="dot" aria-hidden="true"></span>
+            Selected poems — personal collection and published work.
+          </div>
+          <div class="writing-list" role="list">
+
+            <div class="writing-item" role="listitem">
+              <div>
+                <p class="writing-item-title">[Poem Title One]</p>
+                <p class="writing-item-desc">Personal collection</p>
+              </div>
+              <span class="writing-item-meta">Free verse</span>
+            </div>
+
+            <div class="writing-item" role="listitem">
+              <div>
+                <p class="writing-item-title">[Poem Title Two]</p>
+                <p class="writing-item-desc">Written for [occasion / project]</p>
+                <a href="#" class="writing-item-link" target="_blank" rel="noopener">↗ Published in: [Venue Name]</a>
+              </div>
+              <span class="writing-item-meta">Prose poetry</span>
+            </div>
+
+            <div class="writing-item" role="listitem">
+              <div>
+                <p class="writing-item-title">[Poem Title Three]</p>
+                <p class="writing-item-desc">Personal collection</p>
+              </div>
+              <span class="writing-item-meta">Sonnet</span>
+            </div>
+
+          </div>
+        </section>
+      </div>
+
+    </div><!-- /page-writing -->
+
+
+    <!-- ╔══════════════════════════════════════════════════════╗
+         ║  PAGE: ABOUT                                        ║
+         ╚══════════════════════════════════════════════════════╝ -->
+    <div id="page-about" data-page>
+      <div class="page-header">
+        <div class="section-label">About</div>
+        <h1>The <em>dev</em> behind<br>the curtain.</h1>
+        <p>Software engineer by day, indie game developer and writer by nature. Based in Newcastle, NSW, with two cats, a bearded dragon, and a bonsai collection slowly taking over the backyard.</p>
+      </div>
+
+      <section class="section">
+        <div class="about-grid">
+
+          <!-- Left: Story -->
+          <div class="about-story">
+            <div class="section-label" style="margin-bottom:1.5rem;">The Story</div>
+
+            <p>I'm a software engineer and indie game developer based in Newcastle, NSW. I work part-time as a software engineer at Westpac, which gives me the structure and stability to pursue game development, writing, and art with intention rather than desperation.</p>
+
+            <p>I hold a Bachelor of Computer Science with a specialty in Game Design from Charles Sturt University, and I've been making games seriously for several years. I build primarily in Unity with C#, and my professional background also includes Java, XML/XSL, and SQL.</p>
+
+            <p>I care about design that respects players' time, stories that earn their emotional beats, and code that I'm not embarrassed to revisit six months later. I also write poetry, which has more in common with game design than most people expect — both are about how much you can say with how little.</p>
+
+            <p>I've been playing Dungeons &amp; Dragons online with friends for about 15 years — currently 5th edition. I grow bonsai, make art, and am slowly renovating my backyard to support a healthy local skink population. I have strong opinions about all of these things, and they inform how I design games more than I expected.</p>
+
+            <p>I develop with several chronic injuries, which has changed how I work in mostly positive ways. I'm better at pacing, better at stopping when I should, and more interested in accessibility than I used to be. I write honestly about this on the blog.</p>
+
+            <!-- The Gang -->
+            <div style="margin-top:3rem;">
+              <div class="section-label">The Gang</div>
+              <div class="gang-grid">
+                <div class="gang-card">
+                  <span class="gang-emoji" aria-hidden="true">🐱</span>
+                  <p class="gang-name">Phoenix</p>
+                  <p class="gang-desc">Indoor cat. Senior staff. Sits on keyboards exclusively during crunch.</p>
+                </div>
+                <div class="gang-card">
+                  <span class="gang-emoji" aria-hidden="true">🐱</span>
+                  <p class="gang-name">Jorja</p>
+                  <p class="gang-desc">Indoor cat. Junior staff. Judges commit messages silently and without mercy.</p>
+                </div>
+                <div class="gang-card">
+                  <span class="gang-emoji" aria-hidden="true">🦎</span>
+                  <p class="gang-name">Krispy</p>
+                  <p class="gang-desc">Central Australian Bearded Dragon. Distinguished. Eats roaches. No notes.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Get in touch -->
+            <div style="margin-top:3rem;">
+              <div class="section-label">Get in Touch</div>
+              <div class="contact-block">
+                <p>Happy to hear from fellow developers, potential collaborators, and curious players. For press and media enquiries, please use the Press page.</p>
+                <a class="contact-email" href="mailto:hello@blucatdev.com">hello@blucatdev.com</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Skills & credentials -->
+          <div>
+            <div class="skills-block">
+              <h3>Game Dev</h3>
+              <div class="skills-list">
+                <span class="skill-tag">Unity</span>
+                <span class="skill-tag">C#</span>
+                <span class="skill-tag">Game Design</span>
+                <span class="skill-tag">Narrative Design</span>
+                <span class="skill-tag">Playtesting</span>
+                <span class="skill-tag">Steam</span>
+                <span class="skill-tag">itch.io</span>
+              </div>
+              <h3>Software Dev</h3>
+              <div class="skills-list">
+                <span class="skill-tag">Java</span>
+                <span class="skill-tag">C#</span>
+                <span class="skill-tag">XML</span>
+                <span class="skill-tag">XSL</span>
+                <span class="skill-tag">SQL</span>
+              </div>
+              <h3>Creative</h3>
+              <div class="skills-list">
+                <span class="skill-tag">Poetry</span>
+                <span class="skill-tag">Dev Blog</span>
+                <span class="skill-tag">Art</span>
+                <span class="skill-tag">D&amp;D 5e</span>
+                <span class="skill-tag">Bonsai</span>
+                <span class="skill-tag">Worldbuilding</span>
+              </div>
+            </div>
+
+            <div class="cred-block">
+              <h3>Education</h3>
+              <p><span class="primary">Bachelor of Computer Science</span><br>
+              Specialty: Game Design<br>
+              Charles Sturt University</p>
+            </div>
+
+            <div class="cred-block">
+              <h3>University Awards</h3>
+              <div class="award-item"><span class="award-dot"></span>[Award Name — Year]</div>
+              <div class="award-item"><span class="award-dot"></span>[Award Name — Year]</div>
+            </div>
+
+            <div class="cred-block">
+              <h3>Programming Events &amp; Certificates</h3>
+              <div class="award-item"><span class="award-dot"></span>[Event / Certificate — Year]</div>
+              <div class="award-item"><span class="award-dot"></span>[Event / Certificate — Year]</div>
+            </div>
+
+            <div class="cred-block">
+              <h3>Location</h3>
+              <p>Newcastle, NSW, Australia<br>
+              <span class="secondary">Available for remote collaboration</span></p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </div><!-- /page-about -->
+
+
+    <!-- ╔══════════════════════════════════════════════════════╗
+         ║  PAGE: PRESS                                        ║
+         ╚══════════════════════════════════════════════════════╝ -->
+    <div id="page-press" data-page>
+      <div class="page-header">
+        <div class="section-label">Press &amp; Media</div>
+        <h1>Press <em>Kit</em></h1>
+        <p>For journalists, content creators, streamers, and collaborators. If something is missing, please get in touch.</p>
+      </div>
+
+      <section class="section">
+
+        <!-- Press contact -->
+        <div class="press-contact-bar" style="margin-bottom:1.5rem;">
+          <div>
+            <h3>Press Contact</h3>
+            <p>We aim to respond within 3–5 business days.</p>
+          </div>
+          <a class="press-email" href="mailto:press@blucatdev.com">press@blucatdev.com</a>
+        </div>
+
+        <!-- Studio bio -->
+        <div class="studio-bio" style="margin-bottom:1.5rem;">
+          <h3>Studio Bio — Third Person (copy/paste ready)</h3>
+          <p>Blu Cat Dev is a solo independent game development studio based in Newcastle, New South Wales, Australia.
+          Founded by [Your Name], a Computer Science graduate with a specialty in Game Design from Charles Sturt University,
+          Blu Cat Dev focuses on [your design focus]. Working part-time and independently, Blu Cat Dev prioritises
+          considered design, honest storytelling, and games that respect the player's time.</p>
+          <p class="bio-copy">↑ Feel free to use this text in articles and features without modification.</p>
+        </div>
+
+        <!-- Press kits -->
+        <div class="section-label" style="margin-bottom:1rem;">Press Kits — By Game</div>
+
+        <div class="presskit-card" style="margin-bottom:1rem;">
+          <div class="presskit-header">
+            <div>
+              <h3>[Game Title One]</h3>
+              <span class="tag tag-silver" style="margin-top:0.25rem;display:inline-block;">Released</span>
+            </div>
+            <a href="#" class="btn btn-primary btn-sm" download>Download Full Press Kit .zip</a>
+          </div>
+          <div class="presskit-body">
+            <div class="fact-sheet">
+              <div class="fact-row"><p class="fact-label">Developer</p><p class="fact-value">Blu Cat Dev</p></div>
+              <div class="fact-row"><p class="fact-label">Genre</p><p class="fact-value">[Genre]</p></div>
+              <div class="fact-row"><p class="fact-label">Platforms</p><p class="fact-value">PC, Mac</p></div>
+              <div class="fact-row"><p class="fact-label">Release Date</p><p class="fact-value">[DD/MM/YYYY]</p></div>
+              <div class="fact-row"><p class="fact-label">Price</p><p class="fact-value">[AU$X.XX]</p></div>
+              <div class="fact-row"><p class="fact-label">Engine</p><p class="fact-value">Unity</p></div>
+            </div>
+            <div class="press-assets">
+              <a href="#" class="btn btn-secondary btn-sm">📁 Screenshots (Hi-Res)</a>
+              <a href="#" class="btn btn-secondary btn-sm">🎬 Trailer (MP4)</a>
+              <a href="#" class="btn btn-secondary btn-sm">🎨 Logo (Light/Dark)</a>
+              <a href="#" class="btn btn-secondary btn-sm">📄 Fact Sheet (PDF)</a>
+              <a href="#" class="btn btn-secondary btn-sm">🖼 Capsule Art</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="presskit-card" style="margin-bottom:1.5rem;">
+          <div class="presskit-header">
+            <div>
+              <h3>[Current WIP Title]</h3>
+              <span class="tag tag-wip" style="margin-top:0.25rem;display:inline-block;">In Development</span>
+            </div>
+            <a href="mailto:press@blucatdev.com" class="btn btn-secondary btn-sm">Early Assets on Request</a>
+          </div>
+          <div class="presskit-body">
+            <div class="fact-sheet">
+              <div class="fact-row"><p class="fact-label">Developer</p><p class="fact-value">Blu Cat Dev</p></div>
+              <div class="fact-row"><p class="fact-label">Genre</p><p class="fact-value">[Genre]</p></div>
+              <div class="fact-row"><p class="fact-label">Platforms</p><p class="fact-value">PC (TBC)</p></div>
+              <div class="fact-row"><p class="fact-label">Expected Release</p><p class="fact-value">[Year]</p></div>
+              <div class="fact-row"><p class="fact-label">Engine</p><p class="fact-value">Unity</p></div>
+              <div class="fact-row"><p class="fact-label">Status</p><p class="fact-value">Active Development</p></div>
+            </div>
+            <div class="press-assets">
+              <a href="mailto:press@blucatdev.com" class="btn btn-secondary btn-sm">📁 Concept Art</a>
+              <a href="mailto:press@blucatdev.com" class="btn btn-secondary btn-sm">📄 One-Pager (PDF)</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Coverage -->
+        <div class="section-label" style="margin-bottom:1rem;">Notable Coverage</div>
+        <div class="wip-placeholder" style="margin-bottom:1.5rem;">
+          <h3 style="color:var(--text-dim);font-size:1rem;">Coverage will appear here</h3>
+          <p>Reviews, YouTube features, articles, and streams will be listed as they come in.</p>
+        </div>
+
+        <!-- Accessibility note -->
+        <div class="access-note">
+          <p>"I believe accessible games are better games. I understand from personal experience how important
+          accessibility is, and I aim to build it into my development practice over time. Current titles may
+          not include specific accessibility features, but it is a goal I'm actively working toward."</p>
+        </div>
+
+      </section>
+    </div><!-- /page-press -->
+
+  </main><!-- /main -->
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       FOOTER
+       ══════════════════════════════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+
+      <span class="footer-logo">Blu Cat Dev</span>
+
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a class="footer-link" data-nav="home"    href="/">Home</a>
+        <a class="footer-link" data-nav="games"   href="#games">Games</a>
+        <a class="footer-link" data-nav="writing" href="#writing">Writing</a>
+        <a class="footer-link" data-nav="about"   href="#about">About</a>
+        <a class="footer-link" data-nav="press"   href="#press">Press</a>
+        <a class="footer-link" href="#about">Accessibility</a>
+      </nav>
+
+      <div class="footer-social" aria-label="Social links">
+        <a class="social-btn" href="https://youtube.com/@blucatdev" target="_blank" rel="noopener noreferrer" aria-label="YouTube">YT</a>
+        <a class="social-btn" href="https://github.com/KC-Ket"       target="_blank" rel="noopener noreferrer" aria-label="GitHub">GH</a>
+        <a class="social-btn" href="https://discord.gg/blucatdev"    target="_blank" rel="noopener noreferrer" aria-label="Discord">DC</a>
+        <a class="social-btn" href="https://twitter.com/blucatdev"   target="_blank" rel="noopener noreferrer" aria-label="Twitter/X">TW</a>
+      </div>
+
+      <div>
+        <p class="footer-contact">
+          <a href="mailto:hello@blucatdev.com" style="color:var(--cyan);text-decoration:none;">hello@blucatdev.com</a>
+        </p>
+        <p class="footer-copy">© Blu Cat Dev 2026 · Newcastle, NSW, AU</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+
 </body>
-
 </html>
