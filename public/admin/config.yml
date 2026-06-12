@@ -1,0 +1,138 @@
+backend:
+  name: github
+  repo: KC-Ket/blucatdev.github.io
+  branch: main
+  # GitHub Pages has no built-in OAuth provider, so logins are proxied
+  # through a small OAuth worker. See README "Admin / CMS setup" for
+  # how to deploy this (free, Cloudflare Workers).
+  base_url: https://blucatdev-cms-auth.YOUR-SUBDOMAIN.workers.dev
+  auth_endpoint: auth
+
+# Drafts go to a PR for review before merging/publishing.
+publish_mode: editorial_workflow
+
+media_folder: "public/assets/images/uploads"
+public_folder: "/assets/images/uploads"
+
+collections:
+  - name: "games"
+    label: "Games"
+    folder: "src/content/games"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Summary", name: "summary", widget: "text" }
+      - { label: "Genre", name: "genre", widget: "string", required: false }
+      - { label: "Platforms", name: "platforms", widget: "list", default: ["PC"] }
+      - label: "Status"
+        name: "status"
+        widget: "select"
+        options: ["Released", "In Development", "Jam"]
+        default: "In Development"
+      - { label: "Capsule Image", name: "capsuleImage", widget: "image", required: false }
+      - { label: "Background Image (for featured hero)", name: "bgImage", widget: "image", required: false }
+      - { label: "Store URL (Steam)", name: "storeUrl", widget: "string", required: false }
+      - { label: "itch.io URL", name: "itchUrl", widget: "string", required: false }
+      - { label: "YouTube Video ID", name: "youtubeId", widget: "string", required: false, hint: "The part after v= in a YouTube URL" }
+      - { label: "Featured on Homepage", name: "featured", widget: "boolean", default: false }
+      - { label: "Featured Priority (higher = shown first)", name: "featuredOrder", widget: "number", default: 0, required: false }
+      - { label: "Draft (hide from site)", name: "draft", widget: "boolean", default: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "software"
+    label: "Software"
+    folder: "src/content/software"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Summary", name: "summary", widget: "text" }
+      - { label: "Genre / Category", name: "genre", widget: "string", required: false }
+      - { label: "Platforms", name: "platforms", widget: "list", default: ["PC"] }
+      - label: "Status"
+        name: "status"
+        widget: "select"
+        options: ["Released", "In Development", "Jam"]
+        default: "In Development"
+      - { label: "Capsule Image", name: "capsuleImage", widget: "image", required: false }
+      - { label: "Background Image (for featured hero)", name: "bgImage", widget: "image", required: false }
+      - { label: "Store / Download URL", name: "storeUrl", widget: "string", required: false }
+      - { label: "itch.io URL", name: "itchUrl", widget: "string", required: false }
+      - { label: "YouTube Video ID", name: "youtubeId", widget: "string", required: false }
+      - { label: "Featured on Homepage", name: "featured", widget: "boolean", default: false }
+      - { label: "Featured Priority (higher = shown first)", name: "featuredOrder", widget: "number", default: 0, required: false }
+      - { label: "Draft (hide from site)", name: "draft", widget: "boolean", default: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Summary / Excerpt", name: "summary", widget: "text" }
+      - { label: "Tags", name: "tags", widget: "list", required: false }
+      - { label: "Also published at (external URL)", name: "externalUrl", widget: "string", required: false }
+      - { label: "Cover Image", name: "coverImage", widget: "image", required: false }
+      - { label: "Draft (hide from site)", name: "draft", widget: "boolean", default: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "poems"
+    label: "Poems"
+    folder: "src/content/poems"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Summary", name: "summary", widget: "text", required: false }
+      - { label: "Tags", name: "tags", widget: "list", required: false }
+      - { label: "Published Venue", name: "venue", widget: "string", required: false }
+      - { label: "Venue URL", name: "venueUrl", widget: "string", required: false }
+      - { label: "Draft (hide from site)", name: "draft", widget: "boolean", default: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "press"
+    label: "Press Kits"
+    folder: "src/content/press"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Game / Software Title", name: "title", widget: "string" }
+      - label: "Status"
+        name: "status"
+        widget: "select"
+        options: ["Released", "In Development"]
+        default: "In Development"
+      - { label: "Developer", name: "developer", widget: "string", default: "Blu Cat Dev" }
+      - { label: "Genre", name: "genre", widget: "string", required: false }
+      - { label: "Platforms", name: "platforms", widget: "string", required: false }
+      - { label: "Release Date", name: "releaseDate", widget: "string", required: false }
+      - { label: "Price", name: "price", widget: "string", required: false }
+      - { label: "Engine", name: "engine", widget: "string", default: "Unity" }
+      - { label: "Full Press Kit .zip URL", name: "downloadZipUrl", widget: "string", required: false }
+      - label: "Assets"
+        name: "assets"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Label", name: "label", widget: "string" }
+          - { label: "URL", name: "url", widget: "string" }
+      - { label: "Display Order", name: "order", widget: "number", default: 0 }
+      - { label: "Draft (hide from site)", name: "draft", widget: "boolean", default: false }
+      - { label: "Notes / Body", name: "body", widget: "markdown", required: false }

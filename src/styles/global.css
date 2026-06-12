@@ -1,0 +1,22 @@
+/* ============================================================
+   BLU CAT DEV — Global stylesheet
+   Combines design tokens, base, components, responsive rules
+   ============================================================ */
+
+@import './variables.css';
+@import './base.css';
+@import './components.css';
+@import './responsive.css';
+
+/* Multi-page site: every page is its own document, so we don't
+   need the SPA [data-page] show/hide rules from the original. */
+[data-page] { display: block; }
+
+/* Featured-game hero background override (set via inline style /
+   CSS var from frontmatter on the homepage) */
+.hero[style*="--hero-image"] .hero-bg {
+  background-image: var(--hero-image);
+  background-size: cover;
+  background-position: center;
+  opacity: 0.35;
+}

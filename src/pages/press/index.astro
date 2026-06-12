@@ -1,0 +1,93 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const kitEntries = (await getCollection('press', ({ data }) => !data.draft))
+  .sort((a, b) => a.data.order - b.data.order);
+
+const kits = await Promise.all(
+  kitEntries.map(async (kit) => ({ data: kit.data, Content: (await render(kit)).Content }))
+);
+---
+<BaseLayout title="Press Kit" current="press" description="Press kits, assets, and contact details for Blu Cat Dev games and software.">
+  <div class="page-header">
+    <div class="section-label">Press &amp; Media</div>
+    <h1>Press <em>Kit</em></h1>
+    <p>For journalists, content creators, streamers, and collaborators. If something is missing, please get in touch.</p>
+  </div>
+
+  <section class="section">
+    <div class="press-contact-bar" style="margin-bottom:1.5rem;">
+      <div>
+        <h3>Press Contact</h3>
+        <p>We aim to respond within 3–5 business days.</p>
+      </div>
+      <a class="press-email" href="mailto:press@blucatdev.com">press@blucatdev.com</a>
+    </div>
+
+    <div class="studio-bio" style="margin-bottom:1.5rem;">
+      <h3>Studio Bio — Third Person (copy/paste ready)</h3>
+      <p>Blu Cat Dev is a solo independent game development studio based in Newcastle, New South Wales, Australia.
+      Working part-time and independently, Blu Cat Dev focuses on considered design, honest storytelling,
+      and games that respect the player's time.</p>
+      <p class="bio-copy">↑ Feel free to use this text in articles and features without modification.</p>
+    </div>
+
+    {kits.length > 0 && <div class="section-label" style="margin-bottom:1rem;">Press Kits — By Game</div>}
+
+    {kits.map((kit) => (
+      <div class="presskit-card" style="margin-bottom:1rem;">
+        <div class="presskit-header">
+          <div>
+            <h3>{kit.data.title}</h3>
+            <span class={`tag ${kit.data.status === 'Released' ? 'tag-silver' : 'tag-wip'}`} style="margin-top:0.25rem;display:inline-block;">{kit.data.status}</span>
+          </div>
+          {kit.data.downloadZipUrl ? (
+            <a href={kit.data.downloadZipUrl} class="btn btn-primary btn-sm" download>Download Full Press Kit .zip</a>
+          ) : (
+            <a href="mailto:press@blucatdev.com" class="btn btn-secondary btn-sm">Early Assets on Request</a>
+          )}
+        </div>
+        <div class="presskit-body">
+          <div class="fact-sheet">
+            <div class="fact-row"><p class="fact-label">Developer</p><p class="fact-value">{kit.data.developer}</p></div>
+            {kit.data.genre && <div class="fact-row"><p class="fact-label">Genre</p><p class="fact-value">{kit.data.genre}</p></div>}
+            {kit.data.platforms && <div class="fact-row"><p class="fact-label">Platforms</p><p class="fact-value">{kit.data.platforms}</p></div>}
+            {kit.data.releaseDate && <div class="fact-row"><p class="fact-label">Release Date</p><p class="fact-value">{kit.data.releaseDate}</p></div>}
+            {kit.data.price && <div class="fact-row"><p class="fact-label">Price</p><p class="fact-value">{kit.data.price}</p></div>}
+            <div class="fact-row"><p class="fact-label">Engine</p><p class="fact-value">{kit.data.engine}</p></div>
+          </div>
+          {kit.data.assets.length > 0 && (
+            <div class="press-assets">
+              {kit.data.assets.map((asset) => (
+                <a href={asset.url} class="btn btn-secondary btn-sm">{asset.label}</a>
+              ))}
+            </div>
+          )}
+          <div class="about-story" style="margin-top:1rem;">
+            <kit.Content />
+          </div>
+        </div>
+      </div>
+    ))}
+
+    {kits.length === 0 && (
+      <div class="wip-placeholder">
+        <h3>No press kits yet</h3>
+        <p>Add a markdown file to <code>src/content/press/</code> to get started.</p>
+      </div>
+    )}
+
+    <div class="section-label" style="margin:2rem 0 1rem;">Notable Coverage</div>
+    <div class="wip-placeholder" style="margin-bottom:1.5rem;">
+      <h3 style="color:var(--text-dim);font-size:1rem;">Coverage will appear here</h3>
+      <p>Reviews, YouTube features, articles, and streams will be listed as they come in.</p>
+    </div>
+
+    <div class="access-note">
+      <p>"I believe accessible games are better games. I understand from personal experience how important
+      accessibility is, and I aim to build it into my development practice over time. Current titles may
+      not include specific accessibility features, but it is a goal I'm actively working toward."</p>
+    </div>
+  </section>
+</BaseLayout>

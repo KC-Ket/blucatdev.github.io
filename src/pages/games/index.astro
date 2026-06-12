@@ -1,0 +1,112 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const allGames = (await getCollection('games', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const released = allGames.filter((g) => g.data.status === 'Released');
+const wip = allGames.filter((g) => g.data.status === 'In Development');
+const jams = allGames.filter((g) => g.data.status === 'Jam');
+---
+<BaseLayout title="Games" current="games" description="Released titles, works in progress, and game jam experiments from Blu Cat Dev.">
+  <div class="page-header">
+    <div class="section-label">Portfolio</div>
+    <h1>Games</h1>
+    <p>Released titles, works in progress, and game jam experiments.</p>
+  </div>
+
+  {released.length > 0 && (
+    <section class="section" aria-labelledby="games-released-heading">
+      <div class="section-label" id="games-released-heading">Released</div>
+      <div class="games-grid">
+        {released.map((game) => (
+          <a class="game-card" href={`/games/${game.id}/`}>
+            <div class="game-card-thumb" style={game.data.capsuleImage ? `background-image:url('${game.data.capsuleImage}');background-size:cover;background-position:center;` : ''}>
+              {!game.data.capsuleImage && <span aria-hidden="true">🎮</span>}
+              <span class="game-card-thumb-label">Released</span>
+            </div>
+            <div class="game-card-body">
+              <p class="game-card-genre">{game.data.genre}</p>
+              <h3 class="game-card-title">{game.data.title}</h3>
+              <p class="game-card-desc">{game.data.summary}</p>
+            </div>
+            <div class="game-card-footer">
+              <div class="platform-pills">
+                {game.data.platforms.map((p) => <span class="platform-pill">{p}</span>)}
+              </div>
+              <span class="tag tag-silver">Released</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {wip.length > 0 && <hr class="divider" />}
+
+  {wip.length > 0 && (
+    <section class="section" aria-labelledby="games-wip-heading">
+      <div class="section-label" id="games-wip-heading">In Development</div>
+      <div class="games-grid">
+        {wip.map((game) => (
+          <a class="game-card" href={`/games/${game.id}/`}>
+            <div class="game-card-thumb" style={game.data.capsuleImage ? `background-image:url('${game.data.capsuleImage}');background-size:cover;background-position:center;` : ''}>
+              {!game.data.capsuleImage && <span aria-hidden="true">🌿</span>}
+              <span class="game-card-thumb-label">WIP</span>
+            </div>
+            <div class="game-card-body">
+              <p class="game-card-genre">{game.data.genre}</p>
+              <h3 class="game-card-title">{game.data.title}</h3>
+              <p class="game-card-desc">{game.data.summary}</p>
+            </div>
+            <div class="game-card-footer">
+              <div class="platform-pills">
+                {game.data.platforms.map((p) => <span class="platform-pill">{p}</span>)}
+              </div>
+              <span class="tag tag-wip">In Dev</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {jams.length > 0 && <hr class="divider" />}
+
+  {jams.length > 0 && (
+    <section class="section" aria-labelledby="games-jams-heading">
+      <div class="section-label" id="games-jams-heading">Game Jams &amp; Experiments</div>
+      <p style="margin-bottom:1.5rem;">Quick builds, big ideas.</p>
+      <div class="games-grid">
+        {jams.map((game) => (
+          <a class="game-card" href={`/games/${game.id}/`}>
+            <div class="game-card-thumb" style={game.data.capsuleImage ? `background-image:url('${game.data.capsuleImage}');background-size:cover;background-position:center;` : ''}>
+              {!game.data.capsuleImage && <span aria-hidden="true">🎲</span>}
+              <span class="game-card-thumb-label">Jam</span>
+            </div>
+            <div class="game-card-body">
+              <p class="game-card-genre">{game.data.genre}</p>
+              <h3 class="game-card-title">{game.data.title}</h3>
+              <p class="game-card-desc">{game.data.summary}</p>
+            </div>
+            <div class="game-card-footer">
+              <div class="platform-pills">
+                {game.data.platforms.map((p) => <span class="platform-pill">{p}</span>)}
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {allGames.length === 0 && (
+    <section class="section">
+      <div class="wip-placeholder">
+        <h3>No games yet</h3>
+        <p>Add a markdown file to <code>src/content/games/</code> to get started.</p>
+      </div>
+    </section>
+  )}
+</BaseLayout>
