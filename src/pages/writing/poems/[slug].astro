@@ -1,0 +1,38 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const poems = await getCollection('poems', ({ data }) => !data.draft);
+  return poems.map((poem) => ({
+    params: { slug: poem.id },
+    props: { poem },
+  }));
+}
+
+const { poem } = Astro.props;
+const { Content } = await render(poem);
+---
+<BaseLayout title={poem.data.title} description={poem.data.summary} current="writing">
+  <div class="page-header">
+    <div class="section-label">{poem.data.tags[0] || 'Poem'}</div>
+    <h1>{poem.data.title}</h1>
+    {poem.data.venue && (
+      <p>
+        Published in {poem.data.venueUrl
+          ? <a href={poem.data.venueUrl} target="_blank" rel="noopener noreferrer">{poem.data.venue}</a>
+          : poem.data.venue}
+      </p>
+    )}
+  </div>
+
+  <section class="section">
+    <div class="about-story" style="font-family:var(--font-serif);font-size:1.05rem;line-height:2;white-space:pre-line;">
+      <Content />
+    </div>
+
+    <div style="margin-top:2rem;">
+      <a class="btn btn-secondary btn-sm" href="/writing/">← Back to Writing</a>
+    </div>
+  </section>
+</BaseLayout>

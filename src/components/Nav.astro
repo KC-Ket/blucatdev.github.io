@@ -1,0 +1,79 @@
+---
+export interface Props {
+  current?: 'home' | 'games' | 'software' | 'writing' | 'about' | 'press';
+}
+const { current = 'home' } = Astro.props;
+const links = [
+  { id: 'games', label: 'Games', href: '/games/' },
+  { id: 'software', label: 'Software', href: '/software/' },
+  { id: 'writing', label: 'Writing', href: '/writing/' },
+  { id: 'about', label: 'About', href: '/about/' },
+  { id: 'press', label: 'Press', href: '/press/' },
+];
+---
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <a href="/" class="nav-logo" aria-label="Blu Cat Dev — Home">
+    <img
+      src="/assets/images/logo-nav.png"
+      alt="Blu Cat Dev logo"
+      class="nav-logo-img"
+      onerror="this.style.display='none'"
+    />
+    <span class="nav-logo-text">
+      <span class="blu">BLU </span>CAT DEV
+    </span>
+  </a>
+
+  <div class="nav-links" id="nav-links" role="menubar">
+    {links.map((link) => (
+      <a
+        class={`nav-link ${current === link.id ? 'active' : ''}`}
+        href={link.href}
+        role="menuitem"
+      >
+        {link.label}
+      </a>
+    ))}
+    <a
+      class="nav-cta"
+      href="https://store.steampowered.com/app/3304610/Elgem_TD/"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Wishlist Elgem TD on Steam (opens in new tab)"
+    >
+      Wishlist Elgem TD
+    </a>
+  </div>
+
+  <button
+    class="nav-hamburger"
+    id="nav-hamburger"
+    aria-label="Toggle menu"
+    aria-expanded="false"
+    aria-controls="nav-links">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<script>
+  const hamburger = document.getElementById('nav-hamburger');
+  const navLinks = document.getElementById('nav-links');
+
+  if (hamburger && navLinks) {
+    hamburger.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', String(open));
+      hamburger.classList.toggle('is-open', open);
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!hamburger.contains(e.target as Node) && !navLinks.contains(e.target as Node)) {
+        navLinks.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        hamburger.classList.remove('is-open');
+      }
+    });
+  }
+</script>

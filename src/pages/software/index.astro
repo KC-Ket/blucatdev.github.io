@@ -1,0 +1,45 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const allSoftware = (await getCollection('software', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+<BaseLayout title="Software" current="software" description="Tools and applications built by Blu Cat Dev.">
+  <div class="page-header">
+    <div class="section-label">Portfolio</div>
+    <h1>Software</h1>
+    <p>Tools, apps, and utilities built outside of game projects.</p>
+  </div>
+
+  <section class="section">
+    {allSoftware.length > 0 ? (
+      <div class="games-grid">
+        {allSoftware.map((item) => (
+          <a class="game-card" href={`/software/${item.id}/`}>
+            <div class="game-card-thumb" style={item.data.capsuleImage ? `background-image:url('${item.data.capsuleImage}');background-size:cover;background-position:center;` : ''}>
+              {!item.data.capsuleImage && <span aria-hidden="true">🛠️</span>}
+              <span class="game-card-thumb-label">{item.data.status}</span>
+            </div>
+            <div class="game-card-body">
+              <p class="game-card-genre">{item.data.genre}</p>
+              <h3 class="game-card-title">{item.data.title}</h3>
+              <p class="game-card-desc">{item.data.summary}</p>
+            </div>
+            <div class="game-card-footer">
+              <div class="platform-pills">
+                {item.data.platforms.map((p) => <span class="platform-pill">{p}</span>)}
+              </div>
+              <span class={`tag ${item.data.status === 'Released' ? 'tag-silver' : 'tag-wip'}`}>{item.data.status}</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <div class="wip-placeholder">
+        <h3>No software yet</h3>
+        <p>Add a markdown file to <code>src/content/software/</code> to get started.</p>
+      </div>
+    )}
+  </section>
+</BaseLayout>

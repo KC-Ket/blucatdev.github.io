@@ -1,0 +1,63 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const games = await getCollection('games', ({ data }) => !data.draft);
+  return games.map((game) => ({
+    params: { slug: game.id },
+    props: { game },
+  }));
+}
+
+const { game } = Astro.props;
+const { Content } = await render(game);
+---
+<BaseLayout title={game.data.title} description={game.data.summary} image={game.data.capsuleImage} current="games">
+  <div class="page-header">
+    <div class="section-label">{game.data.genre || 'Game'}</div>
+    <h1>{game.data.title}</h1>
+    <p>{game.data.summary}</p>
+    <div style="margin-top:1rem;display:flex;gap:0.6rem;flex-wrap:wrap;align-items:center;">
+      <span class={`tag ${game.data.status === 'Released' ? 'tag-silver' : 'tag-wip'}`}>{game.data.status}</span>
+      {game.data.platforms.map((p) => <span class="platform-pill">{p}</span>)}
+    </div>
+    <div style="margin-top:1.25rem;display:flex;gap:0.75rem;flex-wrap:wrap;">
+      {game.data.storeUrl && (
+        <a class="btn btn-primary" href={game.data.storeUrl} target="_blank" rel="noopener noreferrer">
+          {game.data.status === 'Released' ? 'View on Steam' : 'Wishlist on Steam'}
+        </a>
+      )}
+      {game.data.itchUrl && (
+        <a class="btn btn-secondary" href={game.data.itchUrl} target="_blank" rel="noopener noreferrer">View on itch.io</a>
+      )}
+    </div>
+  </div>
+
+  <section class="section">
+    {game.data.capsuleImage && (
+      <img src={game.data.capsuleImage} alt={`${game.data.title} capsule art`} style="width:100%;max-width:600px;border-radius:var(--radius-md);border:1px solid var(--border);margin-bottom:2rem;" />
+    )}
+
+    {game.data.youtubeId && (
+      <div style="position:relative;width:100%;max-width:800px;aspect-ratio:16/9;margin-bottom:2rem;border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--border);">
+        <iframe
+          style="position:absolute;inset:0;width:100%;height:100%;"
+          src={`https://www.youtube.com/embed/${game.data.youtubeId}`}
+          title={`${game.data.title} video`}
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+    )}
+
+    <div class="about-story">
+      <Content />
+    </div>
+
+    <div style="margin-top:2rem;">
+      <a class="btn btn-secondary btn-sm" href="/games/">← Back to Games</a>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,98 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const poems = (await getCollection('poems', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+<BaseLayout title="Writing" current="writing" description="A dev blog and poetry from Blu Cat Dev.">
+  <div class="page-header">
+    <div class="section-label">Words</div>
+    <h1>Writing</h1>
+    <p>A dev blog and poetry. Honest notes from the part-time indie trenches, and occasional verse.</p>
+  </div>
+
+  <div class="tabs" data-tab-group="writing" role="tablist" aria-label="Writing sections">
+    <button class="tab-btn active" data-tab="blog" role="tab" aria-selected="true">Dev Blog</button>
+    <button class="tab-btn" data-tab="poetry" role="tab" aria-selected="false">Poetry</button>
+  </div>
+
+  <div data-tab-panel="writing" data-tab-target="blog" role="tabpanel">
+    <section class="section">
+      <div class="highlight-strip">
+        <span class="dot" aria-hidden="true"></span>
+        Game design, Unity/C#, indie life, and developing with chronic pain.
+      </div>
+      {posts.length > 0 ? (
+        <div class="blog-grid">
+          {posts.map((post) => (
+            <a class="blog-card" href={`/writing/blog/${post.id}/`}>
+              {post.data.tags[0] && <span class="tag tag-ember" style="margin-bottom:0.75rem;">{post.data.tags[0]}</span>}
+              <h3 class="blog-card-title">{post.data.title}</h3>
+              <p class="blog-card-excerpt">{post.data.summary}</p>
+              {post.data.externalUrl && <p class="blog-ext-link">↗ Also published externally →</p>}
+              <div class="blog-card-meta"><span>{post.data.date.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}</span></div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="wip-placeholder">
+          <h3>No posts yet</h3>
+          <p>Add a markdown file to <code>src/content/blog/</code> to get started.</p>
+        </div>
+      )}
+    </section>
+  </div>
+
+  <div data-tab-panel="writing" data-tab-target="poetry" role="tabpanel" class="hidden">
+    <section class="section">
+      <div class="highlight-strip">
+        <span class="dot" aria-hidden="true"></span>
+        Selected poems — personal collection and published work.
+      </div>
+      {poems.length > 0 ? (
+        <div class="writing-list" role="list">
+          {poems.map((poem) => (
+            <a class="writing-item" role="listitem" href={`/writing/poems/${poem.id}/`}>
+              <div>
+                <p class="writing-item-title">{poem.data.title}</p>
+                <p class="writing-item-desc">{poem.data.summary || (poem.data.venue ? `Published in ${poem.data.venue}` : 'Personal collection')}</p>
+                {poem.data.venue && poem.data.venueUrl && (
+                  <a class="writing-item-link" href={poem.data.venueUrl} target="_blank" rel="noopener">↗ Published in: {poem.data.venue}</a>
+                )}
+              </div>
+              <span class="writing-item-meta">{poem.data.tags[0] || 'Poem'}</span>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="wip-placeholder">
+          <h3>No poems yet</h3>
+          <p>Add a markdown file to <code>src/content/poems/</code> to get started.</p>
+        </div>
+      )}
+    </section>
+  </div>
+</BaseLayout>
+
+<script>
+  const group = document.querySelector('[data-tab-group="writing"]');
+  if (group) {
+    const groupId = (group as HTMLElement).dataset.tabGroup;
+    const buttons = group.querySelectorAll('[data-tab]');
+    const panels = document.querySelectorAll(`[data-tab-panel="${groupId}"]`);
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const target = (btn as HTMLElement).dataset.tab;
+        buttons.forEach((b) => b.classList.toggle('active', (b as HTMLElement).dataset.tab === target));
+        panels.forEach((panel) => {
+          panel.classList.toggle('hidden', (panel as HTMLElement).dataset.tabTarget !== target);
+        });
+      });
+    });
+  }
+</script>

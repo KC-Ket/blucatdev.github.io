@@ -1,151 +1,81 @@
-# Blu Cat Dev — Official Website
+# Blu Cat Dev — Website
 
-> Indie game developer & writer based in Newcastle, NSW, Australia.
+Built with [Astro](https://astro.build) + content collections, deployed to GitHub Pages
+via GitHub Actions, with [Decap CMS](https://decapcms.org) for browser-based editing.
 
-**Live site:** [blucatdev.com](https://blucatdev.com) · **GitHub Pages:** [KC-Ket.github.io/blucatdev.github.io](https://KC-Ket.github.io/blucatdev.github.io)
-
----
-
-## 🗂 Project Structure
+## Local development
 
 ```
-blucatdev.github.io/
-├── index.html              # Main site (single-page, all pages via JS)
-├── 404.html                # Custom 404 error page
-├── README.md               # This file
-│
-├── css/
-│   ├── variables.css       # Design tokens — colours, spacing, typography
-│   ├── base.css            # Reset, typography, utility classes
-│   ├── components.css      # Nav, cards, buttons, forms, press, about
-│   └── responsive.css      # Media queries (tablet ≤900px, mobile ≤640px)
-│
-├── js/
-│   └── main.js             # Navigation, tabs, newsletter forms, mobile menu
-│
-└── assets/
-    ├── images/
-    │   ├── logo-nav.png            # Nav bar logo (transparent, ~120px tall)
-    │   ├── favicon-32.png          # Browser favicon 32×32
-    │   ├── favicon-16.png          # Browser favicon 16×16
-    │   ├── apple-touch-icon.png    # iOS home screen icon 180×180
-    │   ├── og-image.png            # Social sharing image 1200×630
-    │   └── avatar.jpg              # Profile photo (About page)
-    └── fonts/                      # (empty — fonts loaded from Google Fonts CDN)
+npm install
+npm run dev      # http://localhost:4321
+npm run build    # outputs to ./dist
+npm run preview  # preview the production build
 ```
 
----
+## Adding content
 
-## 🎨 Colour Palette
+Every game, software item, blog post, poem, and press kit is a single markdown file with
+frontmatter. Drop a new file into the matching folder and a card + page appear automatically:
 
-| Name | Hex | Use |
-|---|---|---|
-| Brand Navy | `#0a1227` | Primary background |
-| Brand Cyan | `#43d1e3` | Primary accent — games/tech/CTA |
-| Ember Orange | `#f0855a` | Secondary accent — writing/creative |
-| Warm White | `#fefcfb` | Primary text |
-| Cool Silver | `#b0b8c4` | Secondary/muted text |
-| Alert Red | `#e05a4e` | Error/warning states only |
+| Type      | Folder                  | Appears at                  |
+|-----------|-------------------------|------------------------------|
+| Games     | `src/content/games/`    | `/games/` and `/games/<slug>/` |
+| Software  | `src/content/software/` | `/software/` and `/software/<slug>/` |
+| Blog      | `src/content/blog/`     | `/writing/` and `/writing/blog/<slug>/` |
+| Poems     | `src/content/poems/`    | `/writing/` and `/writing/poems/<slug>/` |
+| Press kits| `src/content/press/`    | `/press/` |
 
----
+Set `draft: true` in frontmatter to hide an entry from the live site without deleting it.
 
-## 🖼 Assets to Add
+Set `featured: true` (and a `featuredOrder` number) on a game or software entry to feature
+it on the homepage hero. If it has a `bgImage`, that image is used as the hero background.
 
-Before the site looks complete, add the following files to `assets/images/`:
+See the existing files in each folder for the full list of frontmatter fields, or use the
+`/admin` editor (below), which has a form for every field.
 
-| File | Description | Source |
-|---|---|---|
-| `logo-nav.png` | Transparent logo, ~240px wide | `Logo_Transparent.png` from brand assets |
-| `favicon-32.png` | 32×32 favicon | Crop from `Cat_Logo_Transparent.png` |
-| `favicon-16.png` | 16×16 favicon | Crop from `Cat_Logo_Transparent.png` |
-| `apple-touch-icon.png` | 180×180 iOS icon | `Logo_512x512.png` cropped/resized |
-| `og-image.png` | 1200×630 social share image | Use `Banner_2048x1152_Transparent.png` |
-| `avatar.jpg` | Profile photo for About page | Your choice |
+## Deployment
 
----
+This repo deploys via `.github/workflows/deploy.yml` on every push to `main`.
 
-## 🚀 Deploying to GitHub Pages
+**One-time setup:** in the repo's GitHub Settings → Pages, set "Source" to **GitHub
+Actions**. The custom domain (`blucatdev.com`, via `CNAME`) stays configured as before.
 
-This is a static site — no build step required. GitHub Pages serves it directly.
+## Admin / CMS setup (Decap CMS)
 
-### First deploy
-```bash
-# Clone your repo
-git clone https://github.com/KC-Ket/blucatdev.github.io.git
-cd blucatdev.github.io
+The `/admin` page lets you log in with GitHub and edit/create content from any browser,
+including on mobile. Edits go through a Pull Request (editorial workflow) so nothing
+publishes until you merge it.
 
-# Copy these files into the repo
-# (replace any existing index.html)
+GitHub Pages has no built-in OAuth provider, so logins go through a small free proxy.
+**This is a one-time setup:**
 
-git add .
-git commit -m "feat: initial site launch"
-git push origin main
-```
+1. Deploy the [decap-cms-oauth-provider](https://github.com/sterlingwes/decap-proxy) (or
+   similar) to a free [Cloudflare Worker](https://workers.cloudflare.com/). This takes
+   ~10 minutes and is free.
+2. Create a GitHub OAuth App (GitHub Settings → Developer settings → OAuth Apps) pointing
+   its callback URL at your deployed worker.
+3. Update `public/admin/config.yml` — replace `base_url` with your worker's URL.
+4. Visit `https://blucatdev.com/admin/` and log in with GitHub.
 
-### Enable GitHub Pages
-1. Go to your repo on GitHub
-2. Settings → Pages
-3. Source: **Deploy from a branch**
-4. Branch: `main` / `/ (root)`
-5. Save — live in ~60 seconds at `KC-Ket.github.io/blucatdev.github.io`
+Until step 1–3 are done, `/admin` will load but login will fail.
 
-### Custom domain (blucatdev.com)
-1. Add a `CNAME` file to the repo root containing: `blucatdev.com`
-2. In your domain registrar, add DNS records:
-   - `A` record → `185.199.108.153`
-   - `A` record → `185.199.109.153`
-   - `A` record → `185.199.110.153`
-   - `A` record → `185.199.111.153`
-   - `CNAME` `www` → `KC-Ket.github.io`
-3. In GitHub Pages settings, enter `blucatdev.com` as custom domain
-4. Tick **Enforce HTTPS**
+### Adding images
 
----
+Upload images through the `/admin` media picker — they're saved to
+`public/assets/images/uploads/` and referenced as `/assets/images/uploads/<filename>`.
 
-## ✏️ Updating Content
+## Assets still needed
 
-All placeholder content is in `index.html`. Search for `[` to find all placeholders:
+The layout references the following images, which don't exist yet (missing ones just
+won't render):
 
-| Placeholder | What to replace |
-|---|---|
-| `[Game Title One]` | Your first released game title |
-| `[Game Title Two]` | Your second released game title |
-| `[Current WIP]` | Your work-in-progress title |
-| `[Game Jam Entry]` | Your jam game title |
-| `[Poem Title One/Two/Three]` | Your poem titles |
-| `[Award Name — Year]` | University awards |
-| `[Event / Certificate — Year]` | Programming events/certs |
-| `hello@blucatdev.com` | Your actual contact email |
-| `press@blucatdev.com` | Your actual press email |
-| Social links in footer | Your actual social URLs |
-| Steam wishlist link | Your actual Steam page |
+- `public/assets/images/logo-nav.png`
+- `public/assets/images/favicon-16.png`, `favicon-32.png`, `apple-touch-icon.png`
+- `public/assets/images/og-image.png`
+- `public/assets/images/avatar.jpg`
 
-### Adding a new blog post
-Add a new `<article class="blog-card">` block inside the blog grid in `#page-writing`.
+## RSS & social auto-posting
 
-### Adding a new game
-Add a new `<article class="game-card">` block inside the relevant grid in `#page-games`.
-
----
-
-## 📋 Tech Stack
-
-- **Pure HTML5 / CSS3 / Vanilla JS** — no frameworks, no build tools
-- **Google Fonts** — Playfair Display, DM Mono, DM Sans
-- **GitHub Pages** — free static hosting
-- Fully responsive (desktop → tablet → mobile)
-- WCAG 2.1 AA compliant colour contrast throughout
-- Semantic HTML with ARIA labels
-
----
-
-## 📅 Changelog
-
-| Date | Version | Notes |
-|---|---|---|
-| 26/04/2026 | 1.0.0 | Initial launch — structure, colours, all 5 pages |
-
----
-
-*Built with love, chronic back pain, and two cats on the keyboard.*
-*© Blu Cat Dev 2026 · Newcastle, NSW, Australia*
+`/rss.xml` includes all blog posts and poems. Free tools like
+[IFTTT](https://ifttt.com) or [Zapier](https://zapier.com) can watch this feed and
+auto-post new entries to Discord/Twitter/Bluesky etc.
