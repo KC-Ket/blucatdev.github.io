@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "genre": {
+      "type": "string"
+    },
+    "platforms": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "default": "In Development",
+      "type": "string",
+      "enum": [
+        "Released",
+        "In Development",
+        "Jam"
+      ]
+    },
+    "capsuleImage": {
+      "type": "string"
+    },
+    "bgImage": {
+      "type": "string"
+    },
+    "storeUrl": {
+      "type": "string"
+    },
+    "itchUrl": {
+      "type": "string"
+    },
+    "youtubeId": {
+      "type": "string"
+    },
+    "featured": {
+      "default": false,
+      "type": "boolean"
+    },
+    "featuredOrder": {
+      "default": 0,
+      "type": "number"
+    },
+    "draft": {
+      "default": false,
+      "type": "boolean"
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "date",
+    "summary"
+  ]
+}

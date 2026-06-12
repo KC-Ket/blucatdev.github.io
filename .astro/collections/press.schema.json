@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "status": {
+      "default": "In Development",
+      "type": "string",
+      "enum": [
+        "Released",
+        "In Development"
+      ]
+    },
+    "developer": {
+      "default": "Blu Cat Dev",
+      "type": "string"
+    },
+    "genre": {
+      "type": "string"
+    },
+    "platforms": {
+      "type": "string"
+    },
+    "releaseDate": {
+      "type": "string"
+    },
+    "price": {
+      "type": "string"
+    },
+    "engine": {
+      "default": "Unity",
+      "type": "string"
+    },
+    "downloadZipUrl": {
+      "type": "string"
+    },
+    "assets": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "label",
+          "url"
+        ]
+      }
+    },
+    "order": {
+      "default": 0,
+      "type": "number"
+    },
+    "draft": {
+      "default": false,
+      "type": "boolean"
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title"
+  ]
+}
