@@ -5,7 +5,7 @@ backend:
   # GitHub Pages has no built-in OAuth provider, so logins are proxied
   # through a small OAuth worker. See README "Admin / CMS setup" for
   # how to deploy this (free, Cloudflare Workers).
-  base_url: https://blucatdev-cms-auth.YOUR-SUBDOMAIN.workers.dev
+  base_url: https://blucatdev-website.kc-sg27.workers.dev
   auth_endpoint: auth
 
 # Drafts go to a PR for review before merging/publishing.
