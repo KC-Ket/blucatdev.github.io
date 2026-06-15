@@ -12,16 +12,10 @@ draft: false
 ---
 
 ## About Elgem TD
-
-Elgem TD is a tower-defense game currently in active development. More details coming soon —
-wishlist it on Steam to follow progress and get notified at launch.
-
-### Status
-
-In active development. Follow along on the blog for dev logs.
-
-## Blurb
-
 The Elgem Nexus is under attack! Protect it by killing enemies, upgrading gems, and
 discovering powerful combinations. Not all gems grow the same, and the randomness
 creates infinite replayability in this element-themed tower defense game.
+
+## Status
+
+In active development. Wishlist it on Steam to follow progress and get notified at launch.
