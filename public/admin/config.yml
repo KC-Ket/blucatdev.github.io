@@ -80,7 +80,7 @@ collections:
     format: "frontmatter"
     fields:
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Date", name: "date", widget: "datetime", date_format: "yyyy-MM-dd", time_format: false, picker_utc: true }
       - { label: "Summary / Excerpt", name: "summary", widget: "text" }
       - { label: "Tags", name: "tags", widget: "list", required: false }
       - { label: "Also published at (external URL)", name: "externalUrl", widget: "string", required: false }
@@ -97,7 +97,7 @@ collections:
     format: "frontmatter"
     fields:
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Date", name: "date", widget: "datetime", date_format: "yyyy-MM-dd", time_format: false, picker_utc: true }
       - { label: "Summary", name: "summary", widget: "text", required: false }
       - { label: "Tags", name: "tags", widget: "list", required: false }
       - { label: "Published Venue", name: "venue", widget: "string", required: false }
