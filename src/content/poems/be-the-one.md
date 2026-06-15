@@ -1,6 +1,6 @@
 ---
 title: Be the one
-date: 2025-05-26T18:16:00.000+10:00
+date: 2025-05-26
 summary: Inspired by a song.
 tags:
   - hope

@@ -1,6 +1,6 @@
 ---
 title: Heart of the Forest
-date: 2013-09-13T00:00:00.000+10:00
+date: 2013-09-13
 summary: A free form poem about empathy.
 tags:
   - free verse
