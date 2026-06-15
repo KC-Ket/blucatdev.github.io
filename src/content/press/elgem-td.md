@@ -11,4 +11,4 @@ draft: false
 assets: []
 ---
 
-Early assets available on request — contact press@blucatdev.com.
+Early assets available on request — contact blucatdev@gmail.com.
