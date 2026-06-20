@@ -55,16 +55,26 @@ const heroStyle = featured?.data.bgImage
 
         <div class="hero-newsletter">
           <span class="hero-newsletter-label">Get updates — dev logs, new releases, cat tax</span>
-          <form class="hero-newsletter-row" data-newsletter-form>
+          <form
+            class="hero-newsletter-row"
+            action="https://blucatdev.us5.list-manage.com/subscribe/post?u=5002b517cebdf8d73021ea8e7&id=ffd8fc229b&f_id=00c8bfedf0"
+            method="post"
+            target="_blank"
+            data-newsletter-form
+          >
             <input
               class="hero-newsletter-input"
               type="email"
-              name="email"
+              name="EMAIL"
               placeholder="your@email.com"
               autocomplete="email"
               aria-label="Email address for newsletter"
               required
             />
+            <!-- Honeypot field — must stay empty and hidden; Mailchimp uses it to catch bots -->
+            <div aria-hidden="true" style="position:absolute;left:-5000px;">
+              <input type="text" name="b_5002b517cebdf8d73021ea8e7_ffd8fc229b" tabindex="-1" value="" />
+            </div>
             <button type="submit" class="hero-newsletter-btn">Subscribe</button>
           </form>
         </div>
@@ -178,16 +188,26 @@ const heroStyle = featured?.data.bgImage
         <p>Dev updates, new writing, game releases, and the occasional cat tax. No spam, no pressure.</p>
       </div>
       <div>
-        <form class="newsletter-form" data-newsletter-form>
+        <form
+          class="newsletter-form"
+          action="https://blucatdev.us5.list-manage.com/subscribe/post?u=5002b517cebdf8d73021ea8e7&id=ffd8fc229b&f_id=00c8bfedf0"
+          method="post"
+          target="_blank"
+          data-newsletter-form
+        >
           <input
             class="newsletter-input"
             type="email"
-            name="email"
+            name="EMAIL"
             placeholder="your@email.com"
             autocomplete="email"
             aria-label="Email address"
             required
           />
+          <!-- Honeypot field — must stay empty and hidden; Mailchimp uses it to catch bots -->
+          <div aria-hidden="true" style="position:absolute;left:-5000px;">
+            <input type="text" name="b_5002b517cebdf8d73021ea8e7_ffd8fc229b" tabindex="-1" value="" />
+          </div>
           <button type="submit" class="btn btn-primary">Subscribe</button>
         </form>
         <p class="newsletter-note">No spam. Unsubscribe any time.</p>
