@@ -13,6 +13,6 @@ draft: false
 
 ## About For The Nuts
 
-Made for a game jam. A fast-paced action game about one very important mission: get the nuts.
+Made for a game jam. A fast-paced action/word game about one very important mission: get the nuts.
 
 Available free on [itch.io](https://blucatdev.itch.io/for-the-nuts).
