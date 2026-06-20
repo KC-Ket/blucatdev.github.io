@@ -1,16 +1,48 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Generator: Adobe Illustrator 27.5.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="svg5" xmlns:svg="http://www.w3.org/2000/svg"
-	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1668.56 1221.19"
-	 style="enable-background:new 0 0 1668.56 1221.19;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#1D9BF0;}
-	.st1{fill:#FFFFFF;}
-</style>
-<circle class="st0" cx="834.28" cy="610.6" r="481.33"/>
-<g id="layer1" transform="translate(52.390088,-25.058597)">
-	<path id="path1009" class="st1" d="M485.39,356.79l230.07,307.62L483.94,914.52h52.11l202.7-218.98l163.77,218.98h177.32
-		L836.82,589.6l215.5-232.81h-52.11L813.54,558.46L662.71,356.79H485.39z M562.02,395.17h81.46l359.72,480.97h-81.46L562.02,395.17z
-		"/>
-</g>
-</svg>
+
+<svg
+   version="1.1"
+   id="svg5"
+   x="0px"
+   y="0px"
+   viewBox="0 0 962.65994 962.66002"
+   xml:space="preserve"
+   sodipodi:docname="twitter_x_new_logo_x_round_circle_blue_icon_256074.svg"
+   width="962.65997"
+   height="962.65997"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs1" /><sodipodi:namedview
+   id="namedview1"
+   pagecolor="#505050"
+   bordercolor="#eeeeee"
+   borderopacity="1"
+   inkscape:showpageshadow="0"
+   inkscape:pageopacity="0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#505050"
+   inkscape:zoom="0.63626466"
+   inkscape:cx="480.93195"
+   inkscape:cy="599.59326"
+   inkscape:window-width="1920"
+   inkscape:window-height="991"
+   inkscape:window-x="-9"
+   inkscape:window-y="-9"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="svg5" />&#10;<style
+   type="text/css"
+   id="style1">&#10;	.st0{fill:#1D9BF0;}&#10;	.st1{fill:#FFFFFF;}&#10;</style>&#10;<circle
+   class="st0"
+   cx="481.32999"
+   cy="481.32999"
+   r="481.32999"
+   id="circle1" />&#10;<g
+   id="layer1"
+   transform="translate(-300.55995,-154.32859)">&#10;	<path
+   id="path1009"
+   class="st1"
+   d="M 485.39,356.79 715.46,664.41 483.94,914.52 h 52.11 l 202.7,-218.98 163.77,218.98 h 177.32 L 836.82,589.6 1052.32,356.79 h -52.11 L 813.54,558.46 662.71,356.79 Z m 76.63,38.38 h 81.46 l 359.72,480.97 h -81.46 z" />&#10;</g>&#10;</svg>
