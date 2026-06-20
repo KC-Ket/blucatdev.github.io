@@ -829,5 +829,6 @@
   text-decoration: none;
 }
 .social-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+.social-btn img { width: 18px; height: 18px; display: block; }
 .footer-contact { font-family: var(--font-mono); font-size: 0.68rem; color: var(--cyan); letter-spacing: 0.04em; }
 .footer-copy { font-family: var(--font-mono); font-size: 0.58rem; color: var(--text-dim); letter-spacing: 0.04em; margin-top: 0.2rem; }

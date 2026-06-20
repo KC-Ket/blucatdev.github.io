@@ -7,6 +7,8 @@ tags:
   - forest
   - heart
   - challenge
+featured: true
+featuredOrder: 2
 draft: false
 ---
 You speak. I hear the words but they flow through me like mist through the trees. Like leaves falling I gain snippets of recognition, of realisation, of understanding. The answers are seen through dappled streams of light. I do not know which way to go. I can only see the ground and the canopy and the unmoving wall of problems surrounding me.

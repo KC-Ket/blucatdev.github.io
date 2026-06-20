@@ -64,15 +64,36 @@ Until step 1–3 are done, `/admin` will load but login will fail.
 Upload images through the `/admin` media picker — they're saved to
 `public/assets/images/uploads/` and referenced as `/assets/images/uploads/<filename>`.
 
-## Assets still needed
+## Assets
 
-The layout references the following images, which don't exist yet (missing ones just
-won't render):
+### Branding images — done
 
-- `public/assets/images/logo-nav.png`
-- `public/assets/images/favicon-16.png`, `favicon-32.png`, `apple-touch-icon.png`
-- `public/assets/images/og-image.png`
-- `public/assets/images/avatar.jpg`
+All in place in `public/assets/images/`: `logo-nav.png`, `favicon-16.png`, `favicon-32.png`,
+`apple-touch-icon.png`, `og-image.png`, `avatar.png`.
+
+### Social / external link icons — done
+
+`public/assets/images/icons/` has hooked-up icons for YouTube, GitHub, Discord, Twitter/X,
+and itch.io (linking to `https://blucatdev.itch.io/`) in `src/components/Footer.astro`.
+
+A Bluesky icon (`icon-bluesky.svg`) was also added but is **not yet linked** — the account
+isn't active. The handle is saved in a comment in `Footer.astro`
+(`https://bsky.app/profile/blucatdev.bsky.social`) ready to uncomment once it's live.
+
+### Game capsule images — Cat Pong & Elgem TD done, For The Nuts outstanding
+
+Capsule art lives in `public/assets/images/games/` and is wired up via the `capsuleImage`
+field in each game's frontmatter (`src/content/games/*.md`).
+
+| File | Game | Status |
+|------|------|--------|
+| `elgem-td-capsule.png` | Elgem TD | ✅ added & hooked up |
+| `cat-pong-capsule.png` | Cat Pong | ✅ added & hooked up |
+| `for-the-nuts-capsule.png` | For The Nuts | ⬜ still needed — **460 × 215 px** landscape. Once added, set in `src/content/games/for-the-nuts.md`: `capsuleImage: "/assets/images/games/for-the-nuts-capsule.png"` |
+
+The image automatically appears on the game card (Games page + homepage preview) and at the
+top of the individual game page once `capsuleImage` is set. The placeholder emoji disappears
+at the same time.
 
 ## RSS & social auto-posting
 

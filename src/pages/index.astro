@@ -44,8 +44,29 @@ const heroStyle = featured?.data.bgImage
           Crafting worlds in Unity, telling stories in prose and code.
         </p>
         <div class="hero-ctas">
-          <a class="btn btn-primary" href="/games/">See My Games</a>
-          <a class="btn btn-ember" href="/writing/">Read My Writing</a>
+          <a class="btn btn-primary"
+             href="https://store.steampowered.com/app/3304610/Elgem_TD/"
+             target="_blank"
+             rel="noopener noreferrer">
+            Wishlist Elgem TD on Steam
+          </a>
+          <a class="btn btn-secondary" href="/games/">See My Games</a>
+        </div>
+
+        <div class="hero-newsletter">
+          <span class="hero-newsletter-label">Get updates — dev logs, new releases, cat tax</span>
+          <form class="hero-newsletter-row" data-newsletter-form>
+            <input
+              class="hero-newsletter-input"
+              type="email"
+              name="email"
+              placeholder="your@email.com"
+              autocomplete="email"
+              aria-label="Email address for newsletter"
+              required
+            />
+            <button type="submit" class="hero-newsletter-btn">Subscribe</button>
+          </form>
         </div>
       </div>
 
@@ -112,7 +133,7 @@ const heroStyle = featured?.data.bgImage
     <div class="section-label">About</div>
     <div class="quick-about">
       <div class="quick-about-avatar" aria-hidden="true">
-        <img src="/assets/images/avatar.jpg" alt="Profile photo" onerror="this.outerHTML='🐱'" />
+        <img src="/assets/images/avatar.png" alt="Profile photo" onerror="this.outerHTML='🐱'" />
       </div>
       <div>
         <p class="quick-about-text">
