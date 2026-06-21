@@ -15,6 +15,12 @@
     "description": {
       "type": "string"
     },
+    "pressSummary": {
+      "type": "string"
+    },
+    "pressLink": {
+      "type": "string"
+    },
     "genre": {
       "type": "string"
     },

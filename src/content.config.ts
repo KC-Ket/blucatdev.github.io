@@ -7,6 +7,8 @@ const projectFields = {
   date: z.coerce.date(),
   summary: z.string(),
   description: z.string().optional(),
+  pressSummary: z.string().optional(),
+  pressLink: z.string().optional(),
   genre: z.string().optional(),
   platforms: z.array(z.string()).default([]),
   status: z.enum(['Released', 'In Development', 'Unreleased']).default('In Development'),

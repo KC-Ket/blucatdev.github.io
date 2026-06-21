@@ -63,13 +63,13 @@ const kits = await Promise.all(
                 <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;margin-bottom:0.5rem;">
                   <h3 style="margin:0;">{kit.data.title}</h3>
                   <span class="tag tag-cyan">{kit.gameData?.status || kit.data.status}</span>
+                  {platformsList.length > 0 && (
+                    <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
+                      {platformsList.map((p) => <span class="platform-pill">{p}</span>)}
+                    </div>
+                  )}
                   {kit.data.genre && <span style="font-size:0.75rem;color:var(--text-muted);">{kit.data.genre}</span>}
                 </div>
-                {platformsList.length > 0 && (
-                  <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
-                    {platformsList.map((p) => <span class="platform-pill">{p}</span>)}
-                  </div>
-                )}
               </div>
               <div style="flex-shrink:0;">
                 <span style="font-size:1.2rem;color:var(--text-muted);">▼</span>
@@ -83,7 +83,7 @@ const kits = await Promise.all(
               {platformsList.length > 0 && <div class="fact-row"><p class="fact-label">Platforms</p><p class="fact-value">{platformsList.join(', ')}</p></div>}
               {kit.data.releaseDate && <div class="fact-row"><p class="fact-label">Release Date</p><p class="fact-value">{kit.data.releaseDate}</p></div>}
               {kit.data.price && <div class="fact-row"><p class="fact-label">Price</p><p class="fact-value">{kit.data.price}</p></div>}
-              <div class="fact-row"><p class="fact-label">Engine</p><p class="fact-value">{kit.data.engine}</p></div>
+              <div class="fact-row"><p class="fact-label">Engine</p><p class="fact-value" style="display:flex;align-items:center;gap:0.4rem;">{kit.data.engine === 'Unity' && <img src="/assets/images/icons/icon-unity.svg" alt="Unity" style="width:16px;height:16px;" />}{kit.data.engine}</p></div>
               <div class="fact-row"><p class="fact-label">Distribution</p><p class="fact-value" style="display:flex;gap:0.75rem;flex-wrap:wrap;">
                 {kit.gameData?.storeUrl && (
                   <a href={kit.gameData.storeUrl} target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:0.4rem;color:var(--text-muted);text-decoration:none;">
@@ -99,16 +99,26 @@ const kits = await Promise.all(
                 )}
               </p></div>
             </div>
-            {kit.data.assets.length > 0 && (
-              <div class="press-assets">
-                {kit.data.assets.map((asset) => (
-                  <a href={asset.url} class="btn btn-secondary btn-sm">{asset.label}</a>
-                ))}
+            {(kit.gameData?.pressSummary || kit.gameData?.summary) && (
+              <div class="about-story" style="margin-top:1.5rem;">
+                <p>{kit.gameData?.pressSummary || kit.gameData?.summary}</p>
               </div>
             )}
-            <div class="about-story" style="margin-top:1rem;">
+            <div class="about-story" style="margin-top:1.5rem;">
               <kit.Content />
             </div>
+            {(() => {
+              const pressLink = kit.gameData?.pressLink || kit.gameData?.storeUrl || kit.gameData?.itchUrl;
+              return (
+                <div style="margin-top:1.5rem;">
+                  {pressLink ? (
+                    <a href={pressLink} class="btn btn-secondary btn-sm" target="_blank" rel="noopener noreferrer">Press Kit Assets</a>
+                  ) : (
+                    <p style="font-size:0.85rem;color:var(--text-muted);">Assets available on request — contact blucatdev@gmail.com</p>
+                  )}
+                </div>
+              );
+            })()}
           </div>
         </div>
       );
@@ -133,7 +143,7 @@ const kits = await Promise.all(
 
           const chevron = btn.querySelector('span');
           if (chevron) {
-            chevron.style.transform = isExpanded ? 'rotate(0deg)' : 'rotate(180deg)';
+            chevron.style.transform = isExpanded ? 'rotate(0deg)' : 'rotate(0deg)';
             chevron.style.transition = 'transform 0.2s ease';
           }
         });

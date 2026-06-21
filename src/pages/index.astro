@@ -132,7 +132,6 @@ const heroStyle = featured?.data.bgImage
         <a class="game-card" href={`/games/${game.id}/`}>
           <div class="game-card-thumb" style={game.data.capsuleImage ? `background-image:url('${game.data.capsuleImage}');background-size:cover;background-position:center;` : ''}>
             {!game.data.capsuleImage && <span aria-hidden="true">🎮</span>}
-            <span class="game-card-thumb-label">{game.data.status}</span>
           </div>
           <div class="game-card-body">
             <p class="game-card-genre">{game.data.genre}</p>

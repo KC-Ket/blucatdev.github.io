@@ -17,6 +17,6 @@ The Elgem Nexus is under attack! Protect it by killing enemies, upgrading gems, 
 discovering powerful combinations. Not all gems grow the same, and the randomness
 creates infinite replayability in this element-themed tower defense game.
 
-## Status
+### Status
 
 In active development. Wishlist it on Steam to follow progress and get notified at launch.

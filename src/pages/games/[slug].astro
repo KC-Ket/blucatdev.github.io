@@ -56,17 +56,46 @@ const { Content } = await render(game);
       <Content />
     </div>
 
-    {/* Screenshots section */}
-    <div style="margin-top:3rem;">
-      <h3 style="margin-bottom:1.5rem;">Screenshots</h3>
-      <p style="color:var(--text-dim);margin-bottom:1.5rem;">Screenshots coming soon.</p>
-    </div>
+    {game.data.screenshots && game.data.screenshots.length > 0 && (
+      <div style="margin-top:3rem;">
+        <h3 style="margin-bottom:1.5rem;">Screenshots</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:1rem;">
+          {game.data.screenshots.map((screenshot) => (
+            <img src={screenshot} alt="Screenshot" style="max-width:100%;height:auto;border-radius:var(--radius-md);border:1px solid var(--border);" />
+          ))}
+        </div>
+      </div>
+    )}
 
-    {/* Videos section */}
-    <div style="margin-top:3rem;">
-      <h3 style="margin-bottom:1.5rem;">Videos</h3>
-      <p style="color:var(--text-dim);">Video trailers and gameplay coming soon.</p>
-    </div>
+    {(game.data.youtubeId || (game.data.youtubeIds && game.data.youtubeIds.length > 0)) && (
+      <div style="margin-top:3rem;">
+        <h3 style="margin-bottom:1.5rem;">Videos</h3>
+        {game.data.youtubeId && (
+          <div style="position:relative;width:100%;max-width:800px;aspect-ratio:16/9;margin-bottom:2rem;border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--border);">
+            <iframe
+              style="position:absolute;inset:0;width:100%;height:100%;"
+              src={`https://www.youtube.com/embed/${game.data.youtubeId}`}
+              title="Video"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+        )}
+        {game.data.youtubeIds && game.data.youtubeIds.map((id) => (
+          <div style="position:relative;width:100%;max-width:800px;aspect-ratio:16/9;margin-bottom:2rem;border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--border);">
+            <iframe
+              style="position:absolute;inset:0;width:100%;height:100%;"
+              src={`https://www.youtube.com/embed/${id}`}
+              title="Video"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+        ))}
+      </div>
+    )}
 
     <div style="margin-top:2rem;">
       <a class="btn btn-secondary btn-sm" href="/games/">← Back to Games</a>

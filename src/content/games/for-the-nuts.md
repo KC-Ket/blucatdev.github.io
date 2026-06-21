@@ -1,7 +1,7 @@
 ---
 title: "For The Nuts"
 date: 2023-07-24
-summary: "A game jam entry — fight to collect and defend your nuts. Free to play on itch.io."
+summary: "A game jam entry — fast-paced action/word game to collect nuts. Free to play on itch.io."
 genre: "Action"
 platforms: ["Browser"]
 status: "Released"
