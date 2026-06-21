@@ -31,7 +31,15 @@
       "enum": [
         "Released",
         "In Development",
-        "Jam"
+        "Unreleased"
+      ]
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "Jam",
+        "Experiment",
+        "Project"
       ]
     },
     "capsuleImage": {

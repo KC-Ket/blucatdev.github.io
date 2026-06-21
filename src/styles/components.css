@@ -132,7 +132,7 @@
 }
 
 .nav-cta {
-  background: var(--ember);
+  background: var(--cyan);
   color: var(--bg-navy);
   font-family: var(--font-mono);
   font-size: 0.7rem;
@@ -149,7 +149,7 @@
   white-space: nowrap;
 }
 .nav-cta:hover {
-  background: var(--ember-hover);
+  background: var(--cyan-hover);
   color: var(--bg-navy);
 }
 
@@ -253,7 +253,7 @@
 .hero-newsletter-row { display: flex; gap: 0.5rem; }
 .hero-newsletter-input {
   background: rgba(255,255,255,0.04);
-  border: 1px solid var(--border-light);
+  border: 1px solid var(--ember-border);
   color: var(--text-primary);
   border-radius: var(--radius-sm);
   font-family: var(--font-mono);
@@ -265,22 +265,22 @@
   transition: border-color var(--transition);
 }
 .hero-newsletter-input::placeholder { color: var(--text-ghost); }
-.hero-newsletter-input:focus { border-color: var(--cyan); }
+.hero-newsletter-input:focus { border-color: var(--ember); }
 .hero-newsletter-btn {
   font-family: var(--font-mono);
   font-size: 0.68rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  background: none;
-  color: var(--text-muted);
-  border: 1px solid var(--border-light);
+  background: var(--ember);
+  color: var(--bg-navy);
+  border: 1px solid var(--ember-border);
   border-radius: var(--radius-sm);
   padding: 0.55rem 0.9rem;
   cursor: pointer;
-  transition: border-color var(--transition), color var(--transition);
+  transition: background var(--transition), color var(--transition);
   white-space: nowrap;
 }
-.hero-newsletter-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+.hero-newsletter-btn:hover { background: var(--ember-hover); color: var(--bg-navy); }
 
 /* Hero right-side cards */
 .hero-visual { display: flex; flex-direction: column; gap: 1rem; }
@@ -680,7 +680,7 @@
 .newsletter-form { display: flex; gap: 0.5rem; flex-wrap: wrap; }
 .newsletter-input {
   background: var(--bg-navy);
-  border: 1px solid var(--border-light);
+  border: 1px solid var(--cyan-border);
   color: var(--text-primary);
   border-radius: var(--radius-sm);
   font-family: var(--font-mono);

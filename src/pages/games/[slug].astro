@@ -29,7 +29,7 @@ const { Content } = await render(game);
         </a>
       )}
       {game.data.itchUrl && (
-        <a class="btn btn-secondary" href={game.data.itchUrl} target="_blank" rel="noopener noreferrer">View on itch.io</a>
+        <a class={`btn ${game.data.storeUrl ? 'btn-secondary' : 'btn-primary'}`} href={game.data.itchUrl} target="_blank" rel="noopener noreferrer">View on itch.io</a>
       )}
     </div>
   </div>
@@ -54,6 +54,18 @@ const { Content } = await render(game);
 
     <div class="about-story">
       <Content />
+    </div>
+
+    {/* Screenshots section */}
+    <div style="margin-top:3rem;">
+      <h3 style="margin-bottom:1.5rem;">Screenshots</h3>
+      <p style="color:var(--text-dim);margin-bottom:1.5rem;">Screenshots coming soon.</p>
+    </div>
+
+    {/* Videos section */}
+    <div style="margin-top:3rem;">
+      <h3 style="margin-bottom:1.5rem;">Videos</h3>
+      <p style="color:var(--text-dim);">Video trailers and gameplay coming soon.</p>
     </div>
 
     <div style="margin-top:2rem;">

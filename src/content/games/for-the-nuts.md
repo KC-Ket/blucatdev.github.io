@@ -4,7 +4,8 @@ date: 2023-07-24
 summary: "A game jam entry — fight to collect and defend your nuts. Free to play on itch.io."
 genre: "Action"
 platforms: ["Browser"]
-status: "Jam"
+status: "Released"
+category: "Jam"
 itchUrl: "https://blucatdev.itch.io/for-the-nuts"
 featured: false
 featuredOrder: 0

@@ -49,9 +49,9 @@ const heroStyle = featured?.data.bgImage
       <div>
         <p class="hero-eyebrow">Blu Cat Dev · Australia</p>
         <h1 class="hero-title" style="font-weight: 700;">
-          <span class="accent-cyan">Games</span> &amp;<br>
-          <em class="accent-ember">stories</em> that<br>
-          <em style="color: var(--text-primary);">linger.</em>
+          <span class="accent-cyan">Games</span> and<br>
+          <span class="accent-ember">stories</span> that<br>
+          <em style="color: var(--text-primary);">linger...</em>
         </h1>
         <p class="hero-sub">
           Indie game developer and writer, making things part-time from Newcastle.
@@ -95,14 +95,15 @@ const heroStyle = featured?.data.bgImage
       </div>
 
       <div class="hero-visual" aria-hidden="true">
-        {featured && (
+        {featured && featuredType === 'games' && (
           <a class="hero-card" href={`/${featuredType}/${featured.id}/`} style="display:block;text-decoration:none;">
-            <p class="hero-card-label">Featured {featuredType === 'games' ? 'Game' : 'Software'}</p>
+            <p class="hero-card-label">Featured Game</p>
             <p class="hero-card-title">{featured.data.title}</p>
             <p class="hero-card-desc">{featured.data.summary}</p>
-            <span class={`tag ${featured.data.status === 'Released' ? 'tag-silver' : 'tag-wip'}`} style="margin-top:0.75rem;display:inline-block;">
-              {featured.data.status}
-            </span>
+            <div style="margin-top:0.75rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
+              <span class="tag tag-cyan">{featured.data.status}</span>
+              {featured.data.platforms && featured.data.platforms[0] && <span class="tag tag-ember">{featured.data.platforms[0]}</span>}
+            </div>
           </a>
         )}
         {latestPost && (
@@ -110,9 +111,10 @@ const heroStyle = featured?.data.bgImage
             <p class="hero-card-label">Latest from the Blog</p>
             <p class="hero-card-title">{latestPost.data.title}</p>
             <p class="hero-card-desc">{latestPost.data.summary}</p>
-            <span class="tag tag-ember" style="margin-top:0.75rem;display:inline-block;">
-              Dev Blog · {latestPost.data.date.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}
-            </span>
+            <div style="margin-top:0.75rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
+              <span class="tag tag-cyan">Blog</span>
+              <span class="tag tag-silver">{latestPost.data.date.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+            </div>
           </a>
         )}
       </div>
@@ -141,7 +143,7 @@ const heroStyle = featured?.data.bgImage
             <div class="platform-pills">
               {game.data.platforms.map((p) => <span class="platform-pill">{p}</span>)}
             </div>
-            <span class={`tag ${game.data.status === 'Released' ? 'tag-silver' : 'tag-wip'}`}>{game.data.status}</span>
+            <span class="tag tag-cyan">{game.data.status}</span>
           </div>
         </a>
       ))}
@@ -177,18 +179,21 @@ const heroStyle = featured?.data.bgImage
   <hr class="divider" />
   <section class="section" aria-labelledby="home-blog-heading">
     <div class="section-label">Writing</div>
-    <h2 id="home-blog-heading">Latest from the <em>Blog</em></h2>
-    <p style="margin-bottom:2rem;max-width:500px;">Dev logs, game design thoughts, and honest notes from a part-time indie.</p>
+    <h2 id="home-blog-heading">Words of <em>Fact</em> and <em>Fiction</em></h2>
+    <p style="margin-bottom:2rem;max-width:500px;">Dev logs, game design thoughts, honest notes from a part-time indie, and selected poetry.</p>
     <div class="blog-grid">
       {selectedWritings.map((writing) => {
         const item = writing.item;
         if (writing.type === 'blog') {
           return (
             <a class="blog-card" href={`/writing/blog/${item.id}/`}>
-              <span class="tag tag-cyan" style="margin-bottom:0.75rem;">Blog</span>
+              {item.data.tags[0] && <span class="tag tag-silver" style="margin-bottom:0.75rem;">{item.data.tags[0]}</span>}
               <h3 class="blog-card-title">{item.data.title}</h3>
               <p class="blog-card-excerpt">{item.data.summary}</p>
-              <div class="blog-card-meta"><span style="color: var(--text-dim);">{item.data.date.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}</span></div>
+              <div class="blog-card-meta">
+                <span style="color: var(--text-dim);">{item.data.date.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                <span class="tag tag-cyan">Blog</span>
+              </div>
             </a>
           );
         } else {
@@ -196,7 +201,7 @@ const heroStyle = featured?.data.bgImage
             <a class="blog-card" href={`/writing/poems/${item.id}/`}>
               <h3 class="blog-card-title" style="margin-bottom: 0.75rem;">{item.data.title}</h3>
               <p class="blog-card-excerpt">{item.data.summary}</p>
-              <div class="blog-card-meta" style="justify-content: space-between;">
+              <div class="blog-card-meta">
                 <span style="color: var(--text-dim);">{item.data.date.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
                 <span class="tag tag-ember">Poetry</span>
               </div>

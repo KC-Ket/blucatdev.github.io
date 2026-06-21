@@ -4,6 +4,33 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const allSoftware = (await getCollection('software', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// Organize by status and category
+const released = allSoftware.filter((s) => s.data.status === 'Released' && !s.data.category);
+const inDevelopment = allSoftware.filter((s) => s.data.status === 'In Development' && !s.data.category);
+const unreleased = allSoftware.filter((s) => s.data.status === 'Unreleased' && !s.data.category);
+const projects = allSoftware.filter((s) => s.data.category === 'Project');
+const experiments = allSoftware.filter((s) => s.data.category === 'Experiment');
+
+const renderSoftwareCard = (item) => (
+  <a class="game-card" href={`/software/${item.id}/`}>
+    <div class="game-card-thumb" style={item.data.capsuleImage ? `background-image:url('${item.data.capsuleImage}');background-size:cover;background-position:center;` : ''}>
+      {!item.data.capsuleImage && <span aria-hidden="true">🛠️</span>}
+      <span class="game-card-thumb-label">{item.data.status}</span>
+    </div>
+    <div class="game-card-body">
+      <p class="game-card-genre">{item.data.genre}</p>
+      <h3 class="game-card-title">{item.data.title}</h3>
+      <p class="game-card-desc">{item.data.summary}</p>
+    </div>
+    <div class="game-card-footer">
+      <div class="platform-pills">
+        {item.data.platforms.map((p) => <span class="platform-pill">{p}</span>)}
+      </div>
+      <span class="tag tag-cyan">{item.data.status}</span>
+    </div>
+  </a>
+);
 ---
 <BaseLayout title="Software" current="software" description="Tools and applications built by Blu Cat Dev.">
   <div class="page-header">
@@ -12,34 +39,66 @@ const allSoftware = (await getCollection('software', ({ data }) => !data.draft))
     <p>Tools, apps, and utilities built outside of game projects.</p>
   </div>
 
-  <section class="section">
-    {allSoftware.length > 0 ? (
+  {released.length > 0 && (
+    <section class="section" aria-labelledby="software-released-heading">
+      <div class="section-label" id="software-released-heading">Released</div>
       <div class="games-grid">
-        {allSoftware.map((item) => (
-          <a class="game-card" href={`/software/${item.id}/`}>
-            <div class="game-card-thumb" style={item.data.capsuleImage ? `background-image:url('${item.data.capsuleImage}');background-size:cover;background-position:center;` : ''}>
-              {!item.data.capsuleImage && <span aria-hidden="true">🛠️</span>}
-              <span class="game-card-thumb-label">{item.data.status}</span>
-            </div>
-            <div class="game-card-body">
-              <p class="game-card-genre">{item.data.genre}</p>
-              <h3 class="game-card-title">{item.data.title}</h3>
-              <p class="game-card-desc">{item.data.summary}</p>
-            </div>
-            <div class="game-card-footer">
-              <div class="platform-pills">
-                {item.data.platforms.map((p) => <span class="platform-pill">{p}</span>)}
-              </div>
-              <span class={`tag ${item.data.status === 'Released' ? 'tag-silver' : 'tag-wip'}`}>{item.data.status}</span>
-            </div>
-          </a>
-        ))}
+        {released.map(renderSoftwareCard)}
       </div>
-    ) : (
+    </section>
+  )}
+
+  {inDevelopment.length > 0 && released.length > 0 && <hr class="divider" />}
+
+  {inDevelopment.length > 0 && (
+    <section class="section" aria-labelledby="software-indev-heading">
+      <div class="section-label" id="software-indev-heading">In Development</div>
+      <div class="games-grid">
+        {inDevelopment.map(renderSoftwareCard)}
+      </div>
+    </section>
+  )}
+
+  {unreleased.length > 0 && (inDevelopment.length > 0 || released.length > 0) && <hr class="divider" />}
+
+  {unreleased.length > 0 && (
+    <section class="section" aria-labelledby="software-unreleased-heading">
+      <div class="section-label" id="software-unreleased-heading">Unreleased</div>
+      <div class="games-grid">
+        {unreleased.map(renderSoftwareCard)}
+      </div>
+    </section>
+  )}
+
+  {projects.length > 0 && (released.length > 0 || inDevelopment.length > 0 || unreleased.length > 0) && <hr class="divider" />}
+
+  {projects.length > 0 && (
+    <section class="section" aria-labelledby="software-projects-heading">
+      <div class="section-label" id="software-projects-heading">Academic &amp; Work Projects</div>
+      <div class="games-grid">
+        {projects.map(renderSoftwareCard)}
+      </div>
+    </section>
+  )}
+
+  {experiments.length > 0 && (released.length > 0 || inDevelopment.length > 0 || unreleased.length > 0 || projects.length > 0) && <hr class="divider" />}
+
+  {experiments.length > 0 && (
+    <section class="section" aria-labelledby="software-experiments-heading">
+      <div class="section-label" id="software-experiments-heading">Experiments</div>
+      <p style="margin-bottom:1.5rem;">Explorations and side projects.</p>
+      <div class="games-grid">
+        {experiments.map(renderSoftwareCard)}
+      </div>
+    </section>
+  )}
+
+  {allSoftware.length === 0 && (
+    <section class="section">
       <div class="wip-placeholder">
         <h3>No software yet</h3>
         <p>Subscribe for future announcements.</p>
       </div>
-    )}
-  </section>
+    </section>
+  )}
 </BaseLayout>

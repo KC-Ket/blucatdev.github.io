@@ -62,7 +62,7 @@ const kits = await Promise.all(
               <div style="flex:1;min-width:300px;">
                 <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;margin-bottom:0.5rem;">
                   <h3 style="margin:0;">{kit.data.title}</h3>
-                  <span class={`tag ${kit.data.status === 'Released' ? 'tag-silver' : 'tag-cyan'}`}>{kit.data.status}</span>
+                  <span class="tag tag-cyan">{kit.gameData?.status || kit.data.status}</span>
                   {kit.data.genre && <span style="font-size:0.75rem;color:var(--text-muted);">{kit.data.genre}</span>}
                 </div>
                 {platformsList.length > 0 && (
