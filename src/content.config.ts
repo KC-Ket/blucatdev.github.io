@@ -16,6 +16,8 @@ const projectFields = {
   storeUrl: z.string().optional(),
   itchUrl: z.string().optional(),
   youtubeId: z.string().optional(),
+  youtubeIds: z.array(z.string()).optional(),
+  screenshots: z.array(z.string()).optional(),
   featured: z.boolean().default(false),
   featuredOrder: z.number().default(0),
   draft: z.boolean().default(false),

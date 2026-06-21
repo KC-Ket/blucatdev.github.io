@@ -11,26 +11,6 @@ const inDevelopment = allSoftware.filter((s) => s.data.status === 'In Developmen
 const unreleased = allSoftware.filter((s) => s.data.status === 'Unreleased' && !s.data.category);
 const projects = allSoftware.filter((s) => s.data.category === 'Project');
 const experiments = allSoftware.filter((s) => s.data.category === 'Experiment');
-
-const renderSoftwareCard = (item) => (
-  <a class="game-card" href={`/software/${item.id}/`}>
-    <div class="game-card-thumb" style={item.data.capsuleImage ? `background-image:url('${item.data.capsuleImage}');background-size:cover;background-position:center;` : ''}>
-      {!item.data.capsuleImage && <span aria-hidden="true">🛠️</span>}
-      <span class="game-card-thumb-label">{item.data.status}</span>
-    </div>
-    <div class="game-card-body">
-      <p class="game-card-genre">{item.data.genre}</p>
-      <h3 class="game-card-title">{item.data.title}</h3>
-      <p class="game-card-desc">{item.data.summary}</p>
-    </div>
-    <div class="game-card-footer">
-      <div class="platform-pills">
-        {item.data.platforms.map((p) => <span class="platform-pill">{p}</span>)}
-      </div>
-      <span class="tag tag-cyan">{item.data.status}</span>
-    </div>
-  </a>
-);
 ---
 <BaseLayout title="Software" current="software" description="Tools and applications built by Blu Cat Dev.">
   <div class="page-header">
@@ -43,7 +23,25 @@ const renderSoftwareCard = (item) => (
     <section class="section" aria-labelledby="software-released-heading">
       <div class="section-label" id="software-released-heading">Released</div>
       <div class="games-grid">
-        {released.map(renderSoftwareCard)}
+        {released.map((item) => (
+          <a class="game-card" href={`/software/${item.id}/`}>
+            <div class="game-card-thumb" style={item.data.capsuleImage ? `background-image:url('${item.data.capsuleImage}');background-size:cover;background-position:center;` : ''}>
+              {!item.data.capsuleImage && <span aria-hidden="true">🛠️</span>}
+              <span class="game-card-thumb-label">{item.data.status}</span>
+            </div>
+            <div class="game-card-body">
+              <p class="game-card-genre">{item.data.genre}</p>
+              <h3 class="game-card-title">{item.data.title}</h3>
+              <p class="game-card-desc">{item.data.summary}</p>
+            </div>
+            <div class="game-card-footer">
+              <div class="platform-pills">
+                {item.data.platforms.map((p) => <span class="platform-pill">{p}</span>)}
+              </div>
+              <span class="tag tag-cyan">{item.data.status}</span>
+            </div>
+          </a>
+        ))}
       </div>
     </section>
   )}
@@ -54,7 +52,25 @@ const renderSoftwareCard = (item) => (
     <section class="section" aria-labelledby="software-indev-heading">
       <div class="section-label" id="software-indev-heading">In Development</div>
       <div class="games-grid">
-        {inDevelopment.map(renderSoftwareCard)}
+        {inDevelopment.map((item) => (
+          <a class="game-card" href={`/software/${item.id}/`}>
+            <div class="game-card-thumb" style={item.data.capsuleImage ? `background-image:url('${item.data.capsuleImage}');background-size:cover;background-position:center;` : ''}>
+              {!item.data.capsuleImage && <span aria-hidden="true">🛠️</span>}
+              <span class="game-card-thumb-label">{item.data.status}</span>
+            </div>
+            <div class="game-card-body">
+              <p class="game-card-genre">{item.data.genre}</p>
+              <h3 class="game-card-title">{item.data.title}</h3>
+              <p class="game-card-desc">{item.data.summary}</p>
+            </div>
+            <div class="game-card-footer">
+              <div class="platform-pills">
+                {item.data.platforms.map((p) => <span class="platform-pill">{p}</span>)}
+              </div>
+              <span class="tag tag-cyan">{item.data.status}</span>
+            </div>
+          </a>
+        ))}
       </div>
     </section>
   )}
@@ -65,7 +81,25 @@ const renderSoftwareCard = (item) => (
     <section class="section" aria-labelledby="software-unreleased-heading">
       <div class="section-label" id="software-unreleased-heading">Unreleased</div>
       <div class="games-grid">
-        {unreleased.map(renderSoftwareCard)}
+        {unreleased.map((item) => (
+          <a class="game-card" href={`/software/${item.id}/`}>
+            <div class="game-card-thumb" style={item.data.capsuleImage ? `background-image:url('${item.data.capsuleImage}');background-size:cover;background-position:center;` : ''}>
+              {!item.data.capsuleImage && <span aria-hidden="true">🛠️</span>}
+              <span class="game-card-thumb-label">{item.data.status}</span>
+            </div>
+            <div class="game-card-body">
+              <p class="game-card-genre">{item.data.genre}</p>
+              <h3 class="game-card-title">{item.data.title}</h3>
+              <p class="game-card-desc">{item.data.summary}</p>
+            </div>
+            <div class="game-card-footer">
+              <div class="platform-pills">
+                {item.data.platforms.map((p) => <span class="platform-pill">{p}</span>)}
+              </div>
+              <span class="tag tag-cyan">{item.data.status}</span>
+            </div>
+          </a>
+        ))}
       </div>
     </section>
   )}
@@ -76,7 +110,25 @@ const renderSoftwareCard = (item) => (
     <section class="section" aria-labelledby="software-projects-heading">
       <div class="section-label" id="software-projects-heading">Academic &amp; Work Projects</div>
       <div class="games-grid">
-        {projects.map(renderSoftwareCard)}
+        {projects.map((item) => (
+          <a class="game-card" href={`/software/${item.id}/`}>
+            <div class="game-card-thumb" style={item.data.capsuleImage ? `background-image:url('${item.data.capsuleImage}');background-size:cover;background-position:center;` : ''}>
+              {!item.data.capsuleImage && <span aria-hidden="true">🛠️</span>}
+              <span class="game-card-thumb-label">{item.data.status}</span>
+            </div>
+            <div class="game-card-body">
+              <p class="game-card-genre">{item.data.genre}</p>
+              <h3 class="game-card-title">{item.data.title}</h3>
+              <p class="game-card-desc">{item.data.summary}</p>
+            </div>
+            <div class="game-card-footer">
+              <div class="platform-pills">
+                {item.data.platforms.map((p) => <span class="platform-pill">{p}</span>)}
+              </div>
+              <span class="tag tag-cyan">{item.data.status}</span>
+            </div>
+          </a>
+        ))}
       </div>
     </section>
   )}
@@ -88,7 +140,25 @@ const renderSoftwareCard = (item) => (
       <div class="section-label" id="software-experiments-heading">Experiments</div>
       <p style="margin-bottom:1.5rem;">Explorations and side projects.</p>
       <div class="games-grid">
-        {experiments.map(renderSoftwareCard)}
+        {experiments.map((item) => (
+          <a class="game-card" href={`/software/${item.id}/`}>
+            <div class="game-card-thumb" style={item.data.capsuleImage ? `background-image:url('${item.data.capsuleImage}');background-size:cover;background-position:center;` : ''}>
+              {!item.data.capsuleImage && <span aria-hidden="true">🔬</span>}
+              <span class="game-card-thumb-label">{item.data.status}</span>
+            </div>
+            <div class="game-card-body">
+              <p class="game-card-genre">{item.data.genre}</p>
+              <h3 class="game-card-title">{item.data.title}</h3>
+              <p class="game-card-desc">{item.data.summary}</p>
+            </div>
+            <div class="game-card-footer">
+              <div class="platform-pills">
+                {item.data.platforms.map((p) => <span class="platform-pill">{p}</span>)}
+              </div>
+              <span class="tag tag-cyan">{item.data.status}</span>
+            </div>
+          </a>
+        ))}
       </div>
     </section>
   )}

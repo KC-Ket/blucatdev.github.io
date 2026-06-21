@@ -57,6 +57,18 @@
     "youtubeId": {
       "type": "string"
     },
+    "youtubeIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "screenshots": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "featured": {
       "default": false,
       "type": "boolean"

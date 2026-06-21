@@ -11,26 +11,6 @@ const inDevelopment = allGames.filter((g) => g.data.status === 'In Development' 
 const unreleased = allGames.filter((g) => g.data.status === 'Unreleased' && !g.data.category);
 const jams = allGames.filter((g) => g.data.category === 'Jam');
 const experiments = allGames.filter((g) => g.data.category === 'Experiment');
-
-const renderGameCard = (game) => (
-  <a class="game-card" href={`/games/${game.id}/`}>
-    <div class="game-card-thumb" style={game.data.capsuleImage ? `background-image:url('${game.data.capsuleImage}');background-size:cover;background-position:center;` : ''}>
-      {!game.data.capsuleImage && <span aria-hidden="true">🎮</span>}
-      <span class="game-card-thumb-label">{game.data.status}</span>
-    </div>
-    <div class="game-card-body">
-      <p class="game-card-genre">{game.data.genre}</p>
-      <h3 class="game-card-title">{game.data.title}</h3>
-      <p class="game-card-desc">{game.data.summary}</p>
-    </div>
-    <div class="game-card-footer">
-      <div class="platform-pills">
-        {game.data.platforms.map((p) => <span class="platform-pill">{p}</span>)}
-      </div>
-      <span class="tag tag-cyan">{game.data.status}</span>
-    </div>
-  </a>
-);
 ---
 <BaseLayout title="Games" current="games" description="Released titles, works in progress, and game jam experiments from Blu Cat Dev.">
   <div class="page-header">
@@ -43,7 +23,25 @@ const renderGameCard = (game) => (
     <section class="section" aria-labelledby="games-released-heading">
       <div class="section-label" id="games-released-heading">Released</div>
       <div class="games-grid">
-        {released.map(renderGameCard)}
+        {released.map((game) => (
+          <a class="game-card" href={`/games/${game.id}/`}>
+            <div class="game-card-thumb" style={game.data.capsuleImage ? `background-image:url('${game.data.capsuleImage}');background-size:cover;background-position:center;` : ''}>
+              {!game.data.capsuleImage && <span aria-hidden="true">🎮</span>}
+              <span class="game-card-thumb-label">{game.data.status}</span>
+            </div>
+            <div class="game-card-body">
+              <p class="game-card-genre">{game.data.genre}</p>
+              <h3 class="game-card-title">{game.data.title}</h3>
+              <p class="game-card-desc">{game.data.summary}</p>
+            </div>
+            <div class="game-card-footer">
+              <div class="platform-pills">
+                {game.data.platforms.map((p) => <span class="platform-pill">{p}</span>)}
+              </div>
+              <span class="tag tag-cyan">{game.data.status}</span>
+            </div>
+          </a>
+        ))}
       </div>
     </section>
   )}
@@ -54,7 +52,25 @@ const renderGameCard = (game) => (
     <section class="section" aria-labelledby="games-indev-heading">
       <div class="section-label" id="games-indev-heading">In Development</div>
       <div class="games-grid">
-        {inDevelopment.map(renderGameCard)}
+        {inDevelopment.map((game) => (
+          <a class="game-card" href={`/games/${game.id}/`}>
+            <div class="game-card-thumb" style={game.data.capsuleImage ? `background-image:url('${game.data.capsuleImage}');background-size:cover;background-position:center;` : ''}>
+              {!game.data.capsuleImage && <span aria-hidden="true">🌿</span>}
+              <span class="game-card-thumb-label">{game.data.status}</span>
+            </div>
+            <div class="game-card-body">
+              <p class="game-card-genre">{game.data.genre}</p>
+              <h3 class="game-card-title">{game.data.title}</h3>
+              <p class="game-card-desc">{game.data.summary}</p>
+            </div>
+            <div class="game-card-footer">
+              <div class="platform-pills">
+                {game.data.platforms.map((p) => <span class="platform-pill">{p}</span>)}
+              </div>
+              <span class="tag tag-cyan">{game.data.status}</span>
+            </div>
+          </a>
+        ))}
       </div>
     </section>
   )}
@@ -65,7 +81,25 @@ const renderGameCard = (game) => (
     <section class="section" aria-labelledby="games-unreleased-heading">
       <div class="section-label" id="games-unreleased-heading">Unreleased</div>
       <div class="games-grid">
-        {unreleased.map(renderGameCard)}
+        {unreleased.map((game) => (
+          <a class="game-card" href={`/games/${game.id}/`}>
+            <div class="game-card-thumb" style={game.data.capsuleImage ? `background-image:url('${game.data.capsuleImage}');background-size:cover;background-position:center;` : ''}>
+              {!game.data.capsuleImage && <span aria-hidden="true">🎮</span>}
+              <span class="game-card-thumb-label">{game.data.status}</span>
+            </div>
+            <div class="game-card-body">
+              <p class="game-card-genre">{game.data.genre}</p>
+              <h3 class="game-card-title">{game.data.title}</h3>
+              <p class="game-card-desc">{game.data.summary}</p>
+            </div>
+            <div class="game-card-footer">
+              <div class="platform-pills">
+                {game.data.platforms.map((p) => <span class="platform-pill">{p}</span>)}
+              </div>
+              <span class="tag tag-cyan">{game.data.status}</span>
+            </div>
+          </a>
+        ))}
       </div>
     </section>
   )}
@@ -77,7 +111,25 @@ const renderGameCard = (game) => (
       <div class="section-label" id="games-jams-heading">Game Jams</div>
       <p style="margin-bottom:1.5rem;">Quick builds, big ideas.</p>
       <div class="games-grid">
-        {jams.map(renderGameCard)}
+        {jams.map((game) => (
+          <a class="game-card" href={`/games/${game.id}/`}>
+            <div class="game-card-thumb" style={game.data.capsuleImage ? `background-image:url('${game.data.capsuleImage}');background-size:cover;background-position:center;` : ''}>
+              {!game.data.capsuleImage && <span aria-hidden="true">🎲</span>}
+              <span class="game-card-thumb-label">{game.data.status}</span>
+            </div>
+            <div class="game-card-body">
+              <p class="game-card-genre">{game.data.genre}</p>
+              <h3 class="game-card-title">{game.data.title}</h3>
+              <p class="game-card-desc">{game.data.summary}</p>
+            </div>
+            <div class="game-card-footer">
+              <div class="platform-pills">
+                {game.data.platforms.map((p) => <span class="platform-pill">{p}</span>)}
+              </div>
+              <span class="tag tag-cyan">{game.data.status}</span>
+            </div>
+          </a>
+        ))}
       </div>
     </section>
   )}
@@ -89,7 +141,25 @@ const renderGameCard = (game) => (
       <div class="section-label" id="games-experiments-heading">Experiments</div>
       <p style="margin-bottom:1.5rem;">Side projects and explorations.</p>
       <div class="games-grid">
-        {experiments.map(renderGameCard)}
+        {experiments.map((game) => (
+          <a class="game-card" href={`/games/${game.id}/`}>
+            <div class="game-card-thumb" style={game.data.capsuleImage ? `background-image:url('${game.data.capsuleImage}');background-size:cover;background-position:center;` : ''}>
+              {!game.data.capsuleImage && <span aria-hidden="true">🔬</span>}
+              <span class="game-card-thumb-label">{game.data.status}</span>
+            </div>
+            <div class="game-card-body">
+              <p class="game-card-genre">{game.data.genre}</p>
+              <h3 class="game-card-title">{game.data.title}</h3>
+              <p class="game-card-desc">{game.data.summary}</p>
+            </div>
+            <div class="game-card-footer">
+              <div class="platform-pills">
+                {game.data.platforms.map((p) => <span class="platform-pill">{p}</span>)}
+              </div>
+              <span class="tag tag-cyan">{game.data.status}</span>
+            </div>
+          </a>
+        ))}
       </div>
     </section>
   )}

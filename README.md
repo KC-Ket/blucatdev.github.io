@@ -80,20 +80,123 @@ A Bluesky icon (`icon-bluesky.svg`) was also added but is **not yet linked** —
 isn't active. The handle is saved in a comment in `Footer.astro`
 (`https://bsky.app/profile/blucatdev.bsky.social`) ready to uncomment once it's live.
 
-### Game capsule images — Cat Pong & Elgem TD done, For The Nuts outstanding
+### Game assets
 
-Capsule art lives in `public/assets/images/games/` and is wired up via the `capsuleImage`
-field in each game's frontmatter (`src/content/games/*.md`).
+**Capsule images**
 
-| File | Game | Status |
-|------|------|--------|
-| `elgem-td-capsule.png` | Elgem TD | ✅ added & hooked up |
-| `cat-pong-capsule.png` | Cat Pong | ✅ added & hooked up |
-| `for-the-nuts-capsule.png` | For The Nuts | ⬜ still needed — **460 × 215 px** landscape. Once added, set in `src/content/games/for-the-nuts.md`: `capsuleImage: "/assets/images/games/for-the-nuts-capsule.png"` |
+Capsule art (the cover/thumbnail for game cards) lives in `public/assets/images/games/` and is wired up via the `capsuleImage` field in each game's frontmatter (`src/content/games/*.md`).
 
-The image automatically appears on the game card (Games page + homepage preview) and at the
-top of the individual game page once `capsuleImage` is set. The placeholder emoji disappears
-at the same time.
+Naming convention: `<game-slug>-capsule.png` (e.g., `elgem-td-capsule.png`)
+
+Size: **460 × 215 px** (landscape, 2.14:1 ratio)
+
+How to add:
+1. Save the capsule image to `public/assets/images/games/` with the naming convention above
+2. In the game's markdown file (`src/content/games/<slug>.md`), add to frontmatter:
+   ```yaml
+   capsuleImage: "/assets/images/games/<game-slug>-capsule.png"
+   ```
+3. The image appears on:
+   - Game card (Games page + homepage preview)
+   - Top of individual game page
+   - The placeholder emoji (🎮) disappears once the image is set
+
+**Screenshots**
+
+Game screenshots are displayed on the individual game page in a "Screenshots" section below the main description.
+
+Storage: `public/assets/images/games/<game-slug>/`
+
+Naming convention: `screenshot-1.png`, `screenshot-2.png`, etc. (numbered sequentially)
+
+How to add:
+1. Create a folder `public/assets/images/games/<game-slug>/` (if it doesn't exist)
+2. Save screenshots as `screenshot-1.png`, `screenshot-2.png`, etc.
+3. In the game's markdown file (`src/content/games/<slug>.md`), add a field in frontmatter:
+   ```yaml
+   screenshots:
+     - "/assets/images/games/<game-slug>/screenshot-1.png"
+     - "/assets/images/games/<game-slug>/screenshot-2.png"
+   ```
+4. Screenshots display in the order listed on the individual game page
+
+**Videos**
+
+Game videos (trailers, gameplay footage, etc.) are embedded from YouTube on the individual game page in a "Videos" section.
+
+How to add:
+1. Upload your video to YouTube and get the video ID (the part after `v=` in the URL)
+2. In the game's markdown file (`src/content/games/<slug>.md`), add to frontmatter:
+   ```yaml
+   youtubeId: "dQw4w9WgXcQ"
+   ```
+3. The YouTube video embeds at the top of the game's main content area
+4. To add multiple videos, use a comma-separated list or array:
+   ```yaml
+   youtubeIds:
+     - "dQw4w9WgXcQ"
+     - "9bZkp7q19f0"
+   ```
+
+### Software assets
+
+**Capsule images**
+
+Software capsules follow the same pattern as game capsules. They live in `public/assets/images/software/`.
+
+Naming convention: `<software-slug>-capsule.png`
+
+Size: **460 × 215 px** (same as games)
+
+How to add:
+1. Save the capsule image to `public/assets/images/software/` with the naming convention above
+2. In the software's markdown file (`src/content/software/<slug>.md`), add to frontmatter:
+   ```yaml
+   capsuleImage: "/assets/images/software/<software-slug>-capsule.png"
+   ```
+
+**Screenshots**
+
+Storage: `public/assets/images/software/<software-slug>/`
+
+Naming convention: `screenshot-1.png`, `screenshot-2.png`, etc.
+
+How to add:
+1. Create a folder `public/assets/images/software/<software-slug>/` (if it doesn't exist)
+2. Save screenshots with the naming convention above
+3. In the software's markdown file, add to frontmatter:
+   ```yaml
+   screenshots:
+     - "/assets/images/software/<software-slug>/screenshot-1.png"
+     - "/assets/images/software/<software-slug>/screenshot-2.png"
+   ```
+
+**Videos**
+
+Same as games — use YouTube video IDs in the `youtubeId` or `youtubeIds` field.
+
+### Blog post images
+
+Blog post images are stored in `public/assets/images/blog/` and can be embedded directly in the markdown content.
+
+Storage: `public/assets/images/blog/`
+
+Naming convention: `<blog-slug>-<description>.png` (e.g., `my-dev-diary-header.png`)
+
+How to add:
+1. Save images to `public/assets/images/blog/`
+2. In your blog post markdown (`src/content/blog/<slug>.md`), embed using standard markdown:
+   ```markdown
+   ![Alt text for image](/assets/images/blog/my-dev-diary-header.png)
+   ```
+3. The image displays inline in the blog post text
+
+To add a hero/cover image that appears at the top of the post, add to frontmatter:
+```yaml
+coverImage: "/assets/images/blog/my-dev-diary-header.png"
+```
+
+Note: The cover image field is optional and currently used for display on blog cards and individual post pages.
 
 ## RSS & social auto-posting
 
