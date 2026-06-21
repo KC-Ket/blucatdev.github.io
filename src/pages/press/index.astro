@@ -2,11 +2,29 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const kitEntries = (await getCollection('press', ({ data }) => !data.draft))
-  .sort((a, b) => a.data.order - b.data.order);
+const kitEntries = (await getCollection('press', ({ data }) => !data.draft));
+const games = await getCollection('games', ({ data }) => !data.draft);
+
+// Create a map of game data by title for easy lookup
+const gameMap = new Map(games.map(g => [g.data.title, g.data]));
+
+// Sort: order field first, then alphabetically by title
+const sortedEntries = kitEntries.sort((a, b) => {
+  if (a.data.order !== b.data.order) {
+    return a.data.order - b.data.order;
+  }
+  return a.data.title.localeCompare(b.data.title);
+});
 
 const kits = await Promise.all(
-  kitEntries.map(async (kit) => ({ data: kit.data, Content: (await render(kit)).Content }))
+  sortedEntries.map(async (kit) => {
+    const gameData = gameMap.get(kit.data.title);
+    return {
+      data: kit.data,
+      gameData: gameData,
+      Content: (await render(kit)).Content
+    };
+  })
 );
 ---
 <BaseLayout title="Press Kit" current="press" description="Press kits, assets, and contact details for Blu Cat Dev games and software.">
@@ -35,41 +53,66 @@ const kits = await Promise.all(
 
     {kits.length > 0 && <div class="section-label" style="margin-bottom:1rem;">Press Kits — By Game</div>}
 
-    {kits.map((kit) => (
-      <div class="presskit-card" style="margin-bottom:1rem;">
-        <div class="presskit-header">
-          <div>
-            <h3>{kit.data.title}</h3>
-            <span class={`tag ${kit.data.status === 'Released' ? 'tag-silver' : 'tag-wip'}`} style="margin-top:0.25rem;display:inline-block;">{kit.data.status}</span>
-          </div>
-          {kit.data.downloadZipUrl ? (
-            <a href={kit.data.downloadZipUrl} class="btn btn-primary btn-sm" download>Download Full Press Kit .zip</a>
-          ) : (
-            <a href="mailto:blucatdev@gmail.com" class="btn btn-secondary btn-sm">Early Assets on Request</a>
-          )}
-        </div>
-        <div class="presskit-body">
-          <div class="fact-sheet">
-            <div class="fact-row"><p class="fact-label">Developer</p><p class="fact-value">{kit.data.developer}</p></div>
-            {kit.data.genre && <div class="fact-row"><p class="fact-label">Genre</p><p class="fact-value">{kit.data.genre}</p></div>}
-            {kit.data.platforms && <div class="fact-row"><p class="fact-label">Platforms</p><p class="fact-value">{kit.data.platforms}</p></div>}
-            {kit.data.releaseDate && <div class="fact-row"><p class="fact-label">Release Date</p><p class="fact-value">{kit.data.releaseDate}</p></div>}
-            {kit.data.price && <div class="fact-row"><p class="fact-label">Price</p><p class="fact-value">{kit.data.price}</p></div>}
-            <div class="fact-row"><p class="fact-label">Engine</p><p class="fact-value">{kit.data.engine}</p></div>
-          </div>
-          {kit.data.assets.length > 0 && (
-            <div class="press-assets">
-              {kit.data.assets.map((asset) => (
-                <a href={asset.url} class="btn btn-secondary btn-sm">{asset.label}</a>
-              ))}
+    {kits.map((kit) => {
+      const platformsList = kit.gameData?.platforms || (kit.data.platforms ? kit.data.platforms.split(',').map(p => p.trim()) : []);
+      return (
+        <div class="presskit-card presskit-collapsible" style="margin-bottom:1rem;">
+          <button class="presskit-header-toggle" aria-expanded="false" style="width:100%;text-align:left;background:none;border:none;padding:0;cursor:pointer;">
+            <div class="presskit-header" style="padding:1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+              <div style="flex:1;min-width:300px;">
+                <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;margin-bottom:0.5rem;">
+                  <h3 style="margin:0;">{kit.data.title}</h3>
+                  <span class={`tag ${kit.data.status === 'Released' ? 'tag-silver' : 'tag-cyan'}`}>{kit.data.status}</span>
+                  {kit.data.genre && <span style="font-size:0.75rem;color:var(--text-muted);">{kit.data.genre}</span>}
+                </div>
+                {platformsList.length > 0 && (
+                  <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
+                    {platformsList.map((p) => <span class="platform-pill">{p}</span>)}
+                  </div>
+                )}
+              </div>
+              <div style="flex-shrink:0;">
+                <span style="font-size:1.2rem;color:var(--text-muted);">▼</span>
+              </div>
             </div>
-          )}
-          <div class="about-story" style="margin-top:1rem;">
-            <kit.Content />
+          </button>
+          <div class="presskit-body" style="display:none;padding:1.5rem;border-top:1px solid var(--border);">
+            <div class="fact-sheet">
+              <div class="fact-row"><p class="fact-label">Developer</p><p class="fact-value">{kit.data.developer}</p></div>
+              {kit.data.genre && <div class="fact-row"><p class="fact-label">Genre</p><p class="fact-value">{kit.data.genre}</p></div>}
+              {platformsList.length > 0 && <div class="fact-row"><p class="fact-label">Platforms</p><p class="fact-value">{platformsList.join(', ')}</p></div>}
+              {kit.data.releaseDate && <div class="fact-row"><p class="fact-label">Release Date</p><p class="fact-value">{kit.data.releaseDate}</p></div>}
+              {kit.data.price && <div class="fact-row"><p class="fact-label">Price</p><p class="fact-value">{kit.data.price}</p></div>}
+              <div class="fact-row"><p class="fact-label">Engine</p><p class="fact-value">{kit.data.engine}</p></div>
+              <div class="fact-row"><p class="fact-label">Distribution</p><p class="fact-value" style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+                {kit.gameData?.storeUrl && (
+                  <a href={kit.gameData.storeUrl} target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:0.4rem;color:var(--text-muted);text-decoration:none;">
+                    <img src="/assets/images/icons/icon-steam.svg" alt="Steam" style="width:16px;height:16px;" />
+                    <span>Steam</span>
+                  </a>
+                )}
+                {kit.gameData?.itchUrl && (
+                  <a href={kit.gameData.itchUrl} target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:0.4rem;color:var(--text-muted);text-decoration:none;">
+                    <img src="/assets/images/icons/icon-itch.svg" alt="Itch.io" style="width:16px;height:16px;" />
+                    <span>Itch.io</span>
+                  </a>
+                )}
+              </p></div>
+            </div>
+            {kit.data.assets.length > 0 && (
+              <div class="press-assets">
+                {kit.data.assets.map((asset) => (
+                  <a href={asset.url} class="btn btn-secondary btn-sm">{asset.label}</a>
+                ))}
+              </div>
+            )}
+            <div class="about-story" style="margin-top:1rem;">
+              <kit.Content />
+            </div>
           </div>
         </div>
-      </div>
-    ))}
+      );
+    })}
 
     {kits.length === 0 && (
       <div class="wip-placeholder">
@@ -77,6 +120,25 @@ const kits = await Promise.all(
         <p>Add a markdown file to <code>src/content/press/</code> to get started.</p>
       </div>
     )}
+
+    <script>
+      document.querySelectorAll('.presskit-header-toggle').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const card = btn.closest('.presskit-collapsible');
+          const body = card.querySelector('.presskit-body');
+          const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+
+          btn.setAttribute('aria-expanded', String(!isExpanded));
+          body.style.display = isExpanded ? 'none' : 'block';
+
+          const chevron = btn.querySelector('span');
+          if (chevron) {
+            chevron.style.transform = isExpanded ? 'rotate(0deg)' : 'rotate(180deg)';
+            chevron.style.transition = 'transform 0.2s ease';
+          }
+        });
+      });
+    </script>
 
     <div class="section-label" style="margin:2rem 0 1rem;">Notable Coverage</div>
     <div class="wip-placeholder" style="margin-bottom:1.5rem;">

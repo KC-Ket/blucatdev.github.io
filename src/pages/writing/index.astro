@@ -30,7 +30,7 @@ const poems = (await getCollection('poems', ({ data }) => !data.draft))
         <div class="blog-grid">
           {posts.map((post) => (
             <a class="blog-card" href={`/writing/blog/${post.id}/`}>
-              {post.data.tags[0] && <span class="tag tag-ember" style="margin-bottom:0.75rem;">{post.data.tags[0]}</span>}
+              <span class="tag tag-cyan" style="margin-bottom:0.75rem;">Blog</span>
               <h3 class="blog-card-title">{post.data.title}</h3>
               <p class="blog-card-excerpt">{post.data.summary}</p>
               {post.data.externalUrl && <p class="blog-ext-link">↗ Also published externally →</p>}

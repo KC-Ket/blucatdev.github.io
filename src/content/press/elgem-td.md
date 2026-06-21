@@ -3,7 +3,7 @@ title: "Elgem TD"
 status: "In Development"
 developer: "Blu Cat Dev"
 genre: "Tower Defense · Strategy"
-platforms: "PC (TBC)"
+platforms: "PC"
 releaseDate: "TBA"
 engine: "Unity"
 order: 1
