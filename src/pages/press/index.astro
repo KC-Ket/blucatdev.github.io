@@ -78,7 +78,7 @@ const kits = await Promise.all(
           </button>
           <div class="presskit-body" style="display:none;padding:1.5rem;border-top:1px solid var(--border);">
             <div class="fact-sheet">
-              <div class="fact-row"><p class="fact-label">Developer</p><p class="fact-value">{kit.data.developer}</p></div>
+              <div class="fact-row"><p class="fact-label">Developer/Publisher</p><p class="fact-value">{kit.data.developer}</p></div>
               {kit.data.genre && <div class="fact-row"><p class="fact-label">Genre</p><p class="fact-value">{kit.data.genre}</p></div>}
               {platformsList.length > 0 && <div class="fact-row"><p class="fact-label">Platforms</p><p class="fact-value">{platformsList.join(', ')}</p></div>}
               {kit.data.releaseDate && <div class="fact-row"><p class="fact-label">Release Date</p><p class="fact-value">{kit.data.releaseDate}</p></div>}
@@ -104,21 +104,16 @@ const kits = await Promise.all(
                 <p>{kit.gameData?.pressSummary || kit.gameData?.summary}</p>
               </div>
             )}
-            <div class="about-story" style="margin-top:1.5rem;">
-              <kit.Content />
-            </div>
-            {(() => {
-              const pressLink = kit.gameData?.pressLink || kit.gameData?.storeUrl || kit.gameData?.itchUrl;
-              return (
-                <div style="margin-top:1.5rem;">
-                  {pressLink ? (
-                    <a href={pressLink} class="btn btn-secondary btn-sm" target="_blank" rel="noopener noreferrer">Press Kit Assets</a>
-                  ) : (
-                    <p style="font-size:0.85rem;color:var(--text-muted);">Assets available on request — contact blucatdev@gmail.com</p>
-                  )}
-                </div>
-              );
-            })()}
+            {kit.gameData?.pressLink && (
+              <div style="margin-top:1.5rem;">
+                <a href={kit.gameData.pressLink} class="btn btn-secondary btn-sm" target="_blank" rel="noopener noreferrer">Press Kit Assets</a>
+              </div>
+            )}
+            {!kit.gameData?.pressLink && (
+              <div style="margin-top:1.5rem;">
+                <p style="font-size:0.85rem;color:var(--text-muted);">Assets available on request — contact blucatdev@gmail.com</p>
+              </div>
+            )}
           </div>
         </div>
       );
