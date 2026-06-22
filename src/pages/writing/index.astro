@@ -179,7 +179,7 @@ const poems = [...poemFeatured, ...poemOther];
     function filterAndSortPoetry() {
       const searchTerm = (poetrySearch as HTMLInputElement).value.toLowerCase();
       const sortValue = (poetrySort as HTMLSelectElement).value;
-      let items = Array.from(poetryList.querySelectorAll('.writing-item'));
+      let items = Array.from(poetryList.querySelectorAll('.blog-card'));
 
       // Filter
       items = items.filter(item => {
