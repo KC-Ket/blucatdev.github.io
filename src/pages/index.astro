@@ -25,6 +25,9 @@ const featuredWritings = allWritings.filter(w => w.item.data.featured).sort((a, 
 const otherWritings = allWritings.filter(w => !w.item.data.featured).sort((a, b) => b.item.data.date.valueOf() - a.item.data.date.valueOf());
 const selectedWritings = [...featuredWritings, ...otherWritings].slice(0, 3);
 
+// Writing hero: featured writing first, or latest blog post
+const writingHero = featuredWritings[0] || (blogPosts.length > 0 ? { type: 'blog' as const, item: blogPosts[0] } : null);
+
 // Games: featured (ascending), released+standard (alphabetical), released+other (alphabetical)
 const portfolioFeatured = games.filter(g => g.data.featured).sort((a, b) => a.data.featuredOrder - b.data.featuredOrder);
 const portfolioReleasedStandard = games.filter(g => !g.data.featured && g.data.status === 'Released' && !g.data.category).sort((a, b) => a.data.title.localeCompare(b.data.title));
@@ -109,23 +112,23 @@ const heroStyle = featured?.data.bgImage
               </div>
             </div>
             {featured.data.capsuleImage && (
-              <div style={`flex-shrink:0;width:100px;height:140px;border-radius:var(--radius-sm);overflow:hidden;background-size:cover;background-position:center;background-image:url('${featured.data.capsuleImage}');`}></div>
+              <div style={`flex-shrink:0;width:120px;height:75px;border-radius:var(--radius-sm);overflow:hidden;background-size:contain;background-position:center;background-repeat:no-repeat;background-image:url('${featured.data.capsuleImage}');`}></div>
             )}
           </a>
         )}
-        {selectedWritings.length > 0 && selectedWritings[0].type === 'blog' && (
-          <a class="hero-card" href={`/writing/blog/${selectedWritings[0].item.id}/`} style="display:flex;gap:1rem;text-decoration:none;">
+        {writingHero && (
+          <a class="hero-card" href={`/writing/${writingHero.type}/${writingHero.item.id}/`} style="display:flex;gap:1rem;text-decoration:none;">
             <div style="flex:1;min-width:0;">
-              <p class="hero-card-label">Latest from the Blog</p>
-              <p class="hero-card-title">{selectedWritings[0].item.data.title}</p>
-              <p class="hero-card-desc" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">{selectedWritings[0].item.data.summary}</p>
+              <p class="hero-card-label">{writingHero.type === 'blog' ? 'Latest from the Blog' : 'Featured Poem'}</p>
+              <p class="hero-card-title">{writingHero.item.data.title}</p>
+              <p class="hero-card-desc" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">{writingHero.item.data.summary || writingHero.item.body.slice(0, 150)}</p>
               <div style="margin-top:0.75rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
-                <span class="tag tag-cyan">BLOG</span>
-                <span class="tag tag-silver">{selectedWritings[0].item.data.date.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                <span class="tag tag-cyan">{writingHero.type === 'blog' ? 'BLOG' : 'POEM'}</span>
+                <span class="tag tag-silver">{writingHero.item.data.date.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
               </div>
             </div>
-            {selectedWritings[0].item.data.coverImage && (
-              <div style={`flex-shrink:0;width:100px;height:140px;border-radius:var(--radius-sm);overflow:hidden;background-size:cover;background-position:center;background-image:url('${selectedWritings[0].item.data.coverImage}');`}></div>
+            {writingHero.type === 'blog' && writingHero.item.data.coverImage && (
+              <div style={`flex-shrink:0;width:120px;height:75px;border-radius:var(--radius-sm);overflow:hidden;background-size:contain;background-position:center;background-repeat:no-repeat;background-image:url('${writingHero.item.data.coverImage}');`}></div>
             )}
           </a>
         )}

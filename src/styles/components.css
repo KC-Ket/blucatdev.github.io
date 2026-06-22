@@ -61,6 +61,45 @@
 }
 
 /* ══════════════════════════════════════════
+   SELECT / DROPDOWNS
+   ══════════════════════════════════════════ */
+
+select {
+  background: rgba(31, 99, 157, 0.15);
+  border: 1px solid var(--border-light);
+  color: var(--text-primary);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 0.55rem 0.9rem;
+  outline: none;
+  transition: border-color var(--transition), background var(--transition);
+  cursor: pointer;
+}
+
+select:hover {
+  background: rgba(31, 99, 157, 0.25);
+  border-color: var(--cyan);
+}
+
+select:focus {
+  background: rgba(31, 99, 157, 0.25);
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 2px rgba(31, 198, 226, 0.2);
+}
+
+select option {
+  background: var(--bg-darker);
+  color: var(--text-primary);
+  padding: 0.5rem;
+}
+
+select option:checked {
+  background: rgba(31, 198, 226, 0.3);
+  color: var(--cyan);
+}
+
+/* ══════════════════════════════════════════
    NAVIGATION
    ══════════════════════════════════════════ */
 

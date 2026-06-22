@@ -34,7 +34,7 @@ const poems = [...poemFeatured, ...poemOther];
       </div>
       <div style="display:flex;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap;align-items:center;">
         <input type="text" id="blog-search" placeholder="Search by title, tag, or content..." style="flex:1;min-width:200px;background:rgba(255,255,255,0.04);border:1px solid var(--ember-border);color:var(--text-primary);border-radius:var(--radius-sm);font-family:var(--font-mono);font-size:0.75rem;padding:0.55rem 0.9rem;outline:none;transition:border-color var(--transition);" />
-        <select id="blog-sort" style="background:rgba(255,255,255,0.04);border:1px solid var(--ember-border);color:var(--text-primary);border-radius:var(--radius-sm);font-family:var(--font-mono);font-size:0.75rem;padding:0.55rem 0.9rem;outline:none;transition:border-color var(--transition);cursor:pointer;">
+        <select id="blog-sort">
           <option value="default">Default</option>
           <option value="a-z">A-Z</option>
           <option value="z-a">Z-A</option>
@@ -71,7 +71,7 @@ const poems = [...poemFeatured, ...poemOther];
       </div>
       <div style="display:flex;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap;align-items:center;">
         <input type="text" id="poetry-search" placeholder="Search by title, tag, or content..." style="flex:1;min-width:200px;background:rgba(255,255,255,0.04);border:1px solid var(--ember-border);color:var(--text-primary);border-radius:var(--radius-sm);font-family:var(--font-mono);font-size:0.75rem;padding:0.55rem 0.9rem;outline:none;transition:border-color var(--transition);" />
-        <select id="poetry-sort" style="background:rgba(255,255,255,0.04);border:1px solid var(--ember-border);color:var(--text-primary);border-radius:var(--radius-sm);font-family:var(--font-mono);font-size:0.75rem;padding:0.55rem 0.9rem;outline:none;transition:border-color var(--transition);cursor:pointer;">
+        <select id="poetry-sort">
           <option value="default">Default</option>
           <option value="a-z">A-Z</option>
           <option value="z-a">Z-A</option>
