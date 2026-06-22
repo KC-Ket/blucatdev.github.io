@@ -19,8 +19,9 @@ const { Content } = await render(item);
     <h1>{item.data.title}</h1>
     <p>{item.data.summary}</p>
     <div style="margin-top:1rem;display:flex;gap:0.6rem;flex-wrap:wrap;align-items:center;">
-      <span class={`tag ${item.data.status === 'Released' ? 'tag-silver' : 'tag-wip'}`}>{item.data.status}</span>
-      {item.data.platforms.map((p) => <span class="platform-pill">{p}</span>)}
+      <span class={`tag ${item.data.status === 'Released' ? 'tag-silver' : 'tag-wip'}`}>{item.data.status.toUpperCase()}</span>
+      {item.data.category && <span class="tag tag-ember">{item.data.category.toUpperCase()}</span>}
+      {item.data.platforms.map((p) => <span class="platform-pill">{p.toUpperCase()}</span>)}
     </div>
     <div style="margin-top:1.25rem;display:flex;gap:0.75rem;flex-wrap:wrap;">
       {item.data.storeUrl && (

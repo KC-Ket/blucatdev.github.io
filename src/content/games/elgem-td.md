@@ -9,6 +9,7 @@ storeUrl: "https://store.steampowered.com/app/3304610/Elgem_TD/"
 capsuleImage: "/assets/images/games/elgem-td-capsule.png"
 featured: true
 featuredOrder: 1
+pressKitAvailable: false
 draft: false
 ---
 

@@ -8,11 +8,11 @@ const projectFields = {
   summary: z.string(),
   description: z.string().optional(),
   pressSummary: z.string().optional(),
-  pressLink: z.string().optional(),
+  pressUrl: z.string().optional(),
   genre: z.string().optional(),
   platforms: z.array(z.string()).default([]),
   status: z.enum(['Released', 'In Development', 'Unreleased']).default('In Development'),
-  category: z.enum(['Jam', 'Experiment', 'Project']).optional(),
+  category: z.enum(['Other']).optional(),
   capsuleImage: z.string().optional(),
   bgImage: z.string().optional(),
   storeUrl: z.string().optional(),
@@ -22,6 +22,7 @@ const projectFields = {
   screenshots: z.array(z.string()).optional(),
   featured: z.boolean().default(false),
   featuredOrder: z.number().default(0),
+  pressKitAvailable: z.boolean().default(false),
   draft: z.boolean().default(false),
 };
 
@@ -44,6 +45,8 @@ const poems = defineCollection({
     tags: z.array(z.string()).default([]),
     venue: z.string().optional(),
     venueUrl: z.string().optional(),
+    featured: z.boolean().default(false),
+    featuredOrder: z.number().default(0),
     draft: z.boolean().default(false),
   }),
 });
@@ -57,6 +60,8 @@ const blog = defineCollection({
     tags: z.array(z.string()).default([]),
     externalUrl: z.string().optional(),
     coverImage: z.string().optional(),
+    featured: z.boolean().default(false),
+    featuredOrder: z.number().default(0),
     draft: z.boolean().default(false),
   }),
 });

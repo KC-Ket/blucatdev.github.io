@@ -8,6 +8,8 @@ tags:
   - help
   - kind
   - kindness
+featured: false
+featuredOrder: 0
 draft: false
 ---
 Be the hand of a hopeful stranger,\

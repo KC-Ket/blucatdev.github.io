@@ -2,15 +2,19 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const allGames = (await getCollection('games', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const allGames = (await getCollection('games', ({ data }) => !data.draft));
 
-// Organize by status and category
-const released = allGames.filter((g) => g.data.status === 'Released' && !g.data.category);
-const inDevelopment = allGames.filter((g) => g.data.status === 'In Development' && !g.data.category);
-const unreleased = allGames.filter((g) => g.data.status === 'Unreleased' && !g.data.category);
-const jams = allGames.filter((g) => g.data.category === 'Jam');
-const experiments = allGames.filter((g) => g.data.category === 'Experiment');
+// Organize by status and category - with default sorting: featured (ascending), then alphabetical
+const sortGamesDefault = (games: typeof allGames) => {
+  const featured = games.filter(g => g.data.featured).sort((a, b) => a.data.featuredOrder - b.data.featuredOrder);
+  const notFeatured = games.filter(g => !g.data.featured).sort((a, b) => a.data.title.localeCompare(b.data.title));
+  return [...featured, ...notFeatured];
+};
+
+const released = sortGamesDefault(allGames.filter((g) => g.data.status === 'Released' && !g.data.category));
+const inDevelopment = sortGamesDefault(allGames.filter((g) => g.data.status === 'In Development' && !g.data.category));
+const unreleased = sortGamesDefault(allGames.filter((g) => g.data.status === 'Unreleased' && !g.data.category));
+const other = sortGamesDefault(allGames.filter((g) => g.data.category === 'Other'));
 ---
 <BaseLayout title="Games" current="games" description="Released titles, works in progress, and game jam experiments from Blu Cat Dev.">
   <div class="page-header">
@@ -35,9 +39,10 @@ const experiments = allGames.filter((g) => g.data.category === 'Experiment');
             </div>
             <div class="game-card-footer">
               <div class="platform-pills">
-                {game.data.platforms.map((p) => <span class="platform-pill">{p}</span>)}
+                {game.data.platforms.map((p) => <span class="platform-pill">{p.toUpperCase()}</span>)}
               </div>
-              <span class="tag tag-cyan">{game.data.status}</span>
+              <span class="tag tag-cyan">{game.data.status.toUpperCase()}</span>
+              {game.data.category && <span class="tag tag-ember">{game.data.category.toUpperCase()}</span>}
             </div>
           </a>
         ))}
@@ -63,9 +68,10 @@ const experiments = allGames.filter((g) => g.data.category === 'Experiment');
             </div>
             <div class="game-card-footer">
               <div class="platform-pills">
-                {game.data.platforms.map((p) => <span class="platform-pill">{p}</span>)}
+                {game.data.platforms.map((p) => <span class="platform-pill">{p.toUpperCase()}</span>)}
               </div>
-              <span class="tag tag-cyan">{game.data.status}</span>
+              <span class="tag tag-cyan">{game.data.status.toUpperCase()}</span>
+              {game.data.category && <span class="tag tag-ember">{game.data.category.toUpperCase()}</span>}
             </div>
           </a>
         ))}
@@ -91,9 +97,10 @@ const experiments = allGames.filter((g) => g.data.category === 'Experiment');
             </div>
             <div class="game-card-footer">
               <div class="platform-pills">
-                {game.data.platforms.map((p) => <span class="platform-pill">{p}</span>)}
+                {game.data.platforms.map((p) => <span class="platform-pill">{p.toUpperCase()}</span>)}
               </div>
-              <span class="tag tag-cyan">{game.data.status}</span>
+              <span class="tag tag-cyan">{game.data.status.toUpperCase()}</span>
+              {game.data.category && <span class="tag tag-ember">{game.data.category.toUpperCase()}</span>}
             </div>
           </a>
         ))}
@@ -101,17 +108,17 @@ const experiments = allGames.filter((g) => g.data.category === 'Experiment');
     </section>
   )}
 
-  {jams.length > 0 && (released.length > 0 || inDevelopment.length > 0 || unreleased.length > 0) && <hr class="divider" />}
+  {other.length > 0 && (released.length > 0 || inDevelopment.length > 0 || unreleased.length > 0) && <hr class="divider" />}
 
-  {jams.length > 0 && (
-    <section class="section" aria-labelledby="games-jams-heading">
-      <div class="section-label" id="games-jams-heading">Game Jams</div>
-      <p style="margin-bottom:1.5rem;">Quick builds, big ideas.</p>
+  {other.length > 0 && (
+    <section class="section" aria-labelledby="games-other-heading">
+      <div class="section-label" id="games-other-heading">Other</div>
+      <p style="margin-bottom:1.5rem;">Smaller projects, game jam entries, and experiments.</p>
       <div class="games-grid">
-        {jams.map((game) => (
+        {other.map((game) => (
           <a class="game-card" href={`/games/${game.id}/`}>
             <div class="game-card-thumb" style={game.data.capsuleImage ? `background-image:url('${game.data.capsuleImage}');background-size:cover;background-position:center;` : ''}>
-              {!game.data.capsuleImage && <span aria-hidden="true">🎲</span>}
+              {!game.data.capsuleImage && <span aria-hidden="true">✨</span>}
             </div>
             <div class="game-card-body">
               <p class="game-card-genre">{game.data.genre}</p>
@@ -120,38 +127,10 @@ const experiments = allGames.filter((g) => g.data.category === 'Experiment');
             </div>
             <div class="game-card-footer">
               <div class="platform-pills">
-                {game.data.platforms.map((p) => <span class="platform-pill">{p}</span>)}
+                {game.data.platforms.map((p) => <span class="platform-pill">{p.toUpperCase()}</span>)}
               </div>
-              <span class="tag tag-cyan">{game.data.status}</span>
-            </div>
-          </a>
-        ))}
-      </div>
-    </section>
-  )}
-
-  {experiments.length > 0 && (released.length > 0 || inDevelopment.length > 0 || unreleased.length > 0 || jams.length > 0) && <hr class="divider" />}
-
-  {experiments.length > 0 && (
-    <section class="section" aria-labelledby="games-experiments-heading">
-      <div class="section-label" id="games-experiments-heading">Experiments</div>
-      <p style="margin-bottom:1.5rem;">Side projects and explorations.</p>
-      <div class="games-grid">
-        {experiments.map((game) => (
-          <a class="game-card" href={`/games/${game.id}/`}>
-            <div class="game-card-thumb" style={game.data.capsuleImage ? `background-image:url('${game.data.capsuleImage}');background-size:cover;background-position:center;` : ''}>
-              {!game.data.capsuleImage && <span aria-hidden="true">🔬</span>}
-            </div>
-            <div class="game-card-body">
-              <p class="game-card-genre">{game.data.genre}</p>
-              <h3 class="game-card-title">{game.data.title}</h3>
-              <p class="game-card-desc">{game.data.summary}</p>
-            </div>
-            <div class="game-card-footer">
-              <div class="platform-pills">
-                {game.data.platforms.map((p) => <span class="platform-pill">{p}</span>)}
-              </div>
-              <span class="tag tag-cyan">{game.data.status}</span>
+              <span class="tag tag-cyan">{game.data.status.toUpperCase()}</span>
+              {game.data.category && <span class="tag tag-ember">{game.data.category.toUpperCase()}</span>}
             </div>
           </a>
         ))}

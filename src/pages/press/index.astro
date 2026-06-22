@@ -3,16 +3,28 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const kitEntries = (await getCollection('press', ({ data }) => !data.draft));
-const games = await getCollection('games', ({ data }) => !data.draft);
+const games = await getCollection('games', ({ data }) => !data.draft && data.pressKitAvailable);
+const software = await getCollection('software', ({ data }) => !data.draft && data.pressKitAvailable);
 
-// Create a map of game data by title for easy lookup
+// Create a map of game/software data by title for easy lookup
 const gameMap = new Map(games.map(g => [g.data.title, g.data]));
+const softwareMap = new Map(software.map(s => [s.data.title, s.data]));
 
-// Sort: order field first, then alphabetically by title
+// Sort: featured first (ascending), then released+standard (alphabetical), released+other (alphabetical)
 const sortedEntries = kitEntries.sort((a, b) => {
-  if (a.data.order !== b.data.order) {
-    return a.data.order - b.data.order;
+  const aFeatured = gameMap.get(a.data.title)?.featured || softwareMap.get(a.data.title)?.featured || false;
+  const bFeatured = gameMap.get(b.data.title)?.featured || softwareMap.get(b.data.title)?.featured || false;
+
+  if (aFeatured !== bFeatured) {
+    return aFeatured ? -1 : 1;
   }
+
+  if (aFeatured && bFeatured) {
+    const aOrder = gameMap.get(a.data.title)?.featuredOrder || softwareMap.get(a.data.title)?.featuredOrder || 0;
+    const bOrder = gameMap.get(b.data.title)?.featuredOrder || softwareMap.get(b.data.title)?.featuredOrder || 0;
+    return aOrder - bOrder;
+  }
+
   return a.data.title.localeCompare(b.data.title);
 });
 
@@ -62,10 +74,10 @@ const kits = await Promise.all(
               <div style="flex:1;min-width:300px;">
                 <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;margin-bottom:0.5rem;">
                   <h3 style="margin:0;">{kit.data.title}</h3>
-                  <span class="tag tag-cyan">{kit.gameData?.status || kit.data.status}</span>
+                  <span class="tag tag-cyan">{(kit.gameData?.status || kit.data.status).toUpperCase()}</span>
                   {platformsList.length > 0 && (
                     <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
-                      {platformsList.map((p) => <span class="platform-pill">{p}</span>)}
+                      {platformsList.map((p) => <span class="platform-pill">{p.toUpperCase()}</span>)}
                     </div>
                   )}
                   {kit.data.genre && <span style="font-size:0.75rem;color:var(--text-muted);">{kit.data.genre}</span>}
@@ -104,12 +116,12 @@ const kits = await Promise.all(
                 <p>{kit.gameData?.pressSummary || kit.gameData?.summary}</p>
               </div>
             )}
-            {kit.gameData?.pressLink && (
+            {kit.gameData?.pressUrl && (
               <div style="margin-top:1.5rem;">
-                <a href={kit.gameData.pressLink} class="btn btn-secondary btn-sm" target="_blank" rel="noopener noreferrer">Press Kit Assets</a>
+                <a href={kit.gameData.pressUrl} class="btn btn-secondary btn-sm" target="_blank" rel="noopener noreferrer">Press Kit Assets</a>
               </div>
             )}
-            {!kit.gameData?.pressLink && (
+            {!kit.gameData?.pressUrl && (
               <div style="margin-top:1.5rem;">
                 <p style="font-size:0.85rem;color:var(--text-muted);">Assets available on request — contact blucatdev@gmail.com</p>
               </div>

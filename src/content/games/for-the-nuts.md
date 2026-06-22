@@ -5,10 +5,11 @@ summary: "A game jam entry — fast-paced action/word game to collect nuts. Free
 genre: "Action"
 platforms: ["Browser"]
 status: "Released"
-category: "Jam"
+category: "Other"
 itchUrl: "https://blucatdev.itch.io/for-the-nuts"
 featured: false
 featuredOrder: 0
+pressKitAvailable: false
 draft: false
 ---
 

@@ -9,6 +9,7 @@ itchUrl: "https://blucatdev.itch.io/cat-pong"
 capsuleImage: "/assets/images/games/cat-pong-capsule.png"
 featured: false
 featuredOrder: 0
+pressKitAvailable: false
 draft: false
 ---
 

@@ -2,11 +2,17 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const posts = (await getCollection('blog', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+// Blog: featured (ascending), then date (descending)
+const blogRaw = await getCollection('blog', ({ data }) => !data.draft);
+const blogFeatured = blogRaw.filter(b => b.data.featured).sort((a, b) => a.data.featuredOrder - b.data.featuredOrder);
+const blogOther = blogRaw.filter(b => !b.data.featured).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const posts = [...blogFeatured, ...blogOther];
 
-const poems = (await getCollection('poems', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+// Poetry: featured (ascending), then alphabetical (ascending)
+const poemRaw = await getCollection('poems', ({ data }) => !data.draft);
+const poemFeatured = poemRaw.filter(p => p.data.featured).sort((a, b) => a.data.featuredOrder - b.data.featuredOrder);
+const poemOther = poemRaw.filter(p => !p.data.featured).sort((a, b) => a.data.title.localeCompare(b.data.title));
+const poems = [...poemFeatured, ...poemOther];
 ---
 <BaseLayout title="Writing" current="writing" description="A dev blog and poetry from Blu Cat Dev.">
   <div class="page-header">
@@ -26,15 +32,25 @@ const poems = (await getCollection('poems', ({ data }) => !data.draft))
         <span class="dot" aria-hidden="true"></span>
         Game design, Unity/C#, indie life, and developing with chronic pain.
       </div>
+      <div style="display:flex;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap;align-items:center;">
+        <input type="text" id="blog-search" placeholder="Search by title, tag, or content..." style="flex:1;min-width:200px;background:rgba(255,255,255,0.04);border:1px solid var(--ember-border);color:var(--text-primary);border-radius:var(--radius-sm);font-family:var(--font-mono);font-size:0.75rem;padding:0.55rem 0.9rem;outline:none;transition:border-color var(--transition);" />
+        <select id="blog-sort" style="background:rgba(255,255,255,0.04);border:1px solid var(--ember-border);color:var(--text-primary);border-radius:var(--radius-sm);font-family:var(--font-mono);font-size:0.75rem;padding:0.55rem 0.9rem;outline:none;transition:border-color var(--transition);cursor:pointer;">
+          <option value="default">Default</option>
+          <option value="a-z">A-Z</option>
+          <option value="z-a">Z-A</option>
+          <option value="newest">Newest First</option>
+          <option value="oldest">Oldest First</option>
+        </select>
+      </div>
       {posts.length > 0 ? (
-        <div class="blog-grid">
+        <div class="blog-grid" id="blog-grid">
           {posts.map((post) => (
-            <a class="blog-card" href={`/writing/blog/${post.id}/`}>
-              <span class="tag tag-cyan" style="margin-bottom:0.75rem;">Blog</span>
+            <a class="blog-card" href={`/writing/blog/${post.id}/`} data-blog-title={post.data.title} data-blog-tags={post.data.tags.join(',')} data-blog-date={post.data.date.valueOf()}>
+              {post.data.tags[0] && <span class="tag tag-silver" style="margin-bottom:0.75rem;">{post.data.tags[0].toUpperCase()}</span>}
               <h3 class="blog-card-title">{post.data.title}</h3>
               <p class="blog-card-excerpt">{post.data.summary}</p>
               {post.data.externalUrl && <p class="blog-ext-link">↗ Also published externally →</p>}
-              <div class="blog-card-meta"><span>{post.data.date.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}</span></div>
+              <div class="blog-card-meta"><span>{post.data.date.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}</span><span class="tag tag-cyan">BLOG</span></div>
             </a>
           ))}
         </div>
@@ -53,10 +69,20 @@ const poems = (await getCollection('poems', ({ data }) => !data.draft))
         <span class="dot" aria-hidden="true"></span>
         Selected poems — personal collection and published work.
       </div>
+      <div style="display:flex;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap;align-items:center;">
+        <input type="text" id="poetry-search" placeholder="Search by title, tag, or content..." style="flex:1;min-width:200px;background:rgba(255,255,255,0.04);border:1px solid var(--ember-border);color:var(--text-primary);border-radius:var(--radius-sm);font-family:var(--font-mono);font-size:0.75rem;padding:0.55rem 0.9rem;outline:none;transition:border-color var(--transition);" />
+        <select id="poetry-sort" style="background:rgba(255,255,255,0.04);border:1px solid var(--ember-border);color:var(--text-primary);border-radius:var(--radius-sm);font-family:var(--font-mono);font-size:0.75rem;padding:0.55rem 0.9rem;outline:none;transition:border-color var(--transition);cursor:pointer;">
+          <option value="default">Default</option>
+          <option value="a-z">A-Z</option>
+          <option value="z-a">Z-A</option>
+          <option value="newest">Newest First</option>
+          <option value="oldest">Oldest First</option>
+        </select>
+      </div>
       {poems.length > 0 ? (
-        <div class="writing-list" role="list">
+        <div class="writing-list" role="list" id="poetry-list">
           {poems.map((poem) => (
-            <a class="writing-item" role="listitem" href={`/writing/poems/${poem.id}/`}>
+            <a class="writing-item" role="listitem" href={`/writing/poems/${poem.id}/`} data-poem-title={poem.data.title} data-poem-tags={poem.data.tags.join(',')} data-poem-date={poem.data.date.valueOf()}>
               <div>
                 <p class="writing-item-title">{poem.data.title}</p>
                 <p class="writing-item-desc">{poem.data.summary || (poem.data.venue ? `Published in ${poem.data.venue}` : 'Personal collection')}</p>
@@ -64,7 +90,7 @@ const poems = (await getCollection('poems', ({ data }) => !data.draft))
                   <a class="writing-item-link" href={poem.data.venueUrl} target="_blank" rel="noopener">↗ Published in: {poem.data.venue}</a>
                 )}
               </div>
-              <span class="writing-item-meta">{poem.data.tags[0] || 'Poem'}</span>
+              <span class="writing-item-meta">{poem.data.tags[0] ? poem.data.tags[0].toUpperCase() : 'POEM'}</span>
             </a>
           ))}
         </div>
@@ -94,5 +120,89 @@ const poems = (await getCollection('poems', ({ data }) => !data.draft))
         });
       });
     });
+  }
+
+  // Blog search and sort
+  const blogSearch = document.getElementById('blog-search');
+  const blogSort = document.getElementById('blog-sort');
+  const blogGrid = document.getElementById('blog-grid');
+
+  if (blogSearch && blogSort && blogGrid) {
+    function filterAndSortBlog() {
+      const searchTerm = (blogSearch as HTMLInputElement).value.toLowerCase();
+      const sortValue = (blogSort as HTMLSelectElement).value;
+      let items = Array.from(blogGrid.querySelectorAll('.blog-card'));
+
+      // Filter
+      items = items.filter(item => {
+        const title = (item as HTMLElement).dataset.blogTitle?.toLowerCase() || '';
+        const tags = (item as HTMLElement).dataset.blogTags?.toLowerCase() || '';
+        return title.includes(searchTerm) || tags.includes(searchTerm);
+      });
+
+      // Sort
+      items.sort((a, b) => {
+        const aTitle = (a as HTMLElement).dataset.blogTitle || '';
+        const bTitle = (b as HTMLElement).dataset.blogTitle || '';
+        const aDate = parseInt((a as HTMLElement).dataset.blogDate || '0');
+        const bDate = parseInt((b as HTMLElement).dataset.blogDate || '0');
+
+        switch (sortValue) {
+          case 'a-z': return aTitle.localeCompare(bTitle);
+          case 'z-a': return bTitle.localeCompare(aTitle);
+          case 'newest': return bDate - aDate;
+          case 'oldest': return aDate - bDate;
+          default: return 0;
+        }
+      });
+
+      // Reorder DOM
+      items.forEach(item => blogGrid?.appendChild(item));
+    }
+
+    blogSearch.addEventListener('input', filterAndSortBlog);
+    blogSort.addEventListener('change', filterAndSortBlog);
+  }
+
+  // Poetry search and sort
+  const poetrySearch = document.getElementById('poetry-search');
+  const poetrySort = document.getElementById('poetry-sort');
+  const poetryList = document.getElementById('poetry-list');
+
+  if (poetrySearch && poetrySort && poetryList) {
+    function filterAndSortPoetry() {
+      const searchTerm = (poetrySearch as HTMLInputElement).value.toLowerCase();
+      const sortValue = (poetrySort as HTMLSelectElement).value;
+      let items = Array.from(poetryList.querySelectorAll('.writing-item'));
+
+      // Filter
+      items = items.filter(item => {
+        const title = (item as HTMLElement).dataset.poemTitle?.toLowerCase() || '';
+        const tags = (item as HTMLElement).dataset.poemTags?.toLowerCase() || '';
+        return title.includes(searchTerm) || tags.includes(searchTerm);
+      });
+
+      // Sort
+      items.sort((a, b) => {
+        const aTitle = (a as HTMLElement).dataset.poemTitle || '';
+        const bTitle = (b as HTMLElement).dataset.poemTitle || '';
+        const aDate = parseInt((a as HTMLElement).dataset.poemDate || '0');
+        const bDate = parseInt((b as HTMLElement).dataset.poemDate || '0');
+
+        switch (sortValue) {
+          case 'a-z': return aTitle.localeCompare(bTitle);
+          case 'z-a': return bTitle.localeCompare(aTitle);
+          case 'newest': return bDate - aDate;
+          case 'oldest': return aDate - bDate;
+          default: return 0;
+        }
+      });
+
+      // Reorder DOM
+      items.forEach(item => poetryList?.appendChild(item));
+    }
+
+    poetrySearch.addEventListener('input', filterAndSortPoetry);
+    poetrySort.addEventListener('change', filterAndSortPoetry);
   }
 </script>

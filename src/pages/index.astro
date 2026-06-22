@@ -4,37 +4,39 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 const games = (await getCollection('games', ({ data }) => !data.draft));
 const software = (await getCollection('software', ({ data }) => !data.draft));
-const blogPosts = (await getCollection('blog', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const blogPosts = (await getCollection('blog', ({ data }) => !data.draft));
+const poems = (await getCollection('poems', ({ data }) => !data.draft));
 
 // Pick the highest-priority featured item across games & software for the hero.
 const gamesFeatured = games.filter((item) => item.data.featured).map((item) => ({ item, type: 'games' as const }));
 const softwareFeatured = software.filter((item) => item.data.featured).map((item) => ({ item, type: 'software' as const }));
 const featuredEntry = [...gamesFeatured, ...softwareFeatured]
-  .sort((a, b) => b.item.data.featuredOrder - a.item.data.featuredOrder)[0];
+  .sort((a, b) => a.item.data.featuredOrder - b.item.data.featuredOrder)[0];
 
 const featured = featuredEntry?.item;
 const featuredType = featuredEntry?.type;
 
-const latestPost = blogPosts[0];
-
-// Games: prioritize featured by order, then released, then by date
-const portfolioFeatured = games.filter(g => g.data.featured).sort((a, b) => b.data.featuredOrder - a.data.featuredOrder);
-const portfolioReleased = games.filter(g => !g.data.featured && g.data.status === 'Released').sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-const portfolioOther = games.filter(g => !g.data.featured && g.data.status !== 'Released').sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-const recentGames = [...portfolioFeatured, ...portfolioReleased, ...portfolioOther].slice(0, 3);
-
-// Writing: get all posts and poems, prioritize featured posts, then by date
+// Writing: featured first (by featuredOrder ascending), then by date (descending)
 const allWritings = [
-  ...blogPosts.map(p => ({ type: 'blog', item: p, featured: p.data.tags?.[0] === 'Featured' })),
-  ...(await getCollection('poems', ({ data }) => !data.draft)).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).map(p => ({ type: 'poem', item: p, featured: false }))
+  ...blogPosts.map(p => ({ type: 'blog', item: p })),
+  ...poems.map(p => ({ type: 'poem', item: p }))
 ];
-const featuredWritings = allWritings.filter(w => w.featured).sort((a, b) => {
-  if (a.type === b.type) return 0;
-  return a.type === 'blog' ? -1 : 1;
-});
-const otherWritings = allWritings.filter(w => !w.featured).sort((a, b) => b.item.data.date.valueOf() - a.item.data.date.valueOf());
+const featuredWritings = allWritings.filter(w => w.item.data.featured).sort((a, b) => a.item.data.featuredOrder - b.item.data.featuredOrder);
+const otherWritings = allWritings.filter(w => !w.item.data.featured).sort((a, b) => b.item.data.date.valueOf() - a.item.data.date.valueOf());
 const selectedWritings = [...featuredWritings, ...otherWritings].slice(0, 3);
+
+// Games: featured (ascending), released+standard (alphabetical), released+other (alphabetical)
+const portfolioFeatured = games.filter(g => g.data.featured).sort((a, b) => a.data.featuredOrder - b.data.featuredOrder);
+const portfolioReleasedStandard = games.filter(g => !g.data.featured && g.data.status === 'Released' && !g.data.category).sort((a, b) => a.data.title.localeCompare(b.data.title));
+const portfolioReleasedOther = games.filter(g => !g.data.featured && g.data.status === 'Released' && g.data.category).sort((a, b) => a.data.title.localeCompare(b.data.title));
+const recentGames = [...portfolioFeatured, ...portfolioReleasedStandard, ...portfolioReleasedOther].slice(0, 3);
+
+// Software: featured (ascending), released+standard (alphabetical), released+other (alphabetical)
+const softwareFeaturedList = software.filter(s => s.data.featured).sort((a, b) => a.data.featuredOrder - b.data.featuredOrder);
+const softwareReleasedStandard = software.filter(s => !s.data.featured && s.data.status === 'Released' && !s.data.category).sort((a, b) => a.data.title.localeCompare(b.data.title));
+const softwareReleasedOther = software.filter(s => !s.data.featured && s.data.status === 'Released' && s.data.category).sort((a, b) => a.data.title.localeCompare(b.data.title));
+const recentSoftware = [...softwareFeaturedList, ...softwareReleasedStandard, ...softwareReleasedOther].slice(0, 3);
+const hasSoftware = recentSoftware.length > 0;
 
 const heroStyle = featured?.data.bgImage
   ? `--hero-image: url('${featured.data.bgImage}')`
@@ -96,25 +98,35 @@ const heroStyle = featured?.data.bgImage
 
       <div class="hero-visual" aria-hidden="true">
         {featured && featuredType === 'games' && (
-          <a class="hero-card" href={`/${featuredType}/${featured.id}/`} style="display:block;text-decoration:none;">
-            <p class="hero-card-label">Featured Game</p>
-            <p class="hero-card-title">{featured.data.title}</p>
-            <p class="hero-card-desc">{featured.data.summary}</p>
-            <div style="margin-top:0.75rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
-              <span class="tag tag-cyan">{featured.data.status}</span>
-              {featured.data.platforms && featured.data.platforms[0] && <span class="tag tag-ember">{featured.data.platforms[0]}</span>}
+          <a class="hero-card" href={`/${featuredType}/${featured.id}/`} style="display:flex;gap:1rem;text-decoration:none;">
+            <div style="flex:1;min-width:0;">
+              <p class="hero-card-label">Featured Game</p>
+              <p class="hero-card-title">{featured.data.title}</p>
+              <p class="hero-card-desc" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">{featured.data.summary}</p>
+              <div style="margin-top:0.75rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
+                <span class="tag tag-cyan">{featured.data.status.toUpperCase()}</span>
+                {featured.data.platforms && featured.data.platforms[0] && <span class="tag tag-ember">{featured.data.platforms[0].toUpperCase()}</span>}
+              </div>
             </div>
+            {featured.data.capsuleImage && (
+              <div style={`flex-shrink:0;width:100px;height:140px;border-radius:var(--radius-sm);overflow:hidden;background-size:cover;background-position:center;background-image:url('${featured.data.capsuleImage}');`}></div>
+            )}
           </a>
         )}
-        {latestPost && (
-          <a class="hero-card" href={`/writing/blog/${latestPost.id}/`} style="display:block;text-decoration:none;">
-            <p class="hero-card-label">Latest from the Blog</p>
-            <p class="hero-card-title">{latestPost.data.title}</p>
-            <p class="hero-card-desc">{latestPost.data.summary}</p>
-            <div style="margin-top:0.75rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
-              <span class="tag tag-cyan">Blog</span>
-              <span class="tag tag-silver">{latestPost.data.date.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+        {selectedWritings.length > 0 && selectedWritings[0].type === 'blog' && (
+          <a class="hero-card" href={`/writing/blog/${selectedWritings[0].item.id}/`} style="display:flex;gap:1rem;text-decoration:none;">
+            <div style="flex:1;min-width:0;">
+              <p class="hero-card-label">Latest from the Blog</p>
+              <p class="hero-card-title">{selectedWritings[0].item.data.title}</p>
+              <p class="hero-card-desc" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">{selectedWritings[0].item.data.summary}</p>
+              <div style="margin-top:0.75rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
+                <span class="tag tag-cyan">BLOG</span>
+                <span class="tag tag-silver">{selectedWritings[0].item.data.date.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+              </div>
             </div>
+            {selectedWritings[0].item.data.coverImage && (
+              <div style={`flex-shrink:0;width:100px;height:140px;border-radius:var(--radius-sm);overflow:hidden;background-size:cover;background-position:center;background-image:url('${selectedWritings[0].item.data.coverImage}');`}></div>
+            )}
           </a>
         )}
       </div>
@@ -125,7 +137,7 @@ const heroStyle = featured?.data.bgImage
   <hr class="divider" />
   <section class="section" aria-labelledby="home-games-heading">
     <div class="section-label">Portfolio</div>
-    <h2 id="home-games-heading">Games</h2>
+    <h2 id="home-games-heading">Explore <em>fun</em> new worlds</h2>
     <p style="margin-bottom:2rem;max-width:500px;">A selection of released titles and works in progress.</p>
     <div class="games-grid">
       {recentGames.map((game) => (
@@ -140,9 +152,10 @@ const heroStyle = featured?.data.bgImage
           </div>
           <div class="game-card-footer">
             <div class="platform-pills">
-              {game.data.platforms.map((p) => <span class="platform-pill">{p}</span>)}
+              {game.data.platforms.map((p) => <span class="platform-pill">{p.toUpperCase()}</span>)}
             </div>
-            <span class="tag tag-cyan">{game.data.status}</span>
+            <span class="tag tag-cyan">{game.data.status.toUpperCase()}</span>
+            {game.data.category && <span class="tag tag-ember">{game.data.category.toUpperCase()}</span>}
           </div>
         </a>
       ))}
@@ -151,6 +164,42 @@ const heroStyle = featured?.data.bgImage
       <a class="btn btn-secondary btn-sm" href="/games/">View All Games →</a>
     </div>
   </section>
+
+  <!-- SOFTWARE PREVIEW -->
+  {hasSoftware && (
+    <>
+      <hr class="divider" />
+      <section class="section" aria-labelledby="home-software-heading">
+        <div class="section-label">Portfolio</div>
+        <h2 id="home-software-heading">There's an <em>app</em> for that...</h2>
+        <p style="margin-bottom:2rem;max-width:500px;">Tools and applications built outside of game projects.</p>
+        <div class="games-grid">
+          {recentSoftware.map((item) => (
+            <a class="game-card" href={`/software/${item.id}/`}>
+              <div class="game-card-thumb" style={item.data.capsuleImage ? `background-image:url('${item.data.capsuleImage}');background-size:cover;background-position:center;` : ''}>
+                {!item.data.capsuleImage && <span aria-hidden="true">🛠️</span>}
+              </div>
+              <div class="game-card-body">
+                <p class="game-card-genre">{item.data.genre}</p>
+                <h3 class="game-card-title">{item.data.title}</h3>
+                <p class="game-card-desc">{item.data.summary}</p>
+              </div>
+              <div class="game-card-footer">
+                <div class="platform-pills">
+                  {item.data.platforms.map((p) => <span class="platform-pill">{p.toUpperCase()}</span>)}
+                </div>
+                <span class="tag tag-cyan">{item.data.status.toUpperCase()}</span>
+                {item.data.category && <span class="tag tag-ember">{item.data.category.toUpperCase()}</span>}
+              </div>
+            </a>
+          ))}
+        </div>
+        <div style="margin-top:1.5rem;text-align:right;">
+          <a class="btn btn-secondary btn-sm" href="/software/">View All Software →</a>
+        </div>
+      </section>
+    </>
+  )}
 
   <!-- QUICK ABOUT -->
   <hr class="divider" />
@@ -178,7 +227,7 @@ const heroStyle = featured?.data.bgImage
   <hr class="divider" />
   <section class="section" aria-labelledby="home-blog-heading">
     <div class="section-label">Writing</div>
-    <h2 id="home-blog-heading">Words of <em>Fact</em> and <em>Fiction</em></h2>
+    <h2 id="home-blog-heading"><em>Words</em> of fact and fiction</h2>
     <p style="margin-bottom:2rem;max-width:500px;">Dev logs, game design thoughts, honest notes from a part-time indie, and selected poetry.</p>
     <div class="blog-grid">
       {selectedWritings.map((writing) => {
@@ -186,12 +235,12 @@ const heroStyle = featured?.data.bgImage
         if (writing.type === 'blog') {
           return (
             <a class="blog-card" href={`/writing/blog/${item.id}/`}>
-              {item.data.tags[0] && <span class="tag tag-silver" style="margin-bottom:0.75rem;">{item.data.tags[0]}</span>}
+              {item.data.tags[0] && <span class="tag tag-silver" style="margin-bottom:0.75rem;">{item.data.tags[0].toUpperCase()}</span>}
               <h3 class="blog-card-title">{item.data.title}</h3>
               <p class="blog-card-excerpt">{item.data.summary}</p>
               <div class="blog-card-meta">
                 <span style="color: var(--text-dim);">{item.data.date.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
-                <span class="tag tag-cyan">Blog</span>
+                <span class="tag tag-cyan">BLOG</span>
               </div>
             </a>
           );
@@ -202,7 +251,7 @@ const heroStyle = featured?.data.bgImage
               <p class="blog-card-excerpt">{item.data.summary}</p>
               <div class="blog-card-meta">
                 <span style="color: var(--text-dim);">{item.data.date.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
-                <span class="tag tag-ember">Poetry</span>
+                <span class="tag tag-ember">POETRY</span>
               </div>
             </a>
           );

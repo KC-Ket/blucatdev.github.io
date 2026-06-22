@@ -3,6 +3,8 @@ title: "Welcome to the new site"
 date: 2026-06-12
 summary: "The new Blu Cat Dev site is live — here's what's changed and what's coming next."
 tags: ["Indie Life"]
+featured: false
+featuredOrder: 0
 draft: false
 ---
 

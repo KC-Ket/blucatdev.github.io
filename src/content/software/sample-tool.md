@@ -5,6 +5,9 @@ summary: "Placeholder entry."
 genre: "Utility"
 platforms: ["PC"]
 status: "In Development"
+featured: false
+featuredOrder: 0
+pressKitAvailable: false
 draft: true
 ---
 
