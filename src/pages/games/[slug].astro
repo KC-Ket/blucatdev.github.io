@@ -20,7 +20,6 @@ const { Content } = await render(game);
     <p>{game.data.summary}</p>
     <div style="margin-top:1rem;display:flex;gap:0.6rem;flex-wrap:wrap;align-items:center;">
       <span class="tag tag-cyan">{game.data.status.toUpperCase()}</span>
-      {game.data.category && <span class="tag tag-ember">{game.data.category.toUpperCase()}</span>}
       {game.data.platforms.map((p) => <span class="platform-pill">{p.toUpperCase()}</span>)}
     </div>
     <div style="margin-top:1.25rem;display:flex;gap:0.75rem;flex-wrap:wrap;">

@@ -155,7 +155,6 @@ const heroStyle = featured?.data.bgImage
               {game.data.platforms.map((p) => <span class="platform-pill">{p.toUpperCase()}</span>)}
             </div>
             <span class="tag tag-cyan">{game.data.status.toUpperCase()}</span>
-            {game.data.category && <span class="tag tag-ember">{game.data.category.toUpperCase()}</span>}
           </div>
         </a>
       ))}
@@ -189,7 +188,6 @@ const heroStyle = featured?.data.bgImage
                   {item.data.platforms.map((p) => <span class="platform-pill">{p.toUpperCase()}</span>)}
                 </div>
                 <span class="tag tag-cyan">{item.data.status.toUpperCase()}</span>
-                {item.data.category && <span class="tag tag-ember">{item.data.category.toUpperCase()}</span>}
               </div>
             </a>
           ))}
