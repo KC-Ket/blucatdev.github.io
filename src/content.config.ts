@@ -14,6 +14,7 @@ const projectFields = {
   status: z.enum(['Released', 'In Development', 'Unreleased']).default('In Development'),
   category: z.enum(['Other']).optional(),
   capsuleImage: z.string().optional(),
+  heroImage: z.string().optional(),
   bgImage: z.string().optional(),
   storeUrl: z.string().optional(),
   itchUrl: z.string().optional(),

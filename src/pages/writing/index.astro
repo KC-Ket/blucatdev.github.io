@@ -80,17 +80,13 @@ const poems = [...poemFeatured, ...poemOther];
         </select>
       </div>
       {poems.length > 0 ? (
-        <div class="writing-list" role="list" id="poetry-list">
+        <div class="blog-grid" id="poetry-list">
           {poems.map((poem) => (
-            <a class="writing-item" role="listitem" href={`/writing/poems/${poem.id}/`} data-poem-title={poem.data.title} data-poem-tags={poem.data.tags.join(',')} data-poem-date={poem.data.date.valueOf()}>
-              <div>
-                <p class="writing-item-title">{poem.data.title}</p>
-                <p class="writing-item-desc">{poem.data.summary || (poem.data.venue ? `Published in ${poem.data.venue}` : 'Personal collection')}</p>
-                {poem.data.venue && poem.data.venueUrl && (
-                  <a class="writing-item-link" href={poem.data.venueUrl} target="_blank" rel="noopener">↗ Published in: {poem.data.venue}</a>
-                )}
-              </div>
-              <span class="writing-item-meta">{poem.data.tags[0] ? poem.data.tags[0].toUpperCase() : 'POEM'}</span>
+            <a class="blog-card" href={`/writing/poems/${poem.id}/`} data-poem-title={poem.data.title} data-poem-tags={poem.data.tags.join(',')} data-poem-date={poem.data.date.valueOf()}>
+              {poem.data.tags[0] && <span class="tag tag-silver" style="margin-bottom:0.75rem;">{poem.data.tags[0].toUpperCase()}</span>}
+              <h3 class="blog-card-title">{poem.data.title}</h3>
+              {poem.data.summary && <p class="blog-card-excerpt">{poem.data.summary}</p>}
+              <div class="blog-card-meta"><span>{poem.data.date.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}</span><span class="tag tag-ember">POEM</span></div>
             </a>
           ))}
         </div>
@@ -111,13 +107,23 @@ const poems = [...poemFeatured, ...poemOther];
     const buttons = group.querySelectorAll('[data-tab]');
     const panels = document.querySelectorAll(`[data-tab-panel="${groupId}"]`);
 
+    // Restore saved tab or default to 'blog'
+    const savedTab = localStorage.getItem(`writing-tab-${groupId}`) || 'blog';
+    const switchToTab = (target: string) => {
+      buttons.forEach((b) => b.classList.toggle('active', (b as HTMLElement).dataset.tab === target));
+      panels.forEach((panel) => {
+        panel.classList.toggle('hidden', (panel as HTMLElement).dataset.tabTarget !== target);
+      });
+      localStorage.setItem(`writing-tab-${groupId}`, target);
+    };
+
+    // Set initial active tab on page load
+    switchToTab(savedTab);
+
     buttons.forEach((btn) => {
       btn.addEventListener('click', () => {
         const target = (btn as HTMLElement).dataset.tab;
-        buttons.forEach((b) => b.classList.toggle('active', (b as HTMLElement).dataset.tab === target));
-        panels.forEach((panel) => {
-          panel.classList.toggle('hidden', (panel as HTMLElement).dataset.tabTarget !== target);
-        });
+        if (target) switchToTab(target);
       });
     });
   }

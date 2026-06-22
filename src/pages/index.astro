@@ -101,9 +101,10 @@ const heroStyle = featured?.data.bgImage
 
       <div class="hero-visual" aria-hidden="true">
         {featured && featuredType === 'games' && (
-          <a class="hero-card" href={`/${featuredType}/${featured.id}/`} style="display:flex;gap:1rem;text-decoration:none;">
-            <div style="flex:1;min-width:0;">
-              <p class="hero-card-label">Featured Game</p>
+          <a class="hero-card" href={`/${featuredType}/${featured.id}/`} style="display:flex;gap:1rem;text-decoration:none;align-items:center;">
+            <div style="flex:1;min-width:0;max-width:50%;">
+              <p class="hero-card-label" style="color:var(--ember);">Featured Game</p>
+              {featured.data.genre && <span class="tag tag-silver" style="margin-bottom:0.5rem;display:inline-block;">{featured.data.genre.toUpperCase()}</span>}
               <p class="hero-card-title">{featured.data.title}</p>
               <p class="hero-card-desc" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">{featured.data.summary}</p>
               <div style="margin-top:0.75rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
@@ -111,19 +112,22 @@ const heroStyle = featured?.data.bgImage
                 {featured.data.platforms && featured.data.platforms[0] && <span class="tag tag-ember">{featured.data.platforms[0].toUpperCase()}</span>}
               </div>
             </div>
-            {featured.data.capsuleImage && (
-              <div style={`flex-shrink:0;width:120px;height:75px;border-radius:var(--radius-sm);overflow:hidden;background-size:contain;background-position:center;background-repeat:no-repeat;background-image:url('${featured.data.capsuleImage}');`}></div>
+            {(featured.data.heroImage || featured.data.capsuleImage) && (
+              <div style="flex:0 0 50%;display:flex;align-items:center;justify-content:center;padding:1rem;">
+                <div style={`max-width:100%;max-height:100%;border-radius:var(--radius-sm);background-size:contain;background-position:center;background-repeat:no-repeat;background-image:url('${featured.data.heroImage || featured.data.capsuleImage}');aspect-ratio:100/140;`}></div>
+              </div>
             )}
           </a>
         )}
         {writingHero && (
           <a class="hero-card" href={`/writing/${writingHero.type}/${writingHero.item.id}/`} style="display:flex;gap:1rem;text-decoration:none;">
             <div style="flex:1;min-width:0;">
-              <p class="hero-card-label">{writingHero.type === 'blog' ? 'Latest from the Blog' : 'Featured Poem'}</p>
+              <p class="hero-card-label" style="color:var(--ember);">{writingHero.type === 'blog' ? 'Latest from the Blog' : 'Featured Poem'}</p>
+              {writingHero.item.data.tags[0] && <span class="tag tag-silver" style="margin-bottom:0.5rem;display:inline-block;">{writingHero.item.data.tags[0].toUpperCase()}</span>}
               <p class="hero-card-title">{writingHero.item.data.title}</p>
               <p class="hero-card-desc" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">{writingHero.item.data.summary || writingHero.item.body.slice(0, 150)}</p>
               <div style="margin-top:0.75rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
-                <span class="tag tag-cyan">{writingHero.type === 'blog' ? 'BLOG' : 'POEM'}</span>
+                <span class={`tag ${writingHero.type === 'blog' ? 'tag-cyan' : 'tag-ember'}`}>{writingHero.type === 'blog' ? 'BLOG' : 'POEM'}</span>
                 <span class="tag tag-silver">{writingHero.item.data.date.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
               </div>
             </div>
@@ -137,35 +141,39 @@ const heroStyle = featured?.data.bgImage
   </section>
 
   <!-- GAMES PREVIEW -->
-  <hr class="divider" />
-  <section class="section" aria-labelledby="home-games-heading">
-    <div class="section-label">Portfolio</div>
-    <h2 id="home-games-heading">Explore <em>fun</em> new worlds</h2>
-    <p style="margin-bottom:2rem;max-width:500px;">A selection of released titles and works in progress.</p>
-    <div class="games-grid">
-      {recentGames.map((game) => (
-        <a class="game-card" href={`/games/${game.id}/`}>
-          <div class="game-card-thumb" style={game.data.capsuleImage ? `background-image:url('${game.data.capsuleImage}');background-size:cover;background-position:center;` : ''}>
-            {!game.data.capsuleImage && <span aria-hidden="true">🎮</span>}
-          </div>
-          <div class="game-card-body">
-            <p class="game-card-genre">{game.data.genre}</p>
-            <h3 class="game-card-title">{game.data.title}</h3>
-            <p class="game-card-desc">{game.data.summary}</p>
-          </div>
-          <div class="game-card-footer">
-            <div class="platform-pills">
-              {game.data.platforms.map((p) => <span class="platform-pill">{p.toUpperCase()}</span>)}
-            </div>
-            <span class="tag tag-cyan">{game.data.status.toUpperCase()}</span>
-          </div>
-        </a>
-      ))}
-    </div>
-    <div style="margin-top:1.5rem;text-align:right;">
-      <a class="btn btn-secondary btn-sm" href="/games/">View All Games →</a>
-    </div>
-  </section>
+  {recentGames.length > 0 && (
+    <>
+      <hr class="divider" />
+      <section class="section" aria-labelledby="home-games-heading">
+        <div class="section-label">Games</div>
+        <h2 id="home-games-heading">Explore <em>fun</em> new worlds</h2>
+        <p style="margin-bottom:2rem;max-width:500px;">A selection of released titles and works in progress.</p>
+        <div class="games-grid">
+          {recentGames.map((game) => (
+            <a class="game-card" href={`/games/${game.id}/`}>
+              <div class="game-card-thumb" style={game.data.capsuleImage ? `background-image:url('${game.data.capsuleImage}');background-size:cover;background-position:center;` : ''}>
+                {!game.data.capsuleImage && <span aria-hidden="true">🎮</span>}
+              </div>
+              <div class="game-card-body">
+                <p class="game-card-genre">{game.data.genre}</p>
+                <h3 class="game-card-title">{game.data.title}</h3>
+                <p class="game-card-desc">{game.data.summary}</p>
+              </div>
+              <div class="game-card-footer">
+                <div class="platform-pills">
+                  {game.data.platforms.map((p) => <span class="platform-pill">{p.toUpperCase()}</span>)}
+                </div>
+                <span class="tag tag-cyan">{game.data.status.toUpperCase()}</span>
+              </div>
+            </a>
+          ))}
+        </div>
+        <div style="margin-top:1.5rem;text-align:right;">
+          <a class="btn btn-secondary btn-sm" href="/games/">View All Games →</a>
+        </div>
+      </section>
+    </>
+  )}
 
   <!-- SOFTWARE PREVIEW -->
   {hasSoftware && (
@@ -202,6 +210,51 @@ const heroStyle = featured?.data.bgImage
     </>
   )}
 
+  <!-- BLOG PREVIEW -->
+  {selectedWritings.length > 0 && (
+    <>
+      <hr class="divider" />
+      <section class="section" aria-labelledby="home-blog-heading">
+        <div class="section-label">Writing</div>
+        <h2 id="home-blog-heading"><em>Words</em> of fact and fiction</h2>
+        <p style="margin-bottom:2rem;max-width:500px;">Dev logs, game design thoughts, honest notes from a part-time indie, and selected poetry.</p>
+        <div class="blog-grid">
+          {selectedWritings.map((writing) => {
+            const item = writing.item;
+            if (writing.type === 'blog') {
+              return (
+                <a class="blog-card" href={`/writing/blog/${item.id}/`}>
+                  {item.data.tags[0] && <span class="tag tag-silver" style="margin-bottom:0.75rem;">{item.data.tags[0].toUpperCase()}</span>}
+                  <h3 class="blog-card-title">{item.data.title}</h3>
+                  <p class="blog-card-excerpt">{item.data.summary}</p>
+                  <div class="blog-card-meta">
+                    <span style="color: var(--text-dim);">{item.data.date.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                    <span class="tag tag-cyan">BLOG</span>
+                  </div>
+                </a>
+              );
+            } else {
+              return (
+                <a class="blog-card" href={`/writing/poems/${item.id}/`}>
+                  {item.data.tags[0] && <span class="tag tag-silver" style="margin-bottom:0.75rem;">{item.data.tags[0].toUpperCase()}</span>}
+                  <h3 class="blog-card-title">{item.data.title}</h3>
+                  {item.data.summary && <p class="blog-card-excerpt">{item.data.summary}</p>}
+                  <div class="blog-card-meta">
+                    <span style="color: var(--text-dim);">{item.data.date.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                    <span class="tag tag-ember">POEM</span>
+                  </div>
+                </a>
+              );
+            }
+          })}
+        </div>
+        <div style="margin-top:1.5rem;text-align:right;">
+          <a class="btn btn-secondary btn-sm" href="/writing/">View All Writing →</a>
+        </div>
+      </section>
+    </>
+  )}
+
   <!-- QUICK ABOUT -->
   <hr class="divider" />
   <section class="section" aria-labelledby="home-about-heading">
@@ -221,46 +274,6 @@ const heroStyle = featured?.data.bgImage
           <a class="btn btn-secondary btn-sm" href="/about/">Learn More About Me →</a>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- BLOG PREVIEW -->
-  <hr class="divider" />
-  <section class="section" aria-labelledby="home-blog-heading">
-    <div class="section-label">Writing</div>
-    <h2 id="home-blog-heading"><em>Words</em> of fact and fiction</h2>
-    <p style="margin-bottom:2rem;max-width:500px;">Dev logs, game design thoughts, honest notes from a part-time indie, and selected poetry.</p>
-    <div class="blog-grid">
-      {selectedWritings.map((writing) => {
-        const item = writing.item;
-        if (writing.type === 'blog') {
-          return (
-            <a class="blog-card" href={`/writing/blog/${item.id}/`}>
-              {item.data.tags[0] && <span class="tag tag-silver" style="margin-bottom:0.75rem;">{item.data.tags[0].toUpperCase()}</span>}
-              <h3 class="blog-card-title">{item.data.title}</h3>
-              <p class="blog-card-excerpt">{item.data.summary}</p>
-              <div class="blog-card-meta">
-                <span style="color: var(--text-dim);">{item.data.date.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
-                <span class="tag tag-cyan">BLOG</span>
-              </div>
-            </a>
-          );
-        } else {
-          return (
-            <a class="blog-card" href={`/writing/poems/${item.id}/`}>
-              <h3 class="blog-card-title" style="margin-bottom: 0.75rem;">{item.data.title}</h3>
-              <p class="blog-card-excerpt">{item.data.summary}</p>
-              <div class="blog-card-meta">
-                <span style="color: var(--text-dim);">{item.data.date.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
-                <span class="tag tag-ember">POETRY</span>
-              </div>
-            </a>
-          );
-        }
-      })}
-    </div>
-    <div style="margin-top:1.5rem;text-align:right;">
-      <a class="btn btn-secondary btn-sm" href="/writing/">View All Writing →</a>
     </div>
   </section>
 

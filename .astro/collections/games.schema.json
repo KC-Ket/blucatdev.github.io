@@ -49,6 +49,9 @@
     "capsuleImage": {
       "type": "string"
     },
+    "heroImage": {
+      "type": "string"
+    },
     "bgImage": {
       "type": "string"
     },
