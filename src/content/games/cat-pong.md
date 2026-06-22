@@ -1,12 +1,14 @@
 ---
-title: "Cat Pong"
+title: Cat Pong
 date: 2023-01-25
-summary: "A cat-themed take on the classic Pong, made as a personal development challenge. Free to play on itch.io."
-genre: "Arcade"
-platforms: ["Windows"]
-status: "Released"
-itchUrl: "https://blucatdev.itch.io/cat-pong"
-capsuleImage: "/assets/images/games/cat-pong-capsule.png"
+summary: A cat-themed take on the classic Pong, made as a personal development
+  challenge. Free to play on itch.io.
+genre: Arcade
+platforms:
+  - WINDOWS
+status: Released
+capsuleImage: /assets/images/games/cat-pong-capsule.png
+itchUrl: https://blucatdev.itch.io/cat-pong
 featured: false
 featuredOrder: 0
 pressKitAvailable: false
