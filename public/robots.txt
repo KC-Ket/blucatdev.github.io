@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /.well-known/
+Disallow: /.github/
+Sitemap: https://blucatdev.com/sitemap.xml

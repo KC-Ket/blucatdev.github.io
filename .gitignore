@@ -28,3 +28,32 @@ pnpm-debug.log*
 .dev.vars*
 !.dev.vars.example
 !.env.example
+
+# IDE and editor config
+.vscode/
+.vscodeignore
+*.swp
+*.swo
+*~
+.project
+.classpath
+.c9/
+
+# OS-specific
+Thumbs.db
+*.log
+
+# Build cache
+.cache/
+
+# Security - NEVER commit sensitive files
+*.key
+*.pem
+*.cert
+*.private
+*.secret
+.credentials
+.auth
+auth/
+secrets/
+config.local.*

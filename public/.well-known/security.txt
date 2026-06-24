@@ -1,0 +1,4 @@
+Contact: mailto:blucatdev@gmail.com
+Expires: 2027-06-24T00:00:00Z
+Preferred-Languages: en
+Policy: https://blucatdev.com/SECURITY.md

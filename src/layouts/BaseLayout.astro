@@ -24,9 +24,23 @@ const pageTitle = title === 'Home' ? 'Blu Cat Dev — Indie Game Dev & Writer' :
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="description" content={description} />
   <meta name="author" content="Blu Cat Dev" />
   <meta name="theme-color" content="#0a1227" />
+
+  <!-- Security & Privacy Meta Tags -->
+  <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains; preload" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="color-scheme" content="light dark" />
+
+  <!-- Copyright & Intellectual Property -->
+  <meta name="copyright" content="© 2025 Blu Cat Dev. All rights reserved." />
+
+  <!-- Security & Compliance Info -->
+  <link rel="security.txt" href="/.well-known/security.txt" />
+  <meta name="rating" content="general" />
+
   <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
   <link rel="alternate" type="application/rss+xml" title="Blu Cat Dev — Writing" href="/rss.xml" />
 
