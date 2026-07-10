@@ -120,7 +120,7 @@ const heroStyle = featured?.data.bgImage
           </a>
         )}
         {writingHero && (
-          <a class="hero-card" href={`/writing/${writingHero.type}/${writingHero.item.id}/`} style="display:flex;gap:1rem;text-decoration:none;">
+          <a class="hero-card" href={`/writing/${writingHero.type}${writingHero.type === 'poem' ? 's' : ''}/${writingHero.item.id}/`} style="display:flex;gap:1rem;text-decoration:none;">
             <div style="flex:1;min-width:0;">
               <p class="hero-card-label" style="color:var(--ember);">{writingHero.type === 'blog' ? 'Latest from the Blog' : 'Featured Poem'}</p>
               {writingHero.item.data.tags[0] && <span class="tag tag-silver" style="margin-bottom:0.5rem;display:inline-block;">{writingHero.item.data.tags[0].toUpperCase()}</span>}
