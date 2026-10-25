@@ -20,7 +20,8 @@
       }
     },
     "externalUrl": {
-      "type": "string"
+      "type": "string",
+      "format": "uri"
     },
     "coverImage": {
       "type": "string"

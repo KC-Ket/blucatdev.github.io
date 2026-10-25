@@ -60,7 +60,8 @@ for (const item of newItems.reverse()) {
   const res = await fetch(webhookUrl, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ content }),
+    // Feed text must never be able to ping @everyone, roles, or users.
+    body: JSON.stringify({ content, allowed_mentions: { parse: [] } }),
   });
   if (!res.ok) {
     console.error(`Failed to post to Discord: ${res.status} ${await res.text()}`);

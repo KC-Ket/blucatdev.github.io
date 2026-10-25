@@ -19,7 +19,8 @@
       "type": "string"
     },
     "pressUrl": {
-      "type": "string"
+      "type": "string",
+      "format": "uri"
     },
     "genre": {
       "type": "string"
@@ -56,18 +57,22 @@
       "type": "string"
     },
     "storeUrl": {
-      "type": "string"
+      "type": "string",
+      "format": "uri"
     },
     "itchUrl": {
-      "type": "string"
+      "type": "string",
+      "format": "uri"
     },
     "youtubeId": {
-      "type": "string"
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{11}$"
     },
     "youtubeIds": {
       "type": "array",
       "items": {
-        "type": "string"
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_-]{11}$"
       }
     },
     "screenshots": {

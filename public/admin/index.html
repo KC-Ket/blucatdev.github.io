@@ -4,9 +4,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex" />
+    <meta name="referrer" content="no-referrer" />
     <title>Content Manager · Blu Cat Dev</title>
   </head>
   <body>
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <!-- Pinned to an exact version with an integrity hash: this page holds a GitHub
+         token with write access to the repo, so it must never load unreviewed code.
+         To upgrade, change the version and regenerate the hash:
+         curl -sL <url> | openssl dgst -sha384 -binary | base64 -->
+    <script
+      src="https://unpkg.com/decap-cms@3.17.1/dist/decap-cms.js"
+      integrity="sha384-d2pbrhjc5asvSK35gKkrgRIk0Wq+2CQynWnXtSsYWQawXCgBXhcAK737jBAKXT4T"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

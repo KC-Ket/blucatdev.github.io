@@ -23,7 +23,8 @@
       "type": "string"
     },
     "venueUrl": {
-      "type": "string"
+      "type": "string",
+      "format": "uri"
     },
     "featured": {
       "default": false,
