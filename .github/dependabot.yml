@@ -1,0 +1,21 @@
+# Weekly update PRs for npm packages and the pinned GitHub Actions.
+# The cooldown waits before proposing a brand-new release, giving the
+# community time to spot hijacked versions (see the 2026 npm/Actions worms).
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    groups:
+      astro:
+        patterns: ["astro", "@astrojs/*"]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
